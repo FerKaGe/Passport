@@ -154,8 +154,8 @@ erDiagram
         decimal valor_diaria
     }
     CARIMBO {
-        int fk_usuario FK
-        int fk_destino FK
+        int fk_usuario PK, FK
+        int fk_destino PK, FK
         datetime data_conquista
     }
 ```
