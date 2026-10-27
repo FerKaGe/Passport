@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quebra-cabeça</title>
+<style>
+  #tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    gap: 4px;
+  }
+  #tabuleiro div {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #999;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: grab;
+  }
+</style>
+</head>
+<body>
+
+
+<div id="tabuleiro">
+  <div id="casa1" draggable="true"
+       ondragstart="conteudoArrastado = casa1.innerHTML; soltou = false"
+       ondragover="return false"
+       ondrop="conteudoTrocado = casa1.innerHTML; casa1.innerHTML = conteudoArrastado; soltou = true"
+       ondragend="if (soltou) { casa1.innerHTML = conteudoTrocado; } verificar()">3</div>
+  <div id="casa2" draggable="true"
+       ondragstart="conteudoArrastado = casa2.innerHTML; soltou = false"
+       ondragover="return false"
+       ondrop="conteudoTrocado = casa2.innerHTML; casa2.innerHTML = conteudoArrastado; soltou = true"
+       ondragend="if (soltou) { casa2.innerHTML = conteudoTrocado; } verificar()">7</div>
+  <div id="casa3" draggable="true"
+       ondragstart="conteudoArrastado = casa3.innerHTML; soltou = false"
+       ondragover="return false"
+       ondrop="conteudoTrocado = casa3.innerHTML; casa3.innerHTML = conteudoArrastado; soltou = true"
+       ondragend="if (soltou) { casa3.innerHTML = conteudoTrocado; } verificar()">1</div>
+  <div id="casa4" draggable="true"
+       ondragstart="conteudoArrastado = casa4.innerHTML; soltou = false"
+       ondragover="return false"
+       ondrop="conteudoTrocado = casa4.innerHTML; casa4.innerHTML = conteudoArrastado; soltou = true"
+       ondragend="if (soltou) { casa4.innerHTML = conteudoTrocado; } verificar()">9</div>
+  <div id="casa5" draggable="true"
+       ondragstart="conteudoArrastado = casa5.innerHTML; soltou = false"
+       ondragover="return false"
+       ondrop="conteudoTrocado = casa5.innerHTML; casa5.innerHTML = conteudoArrastado; soltou = true"
+       ondragend="if (soltou) { casa5.innerHTML = conteudoTrocado; } verificar()">5</div>
+  <div id="casa6" draggable="true"
+       ondragstart="conteudoArrastado = casa6.innerHTML; soltou = false"
+       ondragover="return false"
+       ondrop="conteudoTrocado = casa6.innerHTML; casa6.innerHTML = conteudoArrastado; soltou = true"
+       ondragend="if (soltou) { casa6.innerHTML = conteudoTrocado; } verificar()">2</div>
+  <div id="casa7" draggable="true"
+       ondragstart="conteudoArrastado = casa7.innerHTML; soltou = false"
+       ondragover="return false"
+       ondrop="conteudoTrocado = casa7.innerHTML; casa7.innerHTML = conteudoArrastado; soltou = true"
+       ondragend="if (soltou) { casa7.innerHTML = conteudoTrocado; } verificar()">8</div>
+  <div id="casa8" draggable="true"
+       ondragstart="conteudoArrastado = casa8.innerHTML; soltou = false"
+       ondragover="return false"
+       ondrop="conteudoTrocado = casa8.innerHTML; casa8.innerHTML = conteudoArrastado; soltou = true"
+       ondragend="if (soltou) { casa8.innerHTML = conteudoTrocado; } verificar()">4</div>
+  <div id="casa9" draggable="true"
+       ondragstart="conteudoArrastado = casa9.innerHTML; soltou = false"
+       ondragover="return false"
+       ondrop="conteudoTrocado = casa9.innerHTML; casa9.innerHTML = conteudoArrastado; soltou = true"
+       ondragend="if (soltou) { casa9.innerHTML = conteudoTrocado; } verificar()">6</div>
+</div>
+
+<div id="div_mensagem"></div>
+
+<script>
+  let conteudoArrastado = ''; // peça da casa que começou o arraste
+  let conteudoTrocado = '';   // peça que estava na casa onde soltamos
+  let soltou = false;         // bandeira: a peça foi solta em cima de uma casa?
+
+  // Montado quando a casa N contém a peça N.
+  function verificar() {
+    if (casa1.innerHTML == '1' && casa2.innerHTML == '2' && casa3.innerHTML == '3' &&
+        casa4.innerHTML == '4' && casa5.innerHTML == '5' && casa6.innerHTML == '6' &&
+        casa7.innerHTML == '7' && casa8.innerHTML == '8' && casa9.innerHTML == '9') {
+      div_mensagem.innerHTML = 'Parabéns, quebra-cabeça montado!';
+    } else {
+      div_mensagem.innerHTML = '';
+    }
+  }
+</script>
+</body>
+</html>
