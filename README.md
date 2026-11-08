@@ -5,7 +5,7 @@
 
 <p align="center">
   <a href="#">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=1E88E5&center=true&vCenter=true&width=650&lines=7+pa%C3%ADses%2C+3+continentes%2C+muitas+hist%C3%B3rias+%F0%9F%8C%8D;Quanto+custaria+a+sua+pr%C3%B3xima+viagem%3F+%F0%9F%92%B8;Monte+o+quebra-cabe%C3%A7a+e+ganhe+carimbos+%F0%9F%A7%A9;Projeto+Individual+%E2%80%A2+SPTech+2026.2" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=1E88E5&center=true&vCenter=true&width=650&lines=7+pa%C3%ADses%2C+3+continentes%2C+muitas+hist%C3%B3rias+%F0%9F%8C%8D;Quanto+custaria+a+sua+pr%C3%B3xima+viagem%3F+%F0%9F%92%B8;Pule+obst%C3%A1culos+e+ganhe+carimbos+%F0%9F%8F%83;Projeto+Individual+%E2%80%A2+SPTech+2026.2" alt="Typing SVG" />
   </a>
 </p>
 
@@ -32,7 +32,7 @@
 
 **Meu Passaporte** é um site pessoal onde compartilho os países que já conheci. Além de contar cada viagem, o site ajuda quem visita a descobrir **quanto custaria fazer a mesma viagem saindo de São Paulo**, de acordo com o seu estilo: **aventura**, **low cost** ou **exclusiva**.
 
-Para deixar tudo mais divertido, cada país vira uma fase de um jogo: monte o quebra-cabeça de uma foto da viagem, finque a bandeira certa e ganhe um carimbo no seu passaporte! 🛂
+Para deixar tudo mais divertido, o site tem um jogo no estilo do dinossauro do Chrome: pule obstáculos que ficam cada vez mais difíceis enquanto o cenário passa pelos países que visitei. Cada checkpoint dá um carimbo no seu passaporte e libera uma **skin** que muda as cores, a fonte e os botões do site! 🛂🎨
 
 > Projeto Individual do 1º semestre (2026.2) da SPTech, integrando as disciplinas de Pesquisa e Inovação, Banco de Dados, Algoritmos, Arquitetura de Computadores, Sistemas Operacionais, TI e Socioemocional.
 
@@ -59,33 +59,39 @@ Para deixar tudo mais divertido, cada país vira uma fase de um jogo: monte o qu
 - [ ] 🙋 **Sobre mim**, contando como a paixão por viajar começou
 - [ ] 🎒 **Escolha do tipo de viagem**: aventura, low cost ou exclusiva
 - [ ] 📊 **Dashboard** com o custo total da viagem para cada destino (7, 15 ou 30 dias)
+- [ ] 🧮 **Calculadora de custo** por destino, tipo de viagem, dias e número de pessoas
 - [ ] ✈️ **Indicadores**: estimativa de voo, melhor época do ano e destino mais barato
 - [ ] 💱 **Conversão de moeda** local para real
-- [ ] 🧩 **Jogo do Passaporte** com carimbos salvos no banco
+- [ ] 🏃 **Jogo do Passaporte**: corrida com obstáculos e 7 checkpoints, um por país, com carimbos salvos no banco
+- [ ] 🎨 **Skins do site** liberadas por carimbo e selecionáveis na barra lateral
 
-> Dashboard, Sobre mim e Jogo só aparecem para quem está logado.
+> Só a Home é pública; o restante aparece para quem está logado.
 
 ### 🧮 Como o custo é calculado
 
 ```
-custo total = valor do voo (SP → destino) + valor da diária × número de dias
+custo por pessoa = valor do voo (SP → destino) + valor da diária × número de dias
+custo total      = custo por pessoa × número de pessoas
 ```
 
 ---
 
-## 🧩 O jogo do Passaporte
+## 🏃 O jogo do Passaporte
 
 ```mermaid
 flowchart LR
-    A[🖼️ Foto da viagem<br/>embaralhada em 9 peças] --> B[🧩 Usuário monta<br/>o quebra-cabeça]
-    B --> C{📍 Finca a bandeira<br/>do país certo?}
-    C -- Sim --> D[🛂 Carimbo no passaporte<br/>+ curiosidade da viagem]
-    C -- Não --> E[🔁 Tenta de novo]
-    E --> C
-    D --> F[(💾 Carimbo salvo<br/>no MySQL)]
+    A[🏃 Personagem corre<br/>e pula obstáculos] --> B{💥 Bateu?}
+    B -- Sim --> G[🔁 Game over<br/>tenta de novo]
+    G --> A
+    B -- Não --> C[🚩 Checkpoint<br/>do país]
+    C --> D[🛂 Carimbo no passaporte]
+    D --> E[🎨 Skin do país liberada]
+    D --> F[(💾 Salvo no MySQL)]
+    C --> H[🌄 Cenário muda<br/>e fica mais rápido]
+    H --> A
 ```
 
-Cada um dos 7 países é uma fase. Ao completar todas, o passaporte fica cheio! 🏆
+São 7 checkpoints, um para cada país, do Atacama até Orlando. Junte todos os carimbos e personalize o site do seu jeito! 🏆
 
 ---
 
@@ -97,7 +103,7 @@ Cada um dos 7 países é uma fase. Ao completar todas, o passaporte fica cheio! 
 
 | Camada | Tecnologia |
 |---|---|
-| Front-end | HTML, CSS, JavaScript, Chart.js |
+| Front-end | HTML, CSS, JavaScript, Canvas, Chart.js |
 | Back-end | Node.js + Express (API [web-data-viz](https://github.com/BandTec/web-data-viz)) |
 | Banco de dados | MySQL em uma VM Lubuntu (VirtualBox) |
 | Organização | Git, GitHub e Trello |
@@ -131,6 +137,7 @@ erDiagram
         varchar email
         varchar senha
         int fk_tipo_viagem FK
+        int fk_skin FK
     }
     TIPO_VIAGEM {
         int id PK
@@ -145,6 +152,9 @@ erDiagram
         varchar melhor_epoca
         varchar moeda
         decimal cotacao_real
+        varchar cor_fundo
+        varchar cor_botao
+        varchar fonte
     }
     CUSTO {
         int id PK
@@ -157,6 +167,7 @@ erDiagram
         int fk_usuario PK, FK
         int fk_destino PK, FK
         datetime data_conquista
+        int pontuacao
     }
 ```
 
@@ -190,11 +201,9 @@ Depois é só acessar `http://localhost:3333` no navegador. 🌐
 
 | Semana | Período | Entrega | Status |
 |:-:|---|---|:-:|
-| 2 | 25/10 a 31/10 | Documentação, Git, Trello e banco de dados | ⏳ |
-| 3 | 01/11 a 07/11 | Home e Sobre mim | ⏳ |
-| 4 | 08/11 a 14/11 | Cadastro, login e quebra-cabeça | ⏳ |
-| 5 | 15/11 a 21/11 | Dashboard e carimbos do passaporte | ⏳ |
-| 6 | 22/11 a 28/11 | Testes, apresentação e ensaio | ⏳ |
+| 1 | 08/11 a 14/11 | Banco de dados, Home e API de cadastro | ⏳ |
+| 2 | 15/11 a 21/11 | Cadastro, login, calculadora e dashboard | ⏳ |
+| 3 | 22/11 a 28/11 | Jogo, skins, testes e apresentação | ⏳ |
 | 🎤 | 30/11 a 04/12 | Apresentação para a banca | ⏳ |
 
 ---
