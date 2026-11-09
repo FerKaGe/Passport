@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=New+Rocker&family=Space+Grotesk:wght@300..700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --roxo: #7b2cbf; /* botões e destaques */
+  --roxo-claro: #c77dff; /* links e textos em destaque */
+  --roxo-escuro: #3c096c; /* sombras e gradientes */
+
+  --fundo: #08070a; /* fundo da página */
+  --fundo-secao: #120a1c; /* seções alternadas */
+  --fundo-card: #1a1224; /* cards */
+  --borda: #2e2240; /* bordas dos cards */
+
+  --texto: #f4f0fa; /* títulos e texto principal */
+  --texto-secundario: #c9beda; /* parágrafos */
+  --texto-apagado: #a99bbf; /* legendas e detalhes */
+}
+
+body {
+
+  font-family: "Space Grotesk", sans-serif;
+  background-color: var(--fundo);
+}
+
+header{
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 16px 80px;
+margin-top: 10px;
+
+}
+
+header img{
+width: 170px;
+}
+
+a{
+
+text-decoration: none;
+color: var(--texto-apagado);
+}
+
+.hero{
+
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  padding: 80px 90px;
+  align-items: center;
+}
+
+.hero img{
+display: block;
+width: 720px;
+box-shadow: 0 0 80px rgba(123, 44, 191, 0.35);
+border-radius: 30px;
+}
+
+.titulo-jogo{
+display: flex;
+flex-direction: column;
+gap: 15px;
+
+}
+
+.titulo-jogo h1{
+  font-size: 80px;
+   font-family: "New Rocker", system-ui;
+   color: var(--texto);
+}
+
+.titulo-jogo span{
+ color: var(--roxo-claro);
+}
+
+.titulo-jogo p{
+  font-size: 16px;
+  color: var(--texto-secundario);
+  max-width: 500px;
+}
+
+.play{
+display: flex;
+border: solid 1px var(--roxo);
+border-radius: 999px;
+padding: 10px 20px;
+
+}
+
+.selo{
+
+  display: inline-flex;
+  padding: 8px 18px;
+  border: solid 1px var(--borda);
+  border-radius: 999px;
+  color: var(--roxo-claro);
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  align-items: center;
+  gap: 10px;
+
+}
+
+

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Calculador IMC</title>
+  </head>
+  <body>
+
+    <header>
+    <p>FERRAMENTA</p>
+    <h1>Calculador IMC</h1>
+    </header>
+    
+ <main>
+
+    <div class="caixa_insert">
+
+    <label for="ipt_peso">Peso</label>
+    <input type="Number" placeholder="Digite seu peso (kg)" id="ipt_peso" /> 
+
+    <label for="ipt_altura">Altura</label>
+    <input type="Number" placeholder="Digite sua altura (cm)" id="ipt_altura" />
+
+    <button onclick="calcular()">Calcular IMC  →</button>
+
+     </div>
+
+     <div class="caixa_resultado">
+      <p>SEU IMC</p>
+
+
+      <span id="valor_imc">--</span>
+
+     </div>
+
+
+
+  </main>
+
+
+<script>
+function calcular(){
+let altura = Number(ipt_altura.value) / 100
+let peso = Number(ipt_peso.value)
+let IMC = peso / altura **2
+
+
+valor_imc.innerHTML = `${IMC.toFixed(2)}`
+}
+</script>
+
+
+
+  </body>
+</html>
+
+
+

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JumpGoat</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="gameBoard">
+      <img src="img/luna_correndo.gif" class="luna" />
+      <img src="img/latinha.gif" class="latinha" />
+
+      <div id="div_score" class="score">SCORE:0</div>
+
+      <button id="btn_start" class="start" onclick="iniciar()">START</button>
+    </div>
+
+    <script>
+      let luna = document.querySelector(".luna");
+      let latinha = document.querySelector(".latinha");
+      let score = 0;
+
+      function iniciar() {
+
+        // 1. Resetar tudo (para quando for jogar de novo)
+        score = 0;
+        div_score.innerHTML = "SCORE:0";
+        luna.src = "img/luna_correndo.gif";
+        luna.style.bottom = "";
+        latinha.style.left = "";
+        latinha.style.animation = "";
+
+        // 2. Esconder o botão e tirar o foco dele
+        btn_start.style.display = "none";
+
+        // 3. Ligar a latinha
+        latinha.classList.add("andando");
+
+        document.addEventListener("keydown", pulo);
+
+        function pulo() {
+          luna.classList.add("pulo");
+
+          setTimeout(function remover() {
+            luna.classList.remove("pulo");
+          }, 700);
+        }
+
+        const loop = setInterval(function () {
+          const latinhaPosicao = latinha.offsetLeft;
+          const lunaPosicao = Number(
+            window.getComputedStyle(luna).bottom.replace("px", ""),
+          );
+
+          score += 10;
+          div_score.innerHTML = `SCORE:${score}`;
+
+          if (
+            latinhaPosicao <= 120 &&
+            latinhaPosicao > 0 &&
+            lunaPosicao < 120
+          ) {
+            latinha.style.animation = "none";
+            latinha.style.left = `${latinhaPosicao}px`;
+            latinha.style.animation = "none";
+            luna.style.bottom = `${lunaPosicao}px`;
+            luna.src = "img/lunaGameOver.gif";
+
+            clearInterval(loop);
+
+            // Luna não pode mais pular
+            document.removeEventListener("keydown", pulo);
+
+            // Para a latinha
+            latinha.classList.remove("andando");
+
+            // Mostra o botão de novo, agora para recomeçar
+            btn_start.innerHTML = "RESTART";
+            btn_start.style.display = "block";
+          }
+        }, 10);
+      }
+    </script>
+  </body>
+</html>
