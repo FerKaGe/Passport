@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+
+    background-image: url(img/moldura_fliperama_animada_tela_transparente.gif);
+    background-size: cover;
+}
+
+.gameBoard {
+  width: 80%;
+  height: 500px;
+  border: solid 1px purple;
+  margin: 100px auto;
+  position: relative;
+  overflow: hidden;
+  background-image: url(img/ceu_sem_nuvens_grande.png);
+}
+
+
+.start {
+  position: absolute;
+  top: 45%;
+  left: 42%;
+  padding: 15px 30px;
+  font-family: "Press Start 2P", system-ui;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.latinha {
+  position: absolute;
+  bottom: 0;
+  width: 90px;
+  right: -80px;
+}
+
+.latinha.andando {
+  animation: latinhaAnimacao 2s infinite linear;
+}
+
+.luna {
+  position: absolute;
+  bottom: 0px;
+  width: 150px;
+}
+
+.pulo {
+  animation: pulo 700ms;
+}
+
+.score {
+  padding: 15px;
+  font-size: 20px;
+  color: aliceblue;
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+}
+
+@keyframes latinhaAnimacao {
+  from {
+    right: -80px;
+  }
+
+  to {
+    right: 100%;
+  }
+}
+
+@keyframes pulo {
+  0% {
+    bottom: 0px;
+  }
+
+  40% {
+    bottom: 200px;
+  }
+
+  50% {
+    bottom: 200px;
+  }
+
+  60% {
+    bottom: 200px;
+  }
+
+  70% {
+    bottom: 200px;
+  }
+
+  100% {
+    bottom: 0px;
+  }
+}

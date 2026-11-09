@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <span class="marca">
+        <img src="img/gymfabs_logo_simbolo_roxo.png" alt="" />GymFabs</span
+      >
+      <a href="Index\index.html" class="link_voltar">
+        <i class="fa-solid fa-arrow-left"></i> Voltar ao início
+      </a>
+    </header>
+
+    <main>
+      <div class="caixa_texto">
+        <span class="iconeAreaDoAtleta">ÁREA DO ATLETA</span>
+        <h1>Bem vindo de volta,<span class="destaque"> monstro</span></h1>
+
+        <p class="subtitulo">
+          Entre e aproveite cada momento da minha historia na academia, aproveite o minigame IronGoat.
+        </p>
+
+        <ul class="beneficios">
+          <li>
+            <img
+              src="img/check-caixa.png"
+              alt=""
+              class="beneficiosIcone"
+            />Jogue o IronGoat e veja seu resultado na dashboard
+          </li>
+          <li>
+            <img
+              src="img/check-caixa.png"
+              alt=""
+              class="beneficiosIcone"
+            />Consulte seu IMC quando quiser
+          </li>
+          <li>
+            <img
+              src="img/check-caixa.png"
+              alt=""
+              class="beneficiosIcone"
+            />Descubra minha história na musculação
+          </li>
+        </ul>
+      </div>
+
+      <div class="caixa_cadastro">
+        <img src="img/mascote_cadastro_olhando@4x.png" alt="" class="mascote" />
+
+        <div class="abas">
+          <a href="#" class="aba ativa">Entrar</a>
+          <a href="cadastro.html" class="aba">Criar conta</a>
+        </div>
+
+        <div class="campo">
+          <label for="ipt_email">E-mail</label>
+          <input
+            type="email"
+            id="ipt_email"
+            oninput="validarEmail()"
+            placeholder="Digite seu email"
+            required
+          />
+        </div>
+        <div id="div_validEmail"></div>
+
+        <div class="campo">
+          <label for="ipt_senha">Senha</label>
+          <input
+            type="password"
+            id="ipt_senha"
+            oninput="validarSenha()"
+            placeholder="Crie uma senha"
+          />
+        </div>
+
+        <label>
+          <input type="checkbox" id="chk_mostrar" onclick="mostrarSenhas()" />
+          Mostrar senha
+        </label>
+
+        <button onclick="entrar()">Entrar</button>
+      </div>
+    </main>
+  </body>
+</html>
+
+<script>
+  // validação de senha
+
+  let validoSenha = 0;
+
+  function validarSenha() {
+    validoSenha = ipt_senha.value !== ""
+  }
+
+  // validação de email
+
+  let validoEmail = 0;
+
+  function validarEmail() {
+    let email = ipt_email.value;
+
+    if (ipt_email.checkValidity() && email.split("@")[1].includes(".")) {
+      div_validEmail.innerHTML = "VALIDO";
+      validoEmail = true;
+    } else {
+      div_validEmail.innerHTML = "INVALIDO";
+      validoEmail = false;
+    }
+  }
+
+  function entrar() {
+    let senha = ipt_senha.value;
+   let email = ipt_email.value;
+
+    if (
+      validoSenha == true &&
+      validoEmail == true
+    ) {
+      alert(`Entrou`);
+    } else {
+      alert(`verifique os campos`);
+    }
+  }
+
+  function mostrarSenhas() {
+    if (chk_mostrar.checked) {
+      ipt_senha.type = "text";
+    } else {
+      ipt_senha.type = "password";
+    }
+  }
+</script>

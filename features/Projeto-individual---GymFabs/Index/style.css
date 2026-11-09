@@ -1,0 +1,413 @@
+@import url("https://fonts.googleapis.com/css2?family=New+Rocker&family=Space+Grotesk:wght@300..700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --roxo: #7b2cbf; /* botões e destaques */
+  --roxo-claro: #c77dff; /* links e textos em destaque */
+  --roxo-escuro: #3c096c; /* sombras e gradientes */
+
+  --fundo: #08070a; /* fundo da página */
+  --fundo-secao: #120a1c; /* seções alternadas */
+  --fundo-card: #1a1224; /* cards */
+  --borda: #2e2240; /* bordas dos cards */
+
+  --texto: #f4f0fa; /* títulos e texto principal */
+  --texto-secundario: #c9beda; /* parágrafos */
+  --texto-apagado: #a99bbf; /* legendas e detalhes */
+}
+
+body {
+
+  font-family: "Space Grotesk", sans-serif;
+  background-color: var(--fundo);
+}
+
+
+.hero {
+  display: flex;
+  background-image: url(img/fundo_inicio_1440x666.png);
+  background-size: cover;
+  background-position: right center;
+  min-height: 666px;
+  align-items: center;
+  padding: 0 112px;
+}
+
+.selo{
+
+  display: inline-block;
+  padding: 6px 14px;
+  border: solid 1px var(--borda);
+  border-radius: 999px;
+  color: var(--roxo-claro);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+
+}
+
+.hero-texto p{
+color: var(--texto-secundario);
+font-size: 18px;
+line-height: 1.6;
+max-width: 480px;
+margin-bottom: 32px;
+
+}
+
+h1 {
+font-family: "New Rocker", system-ui;
+font-size: 80px;
+font-weight: 400;
+color: var(--texto);
+line-height: 1.1;
+margin-bottom: 24px;
+
+}
+
+h1 span{
+display: block;
+color: var(--roxo-claro);
+
+
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 112px;
+  border-bottom: 1px solid var(--borda);
+  position: sticky;
+  top: 0;
+  background-color: var(--fundo);
+  z-index: 100;
+}
+
+header img {
+  width: 150px;
+}
+
+nav {
+  display: flex;
+  gap: 24px;
+}
+
+nav a{
+  color: var(--texto-secundario);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+
+nav a:hover{
+  color: var(--roxo-claro);
+}
+
+
+
+.botoes-usuario{
+display: flex;
+gap: 12px;
+align-items: center;
+
+ }
+
+
+
+.hero-botoes{
+display: flex;
+gap: 12px;
+}
+
+
+
+
+.btn{
+display: inline-block;
+padding: 10px 20px;
+border: 1px solid var(--borda);
+border-radius: 999px;
+color: var(--texto);
+font-size: 14px;
+font-weight: 600;
+text-decoration: none;
+transition: 0.2s;
+}
+
+.btn:hover{
+  border-color: var(--roxo);
+}
+
+
+.btn-primario{
+  background-color: var(--roxo-escuro);
+  border-color: var(--roxo-escuro);
+}
+
+.btn-primario:hover{
+  background-color: var(--roxo);
+}
+
+.imc{
+
+  background-color: rgba(60, 9, 108, 0.3);
+}
+
+/* ===================== MINHA HISTÓRIA ===================== */
+
+.historia {
+  padding: 96px 112px;
+  background: linear-gradient(var(--fundo-secao),var(--fundo));
+}
+
+.titulo-secao {
+  margin-bottom: 64px;
+}
+
+.numero-secao {
+  display: inline-block;
+  color: var(--texto);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+/* tracinho + "MINHA HISTÓRIA" */
+.numero-secao span {
+  color: var(--roxo-claro);
+  text-transform: uppercase;
+  margin-left: 8px;
+}
+
+.titulo-secao h2 {
+  font-family: "New Rocker", system-ui;
+  font-size: 56px;
+  font-weight: 400;
+  color: var(--texto);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.titulo-secao p {
+  color: var(--roxo-claro);
+  font-size: 16px;
+}
+
+
+/* ---------- linha do tempo ---------- */
+
+.linha-tempo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+}
+
+/* a linha vertical no meio */
+.linha-tempo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: linear-gradient(var(--borda), var(--roxo));
+  transform: translateX(-50%);
+}
+
+/* cada evento: [conteúdo] [marcador] [conteúdo] */
+.evento {
+  display: grid;
+  grid-template-columns: 1fr 90px 1fr;
+  align-items: center;
+  gap: 24px;
+}
+
+.evento-texto h3 {
+  color: var(--texto);
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.evento-texto p {
+  color: var(--texto-secundario);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.evento-texto blockquote {
+  margin-top: 24px;
+  padding-left: 16px;
+  border-left: 3px solid var(--roxo);
+  color: var(--texto);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* pílula em cima da linha */
+.marcador {
+  position: relative; /* fica por cima da linha */
+  justify-self: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background-color: var(--roxo);
+  color: var(--texto);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.marcador-hoje {
+  background-color: var(--roxo-claro);
+  color: var(--fundo);
+}
+
+
+
+/* fotos */
+.evento-foto img {
+  display: block;
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border: 1px solid var(--roxo);
+  border-radius: 16px;
+}
+
+.evento-foto figcaption {
+  margin-top: 8px;
+  color: var(--texto-apagado);
+  font-size: 12px;
+}
+
+
+/* ===================== Meu Kit ===================== */
+.meuKit{
+   padding: 96px 112px;
+  background-color: var(--fundo-secao);
+}
+
+
+.rotulo {
+  display: block;            /* span é inline; block faz ele ocupar a linha toda */
+  color: var(--roxo-claro);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;       /* aquele espaçamento entre letras do design */
+  margin-bottom: 8px;
+}
+
+.subtitulo {
+  font-family: "New Rocker", system-ui;
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--texto);
+  margin-bottom: 24px;
+}
+
+
+.musica {
+  margin-bottom: 64px;
+}
+ 
+.musica-grade{
+display: grid;
+grid-template-columns: 0.63fr 1.56fr;  /* player ocupa 1 parte, lista ocupa 2 */
+gap: 16px;
+align-items: start;
+}
+
+.musica-grade img{
+  display: block;
+  width: 100%;
+  height: auto;
+
+}
+
+
+.alimento-grade {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 3 colunas iguais */
+  gap: 16px;
+}
+
+.alimento-grade img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+/* ===================== Inspiraçoes ===================== */
+
+
+.inspiracao{
+padding: 96px 112px;
+background: linear-gradient( var(--fundo-secao),var(--fundo))
+
+}
+
+.ganley {
+  margin-bottom: 64px;
+}
+
+.ganley img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.parceiros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.parceiros img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+/* rolar sauvemente */
+html {
+  scroll-behavior: smooth;
+}
+
+/* FRASE */
+
+.amorFati{
+display: flex;
+padding: 120px 112px;
+justify-content: center;
+background: linear-gradient(var(--fundo), var(--fundo-secao))
+}
+
+.frase {
+  max-width: 800px;
+  text-align: center;
+}
+
+.frase p {
+  margin-top: 24px;
+  font-size: 15px;
+  line-height: 1.2;
+  color: var(--texto-apagado);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.frase span {
+  display: block;
+  color: var(--roxo-claro);
+}

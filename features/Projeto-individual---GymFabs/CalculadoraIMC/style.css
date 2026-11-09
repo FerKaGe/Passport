@@ -1,0 +1,130 @@
+
+@import url('https://fonts.googleapis.com/css2?family=New+Rocker&family=Space+Grotesk:wght@300..700&display=swap');
+
+
+
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+
+body {
+
+    background-image: url(img/fundo-calculadora-1920x1080.png) ;
+    background-size: cover;
+}
+
+
+
+header{
+
+    color: #F4F0FA;
+      font-family: "New Rocker", system-ui;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 50px;
+      padding: 4rem;
+
+
+}
+
+
+main {
+
+    padding: 4rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+
+
+input[type="Number"]{
+    width: 100%;
+    padding: 20px;
+    border: solid #2E2240 1px;
+    border-radius: 28px;
+    background-color: #08070A;
+    color: #F4F0FA;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 24px;
+
+}
+
+button {
+
+    border: none;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 20px;
+    border-radius: 999px;
+    background-color: #7B2CBF;
+    color: aliceblue;
+    cursor: pointer;
+  
+}
+
+
+
+
+
+ p{
+    color: #C77DFF ;
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 15px;
+    
+}
+
+
+
+
+.caixa_insert {
+
+display: flex;
+flex-direction: column;
+align-items: stretch;
+gap: 12px;
+width: 400px;
+padding: 36px 32px;
+border: solid #2E2240 1px ;
+border-radius: 28px;
+background-color: #120E18;
+
+
+}
+
+
+
+.caixa_resultado {
+
+display: flex;
+flex: 1;
+flex-direction: column;
+align-items: stretch;
+gap: 12px;
+width: 400px;
+padding: 36px 32px;
+border: solid #5A1E99 1px ;
+border-radius: 28px;
+background: linear-gradient(135deg, #3C0A6B, #1E0B33);
+
+
+}
+
+
+
+label{
+
+color: #F4F0FA;
+font-family: "Space Grotesk", sans-serif;
+font-weight: 500;
+
+}
+
+

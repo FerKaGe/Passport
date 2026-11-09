@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  </head>
+  <body class="pagina_cadastro">
+
+
+
+<header>
+  <span class="marca"> <img src="img/gymfabs_logo_simbolo_roxo.png" alt="">GymFabs</span>
+  <a href="#" class="link_voltar">
+    <i class="fa-solid fa-arrow-left"></i> Voltar ao início
+  </a>
+</header>
+
+
+    <main>
+
+    <div class="caixa_texto">
+
+    
+    <span class="iconeAreaDoAtleta">ÁREA DO ATLETA</span>
+    <h1>Bora começar <span class="destaque">o shape</span></h1>
+
+    <p class="subtitulo">Crie sua conta em menos de um minuto e faça parte do time GymFabs.</p>
+
+    <ul class="beneficios">
+   <li><img src="img/check-caixa.png" alt="" class="beneficiosIcone">Jogue o IronGoat e veja seu resultado na dashboard</li>
+  <li><img src="img/check-caixa.png" alt="" class="beneficiosIcone">Consulte seu IMC quando quiser</li>
+  <li><img src="img/check-caixa.png" alt="" class="beneficiosIcone">Descubra minha história na musculação</li>
+    </ul>
+
+    </div>
+
+    <div class="caixa_cadastro">
+
+ <img src="img/mascote_cadastro_olhando@4x.png" alt="" class="mascote">
+
+    <div class="abas">
+        <a href="login.html" class="aba">Entrar</a>
+        <a href="#" class="aba ativa">Criar conta</a>
+     </div>
+
+      <div class="campo">
+    <label for="ipt_nome">Nome</label>
+    <input type="text" id="ipt_nome" placeholder="Como você quer ser chamado?"/> 
+     </div>
+
+      <div class="campo">
+    <label for="ipt_email">E-mail</label>
+    <input type="email" id="ipt_email" oninput="validarEmail()" placeholder="Digite seu email" required />
+</div>
+    <div id="div_validEmail"></div>
+
+     <div class="campo">
+    <label for="ipt_senha">Senha</label>
+    <input type="password" id="ipt_senha" oninput="validarSenha()" placeholder="Crie uma senha"/>
+    </div>
+
+    <div id="div_MostrarForça"></div>
+
+     <div class="campo">
+    <label for="ipt_chkSenha">Confirmar Senha</label>
+    <input type="password" id="ipt_chkSenha" placeholder="Repita a senha" />
+</div>
+
+<label>
+  <input type="checkbox" id="chk_mostrar" onclick="mostrarSenhas()"> Mostrar senhas
+</label>
+
+    
+    <button onclick="cadastrar()">Criar minha conta</button>
+    </div>
+
+
+    </main>
+
+
+  </body>
+</html>
+
+<script>
+  // validação de senha
+
+  let validoSenha = 0;
+
+  function validarSenha() {
+    let senha = ipt_senha.value;
+    let pontoSenha = 0;
+
+    //verificar se tem numero
+
+    if (/[0-9]/.test(senha)) {
+      pontoSenha++;
+    }
+
+    // verificar se tem 8 letras ou mais
+
+    if (senha.length >= 8) {
+      pontoSenha++;
+    }
+
+    //verificar se tem letra miniscula e maiscula
+    if (senha != senha.toUpperCase() && senha != senha.toLowerCase()) {
+      pontoSenha++;
+    }
+
+    //verificar se tem letra caracteres especias
+
+    if (/[^A-Za-z0-9\s]/.test(senha)) {
+      pontoSenha++;
+    }
+
+    // verificação de pontos de força da senha
+
+    if (pontoSenha == 0) {
+      validoSenha = false;
+      div_MostrarForça.innerHTML = ``;
+    } else if (pontoSenha == 1) {
+      div_MostrarForça.innerHTML = `<span style="color: red">FRACA</span>`;
+      validoSenha = false;
+    } else if (pontoSenha == 2) {
+      div_MostrarForça.innerHTML = ` <span style="color: orange">MEDIA</span>`;
+      validoSenha = false;
+    } else if (pontoSenha == 3) {
+      div_MostrarForça.innerHTML = `<span style="color: green">FORTE</span>`;
+      validoSenha = true;
+    } else if (pontoSenha == 4) {
+      validoSenha = true;
+      div_MostrarForça.innerHTML = `<span style="color: purple">MONSTRA</span>`;
+    }
+  }
+
+  // validação de email
+
+  let validoEmail = 0;
+
+  function validarEmail() {
+    let email = ipt_email.value;
+
+
+    if (ipt_email.checkValidity() && email.split('@')[1].includes('.')) {
+      div_validEmail.innerHTML = "VALIDO";
+      validoEmail = true;
+    } else {
+      div_validEmail.innerHTML = "INVALIDO";
+      validoEmail = false;
+    }
+  }
+
+  function cadastrar() {
+    let senha = ipt_senha.value;
+    let chkSenha = ipt_chkSenha.value;
+    let nome = ipt_nome.value;
+
+
+
+
+    if (nome.trim() !== "" &&
+      validoSenha == true &&
+      validoEmail == true &&
+      senha == chkSenha &&
+      senha.length >= 8
+    ) {
+      alert(`cadastrado`);
+    } else {
+      alert(`verifique os campos`);
+    }
+  }
+
+function mostrarSenhas() {
+  if (chk_mostrar.checked) {
+    ipt_senha.type = 'text';
+    ipt_chkSenha.type = 'text';
+  } else {
+    ipt_senha.type = 'password';
+    ipt_chkSenha.type = 'password';
+  }
+}
+
+</script>
