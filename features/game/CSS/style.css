@@ -18,7 +18,7 @@
     bottom: 0;
     width: 80px;
     right: -80px;
-    animation: cacto-animation 2s infinite linear;
+    animation: cacto-animation 700ms infinite linear;
 }
     
 .prota {
