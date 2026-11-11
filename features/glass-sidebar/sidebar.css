@@ -1,0 +1,178 @@
+/*
+ * Glass Sidebar
+ * Barra lateral flutuante com efeito de vidro, que se alarga por cima da página ao passar o mouse.
+ * CSS puro: não precisa de JavaScript para abrir.
+ *
+ * Coloque a classe .glass-sidebar-page no <body> da página, para o conteúdo não ficar por baixo da barra fechada.
+ */
+
+/* Variáveis: mude estes valores para adaptar a barra ao seu site. */
+:root {
+  --glass-sidebar-rail: 68px;   /* largura fechada: só os ícones */
+  --glass-sidebar-open: 240px;  /* largura aberta: ícones e textos */
+  --glass-sidebar-gap: 16px;    /* distância da barra até as bordas da tela */
+  --glass-sidebar-radius: 20px;
+  --glass-sidebar-speed: 0.25s; /* duração da animação de abrir e fechar */
+
+  /* Fundo do vidro. O último número do rgba() é a opacidade (0 = invisível, 1 = sólido).
+     Precisa ser semitransparente para o backdrop-filter aparecer; veja a explicação em .glass-sidebar. */
+  --glass-sidebar-bg: rgba(255, 250, 241, 0.55);
+  --glass-sidebar-bg-strong: rgba(255, 250, 241, 0.85); /* mais opaco: fundo do item sob o mouse */
+  --glass-sidebar-border: rgba(255, 255, 255, 0.7);     /* borda clara, que imita o reflexo na beira do vidro */
+  --glass-sidebar-shadow: 0 18px 45px -18px rgba(31, 26, 20, 0.45);
+  --glass-sidebar-text: #1f1a14;
+  --glass-sidebar-active-bg: #2f4a3a;
+  --glass-sidebar-active-text: #f4efe6;
+  --glass-sidebar-accent: #b08d57; /* contorno do item focado pelo teclado */
+  --glass-sidebar-danger: #a4472f;
+}
+
+/* Cores do tema escuro: valem quando o sistema está escuro, a não ser que a página force data-theme="light". */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --glass-sidebar-bg: rgba(39, 35, 29, 0.55);
+    --glass-sidebar-bg-strong: rgba(39, 35, 29, 0.88);
+    --glass-sidebar-border: rgba(255, 255, 255, 0.12);
+    --glass-sidebar-shadow: 0 18px 45px -18px rgba(0, 0, 0, 0.85);
+    --glass-sidebar-text: #ece4d6;
+    --glass-sidebar-active-bg: #2f5a42;
+    --glass-sidebar-accent: #c9a46c;
+    --glass-sidebar-danger: #e2836a;
+  }
+}
+/* Mesmas cores, para quando a página escolhe o tema escuro com data-theme="dark" no <html>. */
+:root[data-theme="dark"] {
+  --glass-sidebar-bg: rgba(39, 35, 29, 0.55);
+  --glass-sidebar-bg-strong: rgba(39, 35, 29, 0.88);
+  --glass-sidebar-border: rgba(255, 255, 255, 0.12);
+  --glass-sidebar-shadow: 0 18px 45px -18px rgba(0, 0, 0, 0.85);
+  --glass-sidebar-text: #ece4d6;
+  --glass-sidebar-active-bg: #2f5a42;
+  --glass-sidebar-accent: #c9a46c;
+  --glass-sidebar-danger: #e2836a;
+}
+
+/* Reserva à esquerda só a largura da barra fechada, mais a distância dos dois lados.
+   Aberta, a barra passa por cima do conteúdo em vez de empurrá-lo. */
+.glass-sidebar-page {
+  padding-left: calc(var(--glass-sidebar-rail) + var(--glass-sidebar-gap) * 2);
+}
+
+/* Sidebar */
+
+/* O efeito de vidro vem da combinação de background com backdrop-filter:
+     - backdrop-filter aplica filtros no que está ATRÁS da barra (a página), não na barra em si.
+       blur(16px) desfoca esse conteúdo, como um vidro fosco; saturate(160%) deixa as cores
+       de trás mais vivas, compensando o tom claro que o fundo adiciona por cima.
+     - background precisa ser semitransparente (opacidade 0.55 em --glass-sidebar-bg).
+       Opaco (1), ele cobriria tudo e o desfoque não apareceria; totalmente transparente (0),
+       sobraria só um borrão sem cor, e o texto da barra ficaria difícil de ler.
+     O vidro aparece mais quando há cores ou imagens atrás; sobre um fundo liso, fica só translúcido. */
+
+.glass-sidebar {
+  background: var(--glass-sidebar-bg);
+  backdrop-filter: blur(16px) saturate(160%);
+
+  /* fixed tira a barra do fluxo da página: ela não ocupa espaço e fica parada ao rolar. */
+  position: fixed;
+  top: var(--glass-sidebar-gap);
+  bottom: var(--glass-sidebar-gap);
+  left: var(--glass-sidebar-gap);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  width: var(--glass-sidebar-rail);
+  padding: 16px 10px;
+  border: 1px solid var(--glass-sidebar-border);
+  border-radius: var(--glass-sidebar-radius);
+  box-shadow: var(--glass-sidebar-shadow);
+  color: var(--glass-sidebar-text);
+  transition: width var(--glass-sidebar-speed) ease;
+}
+
+/* Abertura: enquanto o mouse está sobre a barra, ela se alarga. O transition acima anima a mudança. */
+.glass-sidebar:hover {
+  width: var(--glass-sidebar-open);
+}
+
+/* Os textos estão sempre no HTML: só ficam invisíveis enquanto a barra está fechada. */
+.glass-sidebar__label {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.glass-sidebar:hover .glass-sidebar__label{
+  opacity: 1;
+}
+
+/* Logo e nome no topo */
+.glass-sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 7px; /* centraliza o logo de 34px nos 48px internos da barra fechada */
+  color: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap; /* o nome não quebra em duas linhas enquanto a barra se alarga */
+}
+.glass-sidebar__brand img {
+  flex-shrink: 0; /* o logo mantém o tamanho mesmo com pouco espaço */
+  width: 34px;
+  height: 34px;
+}
+
+.glass-sidebar__nav,
+.glass-sidebar__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.glass-sidebar__nav {
+  margin-top: 28px;
+}
+.glass-sidebar__bottom {
+  margin-top: auto; /* ocupa o espaço que sobra e empurra este grupo para o fim da barra */
+  padding-top: 12px;
+  border-top: 1px solid var(--glass-sidebar-border);
+}
+
+/* Itens: links e botões ficam com a mesma aparência. */
+.glass-sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: none;
+  color: inherit;
+  font-size: 15px;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.glass-sidebar__item:hover {
+  background: var(--glass-sidebar-bg-strong);
+  border-color: var(--glass-sidebar-border);
+}
+/* :focus-visible só vale para o foco do teclado (Tab), então o contorno não aparece ao clicar. */
+.glass-sidebar__item:focus-visible {
+  outline: 2px solid var(--glass-sidebar-accent);
+  outline-offset: -2px; /* desenha o contorno por dentro do item */
+}
+.glass-sidebar__item.is-active {
+  background: var(--glass-sidebar-active-bg);
+  color: var(--glass-sidebar-active-text);
+}
+.glass-sidebar__item.is-danger:hover {
+  color: var(--glass-sidebar-danger);
+}
+.glass-sidebar__icon {
+  flex-shrink: 0;
+  width: 24px; /* largura fixa: todos os ícones e textos ficam alinhados na mesma coluna */
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
+}

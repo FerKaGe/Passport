@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glass Sidebar</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="demo/demo.css">
+</head>
+<body class="glass-sidebar-page">
+  <aside class="glass-sidebar">
+    <a href="#" class="glass-sidebar__brand">
+      <img src="logo.svg" alt="">
+      <span class="glass-sidebar__label">Meu Site</span>
+    </a>
+
+    <!-- title mostra o nome do item ao parar o mouse, útil enquanto a barra está fechada.
+         aria-hidden esconde o ícone dos leitores de tela, que leem só o texto do item. -->
+    <nav class="glass-sidebar__nav" aria-label="Menu principal">
+      <a href="#" class="glass-sidebar__item is-active" title="Início">
+        <span class="glass-sidebar__icon" aria-hidden="true">⌂</span><span class="glass-sidebar__label">Início</span>
+      </a>
+      <a href="#" class="glass-sidebar__item" title="Galeria">
+        <span class="glass-sidebar__icon" aria-hidden="true">▣</span><span class="glass-sidebar__label">Galeria</span>
+      </a>
+      <a href="#" class="glass-sidebar__item" title="Projetos">
+        <span class="glass-sidebar__icon" aria-hidden="true">✦</span><span class="glass-sidebar__label">Projetos</span>
+      </a>
+      <a href="#" class="glass-sidebar__item" title="Contato">
+        <span class="glass-sidebar__icon" aria-hidden="true">✉</span><span class="glass-sidebar__label">Contato</span>
+      </a>
+    </nav>
+
+    <div class="glass-sidebar__bottom">
+      <button type="button" class="glass-sidebar__item" id="theme-button" title="Alternar tema">
+        <span class="glass-sidebar__icon" aria-hidden="true">◐</span><span class="glass-sidebar__label">Alternar tema</span>
+      </button>
+      <a href="#" class="glass-sidebar__item is-danger" title="Sair">
+        <span class="glass-sidebar__icon" aria-hidden="true">⏻</span><span class="glass-sidebar__label">Sair</span>
+      </a>
+    </div>
+  </aside>
+
+  <main class="demo">
+    <h1>Glass Sidebar</h1>
+    <p>Passe o mouse sobre a barra, ou navegue com Tab, para abrir.</p>
+  </main>
+
+  <!-- Só para o botão de tema da demonstração: a barra abre sem JavaScript. -->
+  <script src="demo/demo.js"></script>
+</body>
+</html>
