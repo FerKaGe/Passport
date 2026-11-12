@@ -11,7 +11,7 @@ USE passport;
 CREATE TABLE usuario (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50),
-	email VARCHAR(50),
+	email VARCHAR(50) UNIQUE, -- UNIQUE: o banco recusa dois cadastros com o mesmo e-mail
 	senha VARCHAR(50)
 );
 
