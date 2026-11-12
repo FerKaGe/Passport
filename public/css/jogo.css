@@ -8,7 +8,7 @@
 
 body{
 
-    background-image: url(img/moldura_fliperama_animada_tela_transparente.gif);
+    background-image: url(../assets/jogo/moldura/moldura-fliperama.gif);
     background-size: cover;
 }
 
@@ -19,7 +19,7 @@ body{
   margin: 100px auto;
   position: relative;
   overflow: hidden;
-  background-image: url(img/ceu_sem_nuvens_grande.png);
+  background-image: url(../assets/jogo/fundos/ceu-noturno.png);
 }
 
 

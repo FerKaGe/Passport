@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JumpGoat</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../css/jogo.css" />
   </head>
   <body>
     <div class="gameBoard">
-      <img src="img/luna_correndo.gif" class="luna" />
-      <img src="img/latinha.gif" class="latinha" />
+      <img src="../assets/jogo/personagem/correndo.gif" class="luna" />
+      <img src="../assets/jogo/obstaculos/lata.gif" class="latinha" />
 
       <div id="div_score" class="score">SCORE:0</div>
 
@@ -26,7 +26,7 @@
         // 1. Resetar tudo (para quando for jogar de novo)
         score = 0;
         div_score.innerHTML = "SCORE:0";
-        luna.src = "img/luna_correndo.gif";
+        luna.src = "../assets/jogo/personagem/correndo.gif";
         luna.style.bottom = "";
         latinha.style.left = "";
         latinha.style.animation = "";
@@ -65,7 +65,7 @@
             latinha.style.left = `${latinhaPosicao}px`;
             latinha.style.animation = "none";
             luna.style.bottom = `${lunaPosicao}px`;
-            luna.src = "img/lunaGameOver.gif";
+            luna.src = "../assets/jogo/personagem/tonto.gif";
 
             clearInterval(loop);
 
