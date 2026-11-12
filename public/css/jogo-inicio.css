@@ -1,4 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=New+Rocker&family=Space+Grotesk:wght@300..700&display=swap");
+/*
+ * Tela de início do Jogo do Passaporte
+ * Adaptada da tela Jump-goat-home, de Fabricio Lima (licença MIT).
+ * Copyright (c) 2026 Fabricio Lima
+ * Licença completa: docs/licencas/JumpGoat-LICENSE.txt
+ */
+
+/* Fonte de fliperama guardada no projeto (não precisa de internet) */
+@font-face {
+  font-family: "Press Start 2P";
+  src: url(../assets/fontes/PressStart2P-Regular.ttf) format("truetype");
+}
 
 * {
   margin: 0;
@@ -6,108 +17,113 @@
   box-sizing: border-box;
 }
 
+/* Variáveis CSS: os nomes dizem para que a cor serve, não qual cor ela é.
+   Os valores ainda são os do JumpGoat; a paleta do Passport entra com a arte nova. */
 :root {
-  --roxo: #7b2cbf; /* botões e destaques */
-  --roxo-claro: #c77dff; /* links e textos em destaque */
-  --roxo-escuro: #3c096c; /* sombras e gradientes */
-
-  --fundo: #08070a; /* fundo da página */
-  --fundo-secao: #120a1c; /* seções alternadas */
-  --fundo-card: #1a1224; /* cards */
-  --borda: #2e2240; /* bordas dos cards */
-
-  --texto: #f4f0fa; /* títulos e texto principal */
-  --texto-secundario: #c9beda; /* parágrafos */
-  --texto-apagado: #a99bbf; /* legendas e detalhes */
+  --cor-fundo: #08070a;              /* fundo da página */
+  --cor-borda: #2e2240;              /* contornos */
+  --cor-destaque: #7b2cbf;           /* botões */
+  --cor-destaque-claro: #c77dff;     /* palavras em destaque */
+  --cor-brilho: rgba(123, 44, 191, 0.35); /* brilho em volta da imagem */
+  --cor-texto: #f4f0fa;              /* títulos */
+  --cor-texto-secundario: #c9beda;   /* parágrafos */
+  --cor-texto-apagado: #a99bbf;      /* legendas */
 }
 
 body {
-
-  font-family: "Space Grotesk", sans-serif;
-  background-color: var(--fundo);
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--cor-fundo);
 }
 
-header{
-
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 16px 80px;
-margin-top: 10px;
-
-}
-
-header img{
-width: 170px;
-}
-
-a{
-
-text-decoration: none;
-color: var(--texto-apagado);
-}
-
-.hero{
-
+/* display: flex coloca a imagem e os textos lado a lado */
+.apresentacao {
   display: flex;
   flex-direction: row;
-  gap: 100px;
-  padding: 80px 90px;
+  gap: 60px;
+  padding: 60px 50px;
   align-items: center;
+  justify-content: center;
 }
 
-.hero img{
-display: block;
-width: 720px;
-box-shadow: 0 0 80px rgba(123, 44, 191, 0.35);
-border-radius: 30px;
+.previa-jogo img {
+  display: block;
+  width: 600px;
+  max-width: 100%;
+  box-shadow: 0 0 80px var(--cor-brilho);
+  border-radius: 20px;
 }
 
-.titulo-jogo{
-display: flex;
-flex-direction: column;
-gap: 15px;
-
+.titulo-jogo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 460px;
 }
 
-.titulo-jogo h1{
-  font-size: 80px;
-   font-family: "New Rocker", system-ui;
-   color: var(--texto);
+.titulo-jogo h1 {
+  font-size: 34px;
+  line-height: 1.4;
+  font-family: "Press Start 2P", monospace;
+  color: var(--cor-texto);
 }
 
-.titulo-jogo span{
- color: var(--roxo-claro);
+.destaque {
+  color: var(--cor-destaque-claro);
 }
 
-.titulo-jogo p{
+.titulo-jogo p {
   font-size: 16px;
-  color: var(--texto-secundario);
-  max-width: 500px;
+  line-height: 1.5;
+  color: var(--cor-texto-secundario);
 }
 
-.play{
-display: flex;
-border: solid 1px var(--roxo);
-border-radius: 999px;
-padding: 10px 20px;
-
+.titulo-jogo .como-jogar {
+  font-size: 14px;
+  color: var(--cor-texto-apagado);
 }
 
-.selo{
-
-  display: inline-flex;
+/* etiqueta de bagagem em cima do título */
+.etiqueta {
   padding: 8px 18px;
-  border: solid 1px var(--borda);
+  border: solid 1px var(--cor-borda);
   border-radius: 999px;
-  color: var(--roxo-claro);
-  font-size: 15px;
+  color: var(--cor-destaque-claro);
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
   letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  align-items: center;
-  gap: 10px;
-
 }
 
+.embarcar {
+  padding: 14px 24px;
+  border: solid 2px var(--cor-destaque);
+  border-radius: 999px;
+  color: var(--cor-texto);
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  text-decoration: none;
+}
 
+.embarcar:hover {
+  background-color: var(--cor-destaque);
+}
+
+/* lista de destinos, escrita pelo montarRoteiro() */
+.roteiro-titulo {
+  margin-top: 8px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.roteiro {
+  padding-left: 22px;
+  color: var(--cor-texto-secundario);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.roteiro small {
+  color: var(--cor-texto-apagado);
+}
