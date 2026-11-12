@@ -8,37 +8,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passport | Dashboard</title>
 
-    <link rel="stylesheet" href="./../css/dashboards.css">
-    <link rel="stylesheet" href="./../css/estilo.css" />
+    <link rel="stylesheet" href="../css/dashboards.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+
     <script src="../js/sessao.js"></script>
+    <script src="../js/sidebar.js"></script>
 </head>
 
-<!-- validarSessao() está em js/sessao.js: sem login, manda para login.html -->
+<!--
+    Ordem do onload:
+    1. montarSidebar() escreve a barra lateral (js/sidebar.js)
+    2. validarSessao() confere o login e escreve o nome na barra (js/sessao.js)
+-->
 
-<body onload="validarSessao()">
+<body class="glass-sidebar-page" onload="montarSidebar('dashboard'), validarSessao()">
 
-    <div class="janela">
-        <div class="header-left">
-            <h1>Passport</h1>
+    <!-- A barra lateral é escrita aqui dentro pelo montarSidebar() -->
+    <aside id="barra_lateral" class="glass-sidebar"></aside>
 
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
+    <main class="conteudo">
+        <h1>Dashboard</h1>
 
-            <div class="btn-nav">
-                <h3>Dashboard</h3>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
+        <div class="em-construcao">
+            <p><b>Tela em construção.</b></p>
+            <p>Aqui vão entrar os gráficos com o custo total da viagem para cada destino.</p>
         </div>
-
-        <div class="dash">
-            <h3 class="tituloGraficos">Dashboard em construção</h3>
-            <p class="tituloGraficos">Aqui vão entrar os custos de viagem de cada destino.</p>
-        </div>
-    </div>
+    </main>
 
 </body>
 

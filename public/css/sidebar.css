@@ -1,9 +1,17 @@
 /*
  * Glass Sidebar
- * Barra lateral flutuante com efeito de vidro, que se alarga por cima da página ao passar o mouse.
- * CSS puro: não precisa de JavaScript para abrir.
+ * Adaptada da Glass Sidebar, de Igor Fuchs Pereira (licença MIT).
+ * Copyright (c) 2026 Igor Fuchs Pereira
+ * Licença completa: docs/licencas/glass-sidebar-LICENSE.txt
  *
- * Coloque a classe .glass-sidebar-page no <body> da página, para o conteúdo não ficar por baixo da barra fechada.
+ * Barra lateral flutuante com efeito de vidro, que se alarga por cima da página ao passar o mouse.
+ * O CSS abre e fecha a barra sozinho. O JavaScript (js/sidebar.js) só escreve os itens do menu.
+ *
+ * Como usar numa página logada:
+ *   1. <link rel="stylesheet" href="../css/sidebar.css">
+ *   2. <body class="glass-sidebar-page">  (reserva o espaço da barra fechada)
+ *   3. <aside id="barra_lateral" class="glass-sidebar"></aside>
+ *   4. <script src="../js/sidebar.js"></script> e chamar montarSidebar("nome-da-pagina")
  */
 
 /* Variáveis: mude estes valores para adaptar a barra ao seu site. */
@@ -15,40 +23,17 @@
   --glass-sidebar-speed: 0.25s; /* duração da animação de abrir e fechar */
 
   /* Fundo do vidro. O último número do rgba() é a opacidade (0 = invisível, 1 = sólido).
-     Precisa ser semitransparente para o backdrop-filter aparecer; veja a explicação em .glass-sidebar. */
-  --glass-sidebar-bg: rgba(255, 250, 241, 0.55);
-  --glass-sidebar-bg-strong: rgba(255, 250, 241, 0.85); /* mais opaco: fundo do item sob o mouse */
-  --glass-sidebar-border: rgba(255, 255, 255, 0.7);     /* borda clara, que imita o reflexo na beira do vidro */
-  --glass-sidebar-shadow: 0 18px 45px -18px rgba(31, 26, 20, 0.45);
-  --glass-sidebar-text: #1f1a14;
-  --glass-sidebar-active-bg: #2f4a3a;
-  --glass-sidebar-active-text: #f4efe6;
-  --glass-sidebar-accent: #b08d57; /* contorno do item focado pelo teclado */
-  --glass-sidebar-danger: #a4472f;
-}
-
-/* Cores do tema escuro: valem quando o sistema está escuro, a não ser que a página force data-theme="light". */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --glass-sidebar-bg: rgba(39, 35, 29, 0.55);
-    --glass-sidebar-bg-strong: rgba(39, 35, 29, 0.88);
-    --glass-sidebar-border: rgba(255, 255, 255, 0.12);
-    --glass-sidebar-shadow: 0 18px 45px -18px rgba(0, 0, 0, 0.85);
-    --glass-sidebar-text: #ece4d6;
-    --glass-sidebar-active-bg: #2f5a42;
-    --glass-sidebar-accent: #c9a46c;
-    --glass-sidebar-danger: #e2836a;
-  }
-}
-/* Mesmas cores, para quando a página escolhe o tema escuro com data-theme="dark" no <html>. */
-:root[data-theme="dark"] {
+     Precisa ser semitransparente para o backdrop-filter aparecer; veja a explicação em .glass-sidebar.
+     Por enquanto são as cores do tema escuro original. Quando o seletor de skins existir,
+     é só a skin dar outros valores a estas mesmas variáveis. */
   --glass-sidebar-bg: rgba(39, 35, 29, 0.55);
-  --glass-sidebar-bg-strong: rgba(39, 35, 29, 0.88);
-  --glass-sidebar-border: rgba(255, 255, 255, 0.12);
+  --glass-sidebar-bg-strong: rgba(39, 35, 29, 0.88); /* mais opaco: fundo do item sob o mouse */
+  --glass-sidebar-border: rgba(255, 255, 255, 0.12); /* borda clara, que imita o reflexo na beira do vidro */
   --glass-sidebar-shadow: 0 18px 45px -18px rgba(0, 0, 0, 0.85);
   --glass-sidebar-text: #ece4d6;
   --glass-sidebar-active-bg: #2f5a42;
-  --glass-sidebar-accent: #c9a46c;
+  --glass-sidebar-active-text: #f4efe6;
+  --glass-sidebar-accent: #c9a46c; /* contorno do item focado pelo teclado */
   --glass-sidebar-danger: #e2836a;
 }
 
@@ -59,6 +44,13 @@
 }
 
 /* Sidebar */
+
+/* border-box: a largura de 68px já inclui o padding e a borda.
+   (No padrão do navegador eles seriam somados e a barra ficaria com 90px.) */
+.glass-sidebar,
+.glass-sidebar * {
+  box-sizing: border-box;
+}
 
 /* O efeito de vidro vem da combinação de background com backdrop-filter:
      - backdrop-filter aplica filtros no que está ATRÁS da barra (a página), não na barra em si.
@@ -88,10 +80,15 @@
   box-shadow: var(--glass-sidebar-shadow);
   color: var(--glass-sidebar-text);
   transition: width var(--glass-sidebar-speed) ease;
+  /* Corta os textos que não cabem na barra fechada. Sem isto, o texto invisível
+     "vaza" para fora e a barra abre com o mouse ainda longe dela. */
+  overflow: hidden;
 }
 
-/* Abertura: enquanto o mouse está sobre a barra, ela se alarga. O transition acima anima a mudança. */
-.glass-sidebar:hover {
+/* Abertura: enquanto o mouse está sobre a barra, ela se alarga. O transition acima anima a mudança.
+   :focus-within vale quando algum item de dentro está focado, então a barra também abre com a tecla Tab. */
+.glass-sidebar:hover,
+.glass-sidebar:focus-within {
   width: var(--glass-sidebar-open);
 }
 
@@ -101,7 +98,8 @@
   transition: opacity 0.2s ease;
 }
 
-.glass-sidebar:hover .glass-sidebar__label{
+.glass-sidebar:hover .glass-sidebar__label,
+.glass-sidebar:focus-within .glass-sidebar__label {
   opacity: 1;
 }
 
@@ -109,18 +107,21 @@
 .glass-sidebar__brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 0 7px; /* centraliza o logo de 34px nos 48px internos da barra fechada */
+  gap: 14px;
+  padding: 0 12px; /* mesmo recuo dos itens do menu, para os ícones ficarem na mesma coluna */
   color: inherit;
   font-size: 20px;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap; /* o nome não quebra em duas linhas enquanto a barra se alarga */
 }
-.glass-sidebar__brand img {
-  flex-shrink: 0; /* o logo mantém o tamanho mesmo com pouco espaço */
-  width: 34px;
-  height: 34px;
+
+/* Saudação com o nome de quem fez login (o nome é escrito pelo validarSessao() do js/sessao.js) */
+.glass-sidebar__usuario {
+  margin-top: 10px;
+  padding: 0 12px;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 .glass-sidebar__nav,
@@ -148,6 +149,7 @@
   border-radius: 12px;
   background: none;
   color: inherit;
+  font-family: inherit; /* o <button> não herda a fonte da página sozinho */
   font-size: 15px;
   text-decoration: none;
   white-space: nowrap;
@@ -175,4 +177,17 @@
   font-size: 20px;
   line-height: 1;
   text-align: center;
+}
+
+/* Espaço reservado para o seletor de skins (ainda não implementado).
+   A borda tracejada só marca o lugar; some quando o seletor de verdade entrar. */
+.glass-sidebar__skins {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border: 1px dashed var(--glass-sidebar-border);
+  border-radius: 12px;
+  font-size: 13px;
+  white-space: nowrap;
 }
