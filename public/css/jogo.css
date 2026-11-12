@@ -1,4 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+/*
+ * Jogo do Passaporte
+ * Adaptado do JumpGoat, de Fabricio Lima (licença MIT).
+ * Copyright (c) 2026 Fabricio Lima
+ * Licença completa: docs/licencas/JumpGoat-LICENSE.txt
+ */
+
+/* A fonte de fliperama fica dentro do projeto (assets/fontes), então o jogo
+   não depende de internet para ter a aparência certa. */
+@font-face {
+  font-family: "Press Start 2P";
+  src: url(../assets/fontes/PressStart2P-Regular.ttf) format("truetype");
+}
 
 * {
   margin: 0;
@@ -6,65 +18,145 @@
   box-sizing: border-box;
 }
 
-body{
+/* Variáveis CSS: um nome para cada valor que se repete.
+   As cores ainda são as do JumpGoat, para combinar com a moldura antiga;
+   a paleta do Passport entra junto com a arte nova. */
+:root {
+  --cor-fundo: #08070a;
+  --cor-borda: #7b2cbf;
+  --cor-texto: #f4f0fa;
+  --cor-texto-apagado: #a99bbf;
+  --cor-destaque: #c77dff;
+  --cor-carimbo: #ffd650;
 
-    background-image: url(../assets/jogo/moldura/moldura-fliperama.gif);
-    background-size: cover;
+  /* Tamanho fixo: o jogo tem a mesma velocidade em qualquer tela */
+  --largura-tabuleiro: 960px;
+  --altura-tabuleiro: 480px;
+
+  /* Pulo: duração e altura. O JavaScript não repete estes números:
+     ele é avisado pelo evento animationend quando o pulo acaba. */
+  --tempo-pulo: 700ms;
+  --altura-pulo: 200px;
 }
 
-.gameBoard {
-  width: 80%;
-  height: 500px;
-  border: solid 1px purple;
-  margin: 100px auto;
+body {
+  min-height: 100vh;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: "Press Start 2P", monospace;
+}
+
+.palco {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 16px 32px;
+}
+
+.barra-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1199px;
+  height: 28px;
+  margin-bottom: 8px;
+  font-size: 10px;
+  color: var(--cor-texto-apagado);
+}
+
+.barra-topo a {
+  color: var(--cor-destaque);
+  text-decoration: none;
+}
+
+/* ---------- Moldura e tabuleiro ---------- */
+
+/* A moldura antiga (GIF de 1918x987) é esticada para 1199x758. Com essa
+   medida, o "buraco" transparente dela fica exatamente com 960x480,
+   começando em 120px da esquerda e 97px do topo: o lugar do tabuleiro.
+   flex-shrink: 0 impede a moldura de encolher em janela estreita. */
+.moldura {
   position: relative;
-  overflow: hidden;
-  background-image: url(../assets/jogo/fundos/ceu-noturno.png);
+  flex-shrink: 0;
+  width: 1199px;
+  height: 758px;
+  background-image: url(../assets/jogo/moldura/moldura-fliperama.gif);
+  background-size: 100% 100%;
+  image-rendering: pixelated;
 }
 
-
-.start {
+/* position: relative faz o tabuleiro virar a referência dos elementos de
+   dentro (viajante, obstáculo, painel): o "bottom: 0" deles é o chão do
+   tabuleiro. overflow: hidden esconde o obstáculo enquanto ele está fora. */
+.tabuleiro {
   position: absolute;
-  top: 45%;
-  left: 42%;
-  padding: 15px 30px;
-  font-family: "Press Start 2P", system-ui;
-  font-size: 18px;
-  cursor: pointer;
+  left: 120px;
+  top: 97px;
+  width: var(--largura-tabuleiro);
+  height: var(--altura-tabuleiro);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+
+  /* Tempo que o obstáculo leva para atravessar. O JavaScript troca este
+     valor a cada fase (carregarFase, em js/jogo.js). */
+  --tempo-travessia: 1800ms;
 }
 
-.latinha {
+/* ---------- Viajante e pulo ---------- */
+
+.viajante {
+  position: absolute;
+  left: 40px;
+  bottom: 0;
+  width: 150px;
+  pointer-events: none; /* o clique "atravessa" a imagem e chega no tabuleiro */
+}
+
+/* A classe "pulando" é colocada e tirada pelo JavaScript */
+.viajante.pulando {
+  animation: pulo var(--tempo-pulo);
+}
+
+/* Sobe até 40% do tempo, fica no alto até 70% e desce */
+@keyframes pulo {
+  0% {
+    bottom: 0;
+  }
+
+  40% {
+    bottom: var(--altura-pulo);
+  }
+
+  70% {
+    bottom: var(--altura-pulo);
+  }
+
+  100% {
+    bottom: 0;
+  }
+}
+
+/* ---------- Obstáculo ---------- */
+
+/* Começa 120px para fora da borda direita (o maior obstáculo tem 90px),
+   então fica todo escondido antes de entrar. */
+.obstaculo {
   position: absolute;
   bottom: 0;
-  width: 90px;
-  right: -80px;
+  right: -120px;
+  pointer-events: none;
 }
 
-.latinha.andando {
-  animation: latinhaAnimacao 2s infinite linear;
+/* A classe "andando" é o interruptor do obstáculo.
+   linear = velocidade constante; infinite = recomeça sozinho a cada volta. */
+.obstaculo.andando {
+  animation: atravessar var(--tempo-travessia) infinite linear;
 }
 
-.luna {
-  position: absolute;
-  bottom: 0px;
-  width: 150px;
-}
-
-.pulo {
-  animation: pulo 700ms;
-}
-
-.score {
-  padding: 15px;
-  font-size: 20px;
-  color: aliceblue;
-  font-family: "Press Start 2P", system-ui;
-  font-weight: 400;
-}
-
-@keyframes latinhaAnimacao {
+@keyframes atravessar {
   from {
-    right: -80px;
+    right: -120px;
   }
 
   to {
@@ -72,28 +164,96 @@ body{
   }
 }
 
-@keyframes pulo {
-  0% {
-    bottom: 0px;
+/* Congela a animação onde ela está (game over e pausa).
+   Fica depois das regras de animação para ter prioridade sobre elas. */
+.viajante.pausado,
+.obstaculo.pausado {
+  animation-play-state: paused;
+}
+
+/* ---------- Painel ---------- */
+
+.painel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  font-size: 14px;
+}
+
+.passaporte {
+  display: flex;
+  gap: 6px;
+}
+
+/* Um quadradinho por destino; fica cheio quando o carimbo é ganho */
+.selo {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--cor-texto);
+}
+
+.selo.carimbado {
+  background-color: var(--cor-carimbo);
+  border-color: var(--cor-carimbo);
+}
+
+/* ---------- Carimbo, aviso e botão ---------- */
+
+/* left 50% + translate(-50%) centraliza de verdade: o left põe a borda
+   esquerda no meio e o translate puxa meia largura de volta. */
+.carimbo {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  padding: 18px 26px;
+  border: 4px double var(--cor-carimbo);
+  color: var(--cor-carimbo);
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: center;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  animation: bater 300ms;
+}
+
+/* O carimbo chega grande e "bate" no tamanho normal */
+@keyframes bater {
+  from {
+    transform: translate(-50%, -50%) rotate(-8deg) scale(2.5);
+    opacity: 0;
   }
 
-  40% {
-    bottom: 200px;
+  to {
+    transform: translate(-50%, -50%) rotate(-8deg) scale(1);
+    opacity: 1;
   }
+}
 
-  50% {
-    bottom: 200px;
-  }
+.aviso {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  font-size: 20px;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
 
-  60% {
-    bottom: 200px;
-  }
+.embarcar {
+  position: absolute;
+  left: 50%;
+  top: 68%;
+  padding: 15px 30px;
+  border: 3px solid var(--cor-borda);
+  background-color: var(--cor-texto);
+  color: var(--cor-fundo);
+  font-family: "Press Start 2P", monospace;
+  font-size: 18px;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
 
-  70% {
-    bottom: 200px;
-  }
-
-  100% {
-    bottom: 0px;
-  }
+.embarcar:hover {
+  background-color: var(--cor-destaque);
 }

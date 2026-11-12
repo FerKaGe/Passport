@@ -1,86 +1,75 @@
+<!--
+    Jogo do Passaporte
+    Adaptado do JumpGoat, de Fabricio Lima (licença MIT).
+    Copyright (c) 2026 Fabricio Lima
+    Licença completa: docs/licencas/JumpGoat-LICENSE.txt
+-->
 <!doctype html>
 <html lang="pt-BR">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JumpGoat</title>
+    <title>Passport | Jogo</title>
+    <link rel="icon" href="../assets/icon/favicon2.ico" />
+
     <link rel="stylesheet" href="../css/jogo.css" />
-  </head>
-  <body>
-    <div class="gameBoard">
-      <img src="../assets/jogo/personagem/correndo.gif" class="luna" />
-      <img src="../assets/jogo/obstaculos/lata.gif" class="latinha" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
 
-      <div id="div_score" class="score">SCORE:0</div>
+    <!-- A ordem importa: jogo.js usa o vetor "fases", que está em fases.js -->
+    <script src="../js/sessao.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/fases.js"></script>
+    <script src="../js/jogo.js"></script>
+</head>
 
-      <button id="btn_start" class="start" onclick="iniciar()">START</button>
-    </div>
+<!--
+    Ordem do onload:
+    1. montarSidebar() escreve a barra lateral (js/sidebar.js)
+    2. validarSessao() confere o login e escreve o nome na barra (js/sessao.js)
+    3. prepararJogo() registra os ouvintes e carrega a primeira fase (js/jogo.js)
+-->
 
-    <script>
-      let luna = document.querySelector(".luna");
-      let latinha = document.querySelector(".latinha");
-      let score = 0;
+<body class="glass-sidebar-page" onload="montarSidebar('jogo'), validarSessao(), prepararJogo()">
 
-      function iniciar() {
+    <aside id="barra_lateral" class="glass-sidebar"></aside>
 
-        // 1. Resetar tudo (para quando for jogar de novo)
-        score = 0;
-        div_score.innerHTML = "SCORE:0";
-        luna.src = "../assets/jogo/personagem/correndo.gif";
-        luna.style.bottom = "";
-        latinha.style.left = "";
-        latinha.style.animation = "";
+    <main class="palco">
 
-        // 2. Esconder o botão e tirar o foco dele
-        btn_start.style.display = "none";
+        <div class="barra-topo">
+            <a href="inicio.html">&larr; Portão de embarque</a>
+            <span>ESPAÇO, SETA PARA CIMA OU CLIQUE = PULAR</span>
+        </div>
 
-        // 3. Ligar a latinha
-        latinha.classList.add("andando");
+        <!-- A moldura de fliperama é o fundo desta div; o tabuleiro fica no "buraco" dela -->
+        <div class="moldura">
 
-        document.addEventListener("keydown", pulo);
+            <div id="div_tabuleiro" class="tabuleiro">
 
-        function pulo() {
-          luna.classList.add("pulo");
+                <img id="img_viajante" class="viajante" src="../assets/jogo/personagem/correndo.gif" alt="Viajante" />
+                <img id="img_obstaculo" class="obstaculo" src="../assets/jogo/obstaculos/cacto.png" alt="Obstáculo" />
 
-          setTimeout(function remover() {
-            luna.classList.remove("pulo");
-          }, 700);
-        }
+                <!-- Painel: pontuação, destino atual, progresso da fase e carimbos ganhos -->
+                <div class="painel">
+                    <div>MILHAS <span id="span_milhas">0</span></div>
+                    <div><span id="span_destino">ATACAMA</span> <span id="span_progresso">0/5</span></div>
+                    <div id="div_passaporte" class="passaporte"></div>
+                </div>
 
-        const loop = setInterval(function () {
-          const latinhaPosicao = latinha.offsetLeft;
-          const lunaPosicao = Number(
-            window.getComputedStyle(luna).bottom.replace("px", ""),
-          );
+                <!-- Aparece quando o jogador ganha um carimbo (escrito pelo darCarimbo()) -->
+                <div id="div_carimbo" class="carimbo"></div>
 
-          score += 10;
-          div_score.innerHTML = `SCORE:${score}`;
+                <!-- Aparece no game over e no fim do jogo -->
+                <div id="div_aviso" class="aviso"></div>
 
-          if (
-            latinhaPosicao <= 120 &&
-            latinhaPosicao > 0 &&
-            lunaPosicao < 120
-          ) {
-            latinha.style.animation = "none";
-            latinha.style.left = `${latinhaPosicao}px`;
-            latinha.style.animation = "none";
-            luna.style.bottom = `${lunaPosicao}px`;
-            luna.src = "../assets/jogo/personagem/tonto.gif";
+                <button id="btn_embarcar" class="embarcar" onclick="iniciarJogo()">EMBARCAR</button>
 
-            clearInterval(loop);
+            </div>
 
-            // Luna não pode mais pular
-            document.removeEventListener("keydown", pulo);
+        </div>
 
-            // Para a latinha
-            latinha.classList.remove("andando");
+    </main>
 
-            // Mostra o botão de novo, agora para recomeçar
-            btn_start.innerHTML = "RESTART";
-            btn_start.style.display = "block";
-          }
-        }, 10);
-      }
-    </script>
-  </body>
+</body>
+
 </html>

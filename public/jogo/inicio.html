@@ -1,40 +1,76 @@
+<!--
+    Tela de início do Jogo do Passaporte
+    Adaptada da tela Jump-goat-home, de Fabricio Lima (licença MIT).
+    Copyright (c) 2026 Fabricio Lima
+    Licença completa: docs/licencas/JumpGoat-LICENSE.txt
+-->
 <!doctype html>
 <html lang="pt-BR">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Attack Xlurp</title>
+    <title>Passport | Jogo do Passaporte</title>
     <link rel="icon" href="../assets/icon/favicon2.ico" />
+
     <link rel="stylesheet" href="../css/jogo-inicio.css" />
-  </head>
-  <body>
-    <header>
-      <img src="../assets/jogo/inicio/logo-antigo.png" alt="" />
-      <a href="../dashboard/dashboard.html" class="link_voltar">Voltar ao início</a>
-    </header>
+    <link rel="stylesheet" href="../css/sidebar.css" />
+
+    <script src="../js/sessao.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/fases.js"></script>
+</head>
+
+<body class="glass-sidebar-page" onload="montarSidebar('jogo'), validarSessao(), montarRoteiro()">
+
+    <aside id="barra_lateral" class="glass-sidebar"></aside>
+
     <main>
-      <section class="hero">
-        <div class="img-jogo">
-          <img src="../assets/jogo/inicio/previa-antiga.png" alt="" />
-        </div>
+        <section class="apresentacao">
+            <div class="previa-jogo">
+                <img src="../assets/jogo/inicio/previa-jogo.png" alt="Tela do Jogo do Passaporte" />
+            </div>
 
-        <div class="titulo-jogo">
-          <span class="selo">MINIGAME GYMFABS</span>
-          <h1>Jump <span>Goat</span></h1>
-          <p>
-            Em Xlurpônia as máquinas fazem tudo, e os Xlurps ficaram tão
-            sedentários que perderam os músculos. Agora eles querem sugar os da
-            Luna, a cabra mais forte da galáxia.
-          </p>
-          <a href="jogo.html" class="play">🎮 Jogar Agora</a>
+            <div class="titulo-jogo">
+                <span class="etiqueta">JOGO DO PASSAPORTE</span>
+                <h1>Carimbe o <span class="destaque">mundo</span></h1>
+                <p>
+                    Corra do deserto do Atacama até Orlando, pulando os obstáculos de
+                    cada destino. A cada país vencido você ganha um carimbo no
+                    passaporte, e a viagem fica mais rápida.
+                </p>
 
-          <p class="conta">
-            <a href="../cadastro.html">Crie sua conta</a> para jogar, salvar seu recorde e ver sua dashboard
-          </p>
+                <a href="jogo.html" class="embarcar">✈ EMBARCAR</a>
 
-        
-        </div>
-      </section>
+                <p class="como-jogar">Para pular: Espaço, seta para cima ou clique.</p>
+
+                <!-- A lista de destinos é escrita pelo montarRoteiro(), no script abaixo -->
+                <p class="roteiro-titulo">ROTEIRO</p>
+                <ol id="ol_roteiro" class="roteiro"></ol>
+            </div>
+        </section>
     </main>
-  </body>
+
+</body>
+
 </html>
+
+<script>
+    // Escreve a lista de destinos a partir do vetor "fases" (js/fases.js).
+    // É o mesmo vetor que o jogo usa: mudou lá, muda aqui também.
+    function montarRoteiro() {
+        var html = "";
+
+        for (var i = 0; i < fases.length; i++) {
+            // Só mostra o país entre parênteses quando ele é diferente do nome
+            // do destino (Atacama fica no Chile, mas Portugal é Portugal).
+            if (fases[i].pais != fases[i].nome) {
+                html += `<li>${fases[i].nome} <small>(${fases[i].pais})</small></li>`;
+            } else {
+                html += `<li>${fases[i].nome}</li>`;
+            }
+        }
+
+        ol_roteiro.innerHTML = html;
+    }
+</script>
