@@ -65,17 +65,13 @@ function montarSidebar(paginaAtual) {
 
     html += `</nav>`;
 
-    // Parte de baixo: espaço do seletor de skins e botão de sair
+    // Parte de baixo: seletor de skins e botão de sair
     html += `
         <div class="glass-sidebar__bottom">
 
-            <!-- ESPAÇO DO SELETOR DE SKINS (ainda não implementado).
-                 Na próxima etapa, os botões das skins liberadas pelos carimbos
-                 do jogo vão ser escritos dentro desta div. -->
-            <div id="div_seletor_skins" class="glass-sidebar__skins" title="Skins (em breve)">
-                <span class="glass-sidebar__icon" aria-hidden="true">🎨</span>
-                <span class="glass-sidebar__label">Skins: em breve</span>
-            </div>
+            <!-- SELETOR DE SKINS: esta div fica vazia aqui. Quem escreve os
+                 botões dentro dela é o montarSeletorDeSkins(), de js/skins.js. -->
+            <div id="div_seletor_skins" class="glass-sidebar__skins"></div>
 
             <button type="button" class="glass-sidebar__item is-danger" onclick="limparSessao()" title="Sair">
                 <img class="glass-sidebar__icon" src="${PASTA_ICONES}icone-portao.png" alt="" />
@@ -85,4 +81,7 @@ function montarSidebar(paginaAtual) {
     `;
 
     barra_lateral.innerHTML = html;
+
+    // Agora que a div do seletor existe na página, preenche ela (js/skins.js)
+    montarSeletorDeSkins();
 }

@@ -1,0 +1,171 @@
+/*
+ * Skins do Passport.
+ *
+ * Uma skin é um conjunto de valores para as mesmas variáveis CSS.
+ * Os outros arquivos de estilo nunca escrevem uma cor ou uma fonte direto:
+ * eles usam var(--cor-fundo), var(--cor-destaque), var(--fonte-texto)...
+ * Trocar a skin é trocar os valores destas variáveis, e a página inteira
+ * muda sem que nenhuma outra regra de CSS precise ser tocada.
+ *
+ * Como a troca acontece: a tag <html> recebe o atributo data-skin
+ * (por exemplo <html data-skin="atacama">) e o seletor
+ * [data-skin="atacama"], mais abaixo, passa a valer. Quem coloca o
+ * atributo é o aplicarSkin(), em js/skins.js.
+ *
+ * Cada skin define os três campos do modelo de dados (tabela destino):
+ *   --cor-fundo     = cor_fundo
+ *   --cor-destaque  = cor_botao
+ *   --fonte-texto   = fonte
+ * e mais três valores de apoio, que acompanham a cor de fundo:
+ *   --cor-superficie (cartões), --cor-borda e --tamanho-texto.
+ *
+ * Este arquivo precisa ser o PRIMEIRO css de cada página.
+ */
+
+/* ---------- Fontes (todas guardadas no projeto, licença OFL) ---------- */
+
+/* O navegador só baixa o arquivo de uma fonte quando algum texto da página
+   usa essa fonte: quem está na skin Atacama não baixa a fonte da Espanha. */
+@font-face {
+  font-family: "Press Start 2P";
+  src: url(../assets/fontes/PressStart2P-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "VT323";
+  src: url(../assets/fontes/VT323-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Jersey 20";
+  src: url(../assets/fontes/Jersey20-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Jersey 15";
+  src: url(../assets/fontes/Jersey15-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Silkscreen";
+  src: url(../assets/fontes/Silkscreen-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Jersey 10";
+  src: url(../assets/fontes/Jersey10-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Handjet";
+  src: url(../assets/fontes/Handjet.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Pixelify Sans";
+  src: url(../assets/fontes/PixelifySans.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Jersey 25";
+  src: url(../assets/fontes/Jersey25-Regular.ttf) format("truetype");
+}
+
+/* ---------- Skin padrão: "Passaporte" ---------- */
+
+/* :root é a tag <html>. O que está aqui vale quando não há data-skin,
+   ou quando o data-skin é "padrao". */
+:root {
+  /* os três campos da skin */
+  --cor-fundo: #0B132B;            /* azul-marinho da capa do passaporte */
+  --cor-destaque: #E0B04A;         /* dourado da capa: botões e destaques */
+  --fonte-texto: "VT323", monospace;
+
+  /* apoio */
+  --cor-superficie: #14213D;       /* cartões e painéis */
+  --cor-borda: #2B3A5C;            /* contornos discretos */
+  --tamanho-texto: 20px;           /* cada fonte "parece" de um tamanho; isto compensa */
+
+  /* iguais em todas as skins */
+  --cor-destaque-texto: var(--cor-fundo); /* texto em cima do botão: a cor de fundo da skin */
+  --cor-contorno: #060A18;         /* contorno grosso e sombra dos objetos */
+  --cor-texto: #F8F4E8;            /* títulos */
+  --cor-texto-suave: #C9C2B0;      /* parágrafos */
+  --cor-texto-apagado: #9AA0B4;    /* legendas */
+  --cor-papel: #F4E9D0;            /* página do passaporte, cartão de embarque */
+  --cor-papel-sombra: #A8956A;     /* tracejado dos espaços vazios */
+  --cor-tinta: #14213D;            /* texto em cima do papel */
+  --fonte-titulo: "Press Start 2P", monospace; /* a fonte de fliperama não muda */
+}
+
+/* ---------- Uma skin por destino ---------- */
+
+/* Deserto ao pôr do sol: terra escura e terracota */
+[data-skin="atacama"] {
+  --cor-fundo: #2B1A12;
+  --cor-destaque: #E76F51;
+  --fonte-texto: "Jersey 20", sans-serif;
+  --cor-superficie: #3D261A;
+  --cor-borda: #5C3A28;
+  --tamanho-texto: 20px;
+}
+
+/* Vinho malbec e o celeste da bandeira argentina */
+[data-skin="mendoza"] {
+  --cor-fundo: #2A0C1B;
+  --cor-destaque: #74ACDF;
+  --fonte-texto: "Jersey 15", sans-serif;
+  --cor-superficie: #3D1528;
+  --cor-borda: #5E2440;
+  --tamanho-texto: 20px;
+}
+
+/* Vermelho escuro e o amarelo da bandeira espanhola */
+[data-skin="espanha"] {
+  --cor-fundo: #2A0A0A;
+  --cor-destaque: #F1BF00;
+  --fonte-texto: "Silkscreen", sans-serif;
+  --cor-superficie: #401212;
+  --cor-borda: #662020;
+  --tamanho-texto: 14px;
+}
+
+/* Azul e azul-claro dos azulejos de Lisboa */
+[data-skin="portugal"] {
+  --cor-fundo: #0A1F3D;
+  --cor-destaque: #6FB1E8;
+  --fonte-texto: "Jersey 10", sans-serif;
+  --cor-superficie: #123058;
+  --cor-borda: #1F4A80;
+  --tamanho-texto: 20px;
+}
+
+/* Cinza do Rochedo e vermelho da bandeira e das cabines telefônicas */
+[data-skin="gibraltar"] {
+  --cor-fundo: #1C1F26;
+  --cor-destaque: #F25C5C;
+  --fonte-texto: "Handjet", sans-serif;
+  --cor-superficie: #2A2E38;
+  --cor-borda: #444A58;
+  --tamanho-texto: 21px;
+}
+
+/* Mar à noite e o turquesa do Oceano Índico */
+[data-skin="mocambique"] {
+  --cor-fundo: #06282B;
+  --cor-destaque: #1CC5B7;
+  --fonte-texto: "Pixelify Sans", sans-serif;
+  --cor-superficie: #0C3B3F;
+  --cor-borda: #16595E;
+  --tamanho-texto: 17px;
+}
+
+/* Noite de parque com fogos cor-de-rosa */
+[data-skin="orlando"] {
+  --cor-fundo: #120B3A;
+  --cor-destaque: #FF7AB6;
+  --fonte-texto: "Jersey 25", sans-serif;
+  --cor-superficie: #1E1458;
+  --cor-borda: #33248A;
+  --tamanho-texto: 20px;
+}
