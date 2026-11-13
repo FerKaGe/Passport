@@ -107,11 +107,6 @@ def ampliar(imagem, escala):
     return imagem.resize((imagem.width * escala, imagem.height * escala), Image.NEAREST)
 
 
-def espelhar(imagem):
-    """Vira a imagem da direita para a esquerda."""
-    return imagem.transpose(Image.FLIP_LEFT_RIGHT)
-
-
 def escrever(imagem, texto, x, y, cor_texto, tamanho=8):
     """Escreve com a fonte Press Start 2P, sem suavizar as bordas das letras."""
     fonte = ImageFont.truetype(ARQUIVO_FONTE, tamanho)
@@ -205,6 +200,13 @@ def salvar_gif(quadros, duracoes, destino, apagar_entre_quadros=True):
     for quadro in quadros:
         com_paleta.append(_com_paleta(quadro, cores))
 
+    if apagar_entre_quadros:
+        descarte = 2
+    else:
+        descarte = 1
+
+    # save_all + append_images: grava o primeiro quadro e, em seguida, os outros.
+    # transparency=0: a cor de número 0 da tabela é a transparente.
     com_paleta[0].save(
         destino,
         save_all=True,
@@ -212,7 +214,7 @@ def salvar_gif(quadros, duracoes, destino, apagar_entre_quadros=True):
         duration=duracoes,
         loop=0,
         transparency=0,
-        disposal=2 if apagar_entre_quadros else 1,
+        disposal=descarte,
         optimize=False,
     )
     mostrar(destino, quadros[0], len(quadros))

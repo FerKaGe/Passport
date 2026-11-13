@@ -226,8 +226,11 @@ Este é um Projeto Individual, mas a colaboração entre colegas faz parte da pr
 | **Glass Sidebar**, a barra lateral das telas logadas | Igor Fuchs Pereira | `public/css/sidebar.css`, `public/js/sidebar.js` | MIT. Copyright (c) 2026 Igor Fuchs Pereira. Texto em [`docs/licencas/glass-sidebar-LICENSE.txt`](./docs/licencas/glass-sidebar-LICENSE.txt) |
 | **web-data-viz**, a API de base | São Paulo Tech School | `app.js`, `src/`, cadastro e login | MIT. Texto em [`LICENSE`](./LICENSE) |
 | **Press Start 2P**, a fonte de fliperama | The Press Start 2P Project Authors | `public/assets/fontes/` | SIL Open Font License 1.1 |
+| **VT323**, **Jersey 10/15/20/25**, **Silkscreen**, **Handjet** e **Pixelify Sans**, as fontes das skins | Os autores de cada projeto (o nome está na licença de cada fonte) | `public/assets/fontes/` | SIL Open Font License 1.1. Uma licença por fonte, na mesma pasta |
 
 A minha contribuição para os colegas é o quebra-cabeça de arrastar e soltar, em [`quebra-cabeca-drag.html`](./quebra-cabeca-drag.html).
+
+As imagens do jogo (personagem, obstáculos, fundos, moldura, carimbos e ícones) são geradas pelos scripts Python de [`ferramentas/sprites/`](./ferramentas/sprites/). O corgi segue a estrutura de corpo da cabra Luna, do JumpGoat. A explicação está em [`docs/refatoracao/03-imagens-e-skins.md`](./docs/refatoracao/03-imagens-e-skins.md).
 
 ---
 
