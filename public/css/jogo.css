@@ -5,12 +5,7 @@
  * Licença completa: docs/licencas/JumpGoat-LICENSE.txt
  */
 
-/* A fonte de fliperama fica dentro do projeto (assets/fontes), então o jogo
-   não depende de internet para ter a aparência certa. */
-@font-face {
-  font-family: "Press Start 2P";
-  src: url(../assets/fontes/PressStart2P-Regular.ttf) format("truetype");
-}
+/* As cores e as fontes vêm de css/skins.css (variáveis --cor-... e --fonte-...). */
 
 * {
   margin: 0;
@@ -18,22 +13,8 @@
   box-sizing: border-box;
 }
 
-/* Variáveis CSS: um nome para cada valor que se repete.
-   Paleta do Passport: azul-marinho e dourado de capa de passaporte
-   (docs/refatoracao/01-diagnostico.md, seção 5.4). */
+/* Medidas do jogo. (As variáveis de cor ficam em css/skins.css.) */
 :root {
-  --cor-fundo: #0B132B;            /* fundo da página */
-  --cor-borda: #2B3A5C;            /* contornos discretos */
-  --cor-contorno: #060A18;         /* contorno grosso e sombra dos objetos */
-  --cor-texto: #F8F4E8;            /* texto principal */
-  --cor-texto-apagado: #8D93A6;    /* legendas */
-  --cor-destaque: #E0B04A;         /* botões (dourado da capa do passaporte) */
-  --cor-destaque-texto: #0B132B;   /* texto em cima do botão */
-  --cor-papel: #F4E9D0;            /* página do passaporte e cartão de embarque */
-  --cor-papel-sombra: #A8956A;     /* tracejado dos espaços vazios */
-  --cor-tinta: #14213D;            /* texto em cima do papel */
-  --fonte-titulo: "Press Start 2P", monospace;
-
   /* Tamanho fixo: o jogo tem a mesma velocidade em qualquer tela */
   --largura-tabuleiro: 960px;
   --altura-tabuleiro: 480px;
@@ -65,8 +46,9 @@ body {
   width: 1200px;
   height: 36px;
   margin-bottom: 8px;
-  font-size: 10px;
-  color: var(--cor-texto-apagado);
+  color: var(--cor-texto-suave);
+  font-family: var(--fonte-texto);   /* a fonte da skin aparece aqui */
+  font-size: var(--tamanho-texto);
 }
 
 
@@ -233,8 +215,8 @@ body {
    position: relative faz o "left" do avião ser medido a partir da rota. */
 .rota {
   position: relative;
-  height: 16px;
-  margin-right: 24px; /* sobra para o avião não sair do cartão quando chega em 100% */
+  height: 22px;
+  margin-right: 32px; /* sobra para o avião não sair do cartão quando chega em 100% */
   border-bottom: 3px dotted var(--cor-tinta);
 }
 
@@ -243,8 +225,8 @@ body {
 .aviaozinho {
   position: absolute;
   left: 0;
-  bottom: -2px;
-  width: 24px;
+  bottom: -8px;
+  width: 32px;
   image-rendering: pixelated;
   transition: left 0.3s;
 }
@@ -274,15 +256,18 @@ body {
 
 /* ---------- Carimbo (checkpoint) e aviso ---------- */
 
-/* left 50% + translate(-50%) centraliza de verdade: o left põe a borda
+/* No fim do jogo aparecem os três ao mesmo tempo, um embaixo do outro:
+   o aviso (top 21%), o carimbo (47%) e o botão (78%).
+
+   left 50% + translate(-50%) centraliza de verdade: o left põe a borda
    esquerda no meio e o translate puxa meia largura de volta. */
 .carimbo {
   display: none;
   position: absolute;
   left: 50%;
-  top: 46%;
+  top: 47%;
   color: var(--cor-tinta);
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1.8;
   text-align: center;
   transform: translate(-50%, -50%) rotate(-8deg);
@@ -291,15 +276,15 @@ body {
 
 .carimbo img {
   display: block;
-  width: 160px;
+  width: 120px;   /* o arquivo tem 160px: aqui cada ponto do desenho fica com 3px */
   margin: 0 auto;
   image-rendering: pixelated;
 }
 
 /* a legenda fica num pedaço de papel, para dar leitura em qualquer fundo */
 .carimbo p {
-  margin-top: 8px;
-  padding: 8px 14px;
+  margin-top: 6px;
+  padding: 6px 12px;
   border: 3px solid var(--cor-contorno);
   background-color: var(--cor-papel);
 }
@@ -322,7 +307,7 @@ body {
   display: none;
   position: absolute;
   left: 50%;
-  top: 40%;
+  top: 21%;
   padding: 14px 20px;
   border: 3px solid var(--cor-destaque);
   background-color: var(--cor-fundo);
@@ -337,6 +322,6 @@ body {
 #btn_embarcar {
   position: absolute;
   left: 50%;
-  top: 66%;
+  top: 78%;
   transform: translate(-50%, -50%);
 }

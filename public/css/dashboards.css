@@ -1,14 +1,14 @@
 /* Estilo das páginas que exigem login e ficam em public/dashboard/.
-   O menu lateral vem de css/sidebar.css. */
-
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+   O menu lateral vem de css/sidebar.css.
+   As cores e as fontes vêm de css/skins.css: estas páginas mudam com a skin. */
 
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #161618;
-  color: rgb(216, 216, 216);
+  font-family: var(--fonte-texto);
+  font-size: var(--tamanho-texto);
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto-suave);
 }
 
 /* área de conteúdo, à direita da barra lateral */
@@ -20,13 +20,19 @@ body {
 
 .conteudo h1 {
   margin-top: 0;
-  color: #32b9cd;
+  font-family: var(--fonte-titulo);
+  font-size: 24px;
+  color: var(--cor-destaque);
 }
 
 /* aviso das telas que ainda não foram feitas */
 .em-construcao {
   padding: 20px;
-  border: 1px dashed #32b9cd;
-  border-radius: 10px;
-  background-color: #212124;
+  border: 3px dashed var(--cor-destaque);
+  background-color: var(--cor-superficie);
+  box-shadow: 6px 6px 0 var(--cor-contorno);
+}
+
+.em-construcao b {
+  color: var(--cor-texto);
 }

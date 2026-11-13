@@ -5,11 +5,7 @@
  * Licença completa: docs/licencas/JumpGoat-LICENSE.txt
  */
 
-/* Fonte de fliperama guardada no projeto (não precisa de internet) */
-@font-face {
-  font-family: "Press Start 2P";
-  src: url(../assets/fontes/PressStart2P-Regular.ttf) format("truetype");
-}
+/* As cores e as fontes vêm de css/skins.css (variáveis --cor-... e --fonte-...). */
 
 * {
   margin: 0;
@@ -17,25 +13,10 @@
   box-sizing: border-box;
 }
 
-/* Variáveis CSS: os nomes dizem para que a cor serve, não qual cor ela é.
-   Paleta do Passport (docs/refatoracao/01-diagnostico.md, seção 5.4). */
-:root {
-  --cor-fundo: #0B132B;              /* fundo da página */
-  --cor-borda: #2B3A5C;              /* contornos discretos */
-  --cor-contorno: #060A18;           /* contorno grosso e sombra dos objetos */
-  --cor-destaque: #E0B04A;           /* botões e palavras em destaque */
-  --cor-destaque-texto: #0B132B;     /* texto em cima do botão */
-  --cor-texto: #F8F4E8;              /* títulos */
-  --cor-texto-secundario: #C9C2B0;   /* parágrafos */
-  --cor-texto-apagado: #8D93A6;      /* legendas */
-  --cor-papel: #F4E9D0;              /* etiqueta de bagagem */
-  --cor-tinta: #14213D;              /* texto em cima do papel */
-  --fonte-titulo: "Press Start 2P", monospace;
-}
-
 body {
   min-height: 100vh;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--fonte-texto);
+  font-size: var(--tamanho-texto);
   background-color: var(--cor-fundo);
 }
 
@@ -83,7 +64,7 @@ body {
 .titulo-jogo h1 {
   font-size: 34px;
   line-height: 1.4;
-  font-family: "Press Start 2P", monospace;
+  font-family: var(--fonte-titulo);
   color: var(--cor-texto);
 }
 
@@ -92,13 +73,11 @@ body {
 }
 
 .titulo-jogo p {
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--cor-texto-secundario);
+  line-height: 1.4;
+  color: var(--cor-texto-suave);
 }
 
 .titulo-jogo .como-jogar {
-  font-size: 14px;
   color: var(--cor-texto-apagado);
 }
 
@@ -107,7 +86,7 @@ body {
 /* lista de destinos, escrita pelo montarRoteiro() */
 .roteiro-titulo {
   margin-top: 8px;
-  font-family: "Press Start 2P", monospace;
+  font-family: var(--fonte-titulo);
   font-size: 10px;
   letter-spacing: 2px;
   color: var(--cor-texto);
@@ -115,8 +94,7 @@ body {
 
 .roteiro {
   padding-left: 22px;
-  color: var(--cor-texto-secundario);
-  font-size: 14px;
+  color: var(--cor-texto-suave);
   line-height: 1.7;
 }
 
@@ -143,7 +121,7 @@ body {
 
 .historia h2 {
   margin-bottom: 20px;
-  font-family: "Press Start 2P", monospace;
+  font-family: var(--fonte-titulo);
   font-size: 14px;
   color: var(--cor-texto);
   text-align: center;

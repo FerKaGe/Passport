@@ -20,7 +20,7 @@ Como rodar:  python ferramentas/sprites/moldura.py
 
 from PIL import ImageDraw
 
-from pixel import (CREME, DOURADO, DOURADO_CLARO, DOURADO_ESCURO, MARINHO, MARINHO_CLARO, MARINHO_ESCURO,
+from pixel import (CREME, DOURADO, DOURADO_CLARO, DOURADO_ESCURO, MARINHO, MARINHO_CLARO,
                    TINTA_VERMELHA, TRANSPARENTE, ampliar, caminho, contornar, cor, desenhar_mapa, escrever,
                    largura_do_texto, nova_imagem, salvar_gif)
 from viajante import CABECA
@@ -137,19 +137,14 @@ def titulo(imagem, texto, x, y):
 
 def desenhar_quadro(numero):
     """Desenha um dos 8 quadros. "numero" vai de 0 a 7."""
-    imagem = nova_imagem(LARGURA, ALTURA, MARINHO_ESCURO)
+    # A imagem começa transparente: em volta do gabinete aparece o fundo da
+    # página, que muda de cor com a skin.
+    imagem = nova_imagem(LARGURA, ALTURA)
     desenho = ImageDraw.Draw(imagem)
-
-    # --- fundo: riscos de luz nas laterais ---
-    for y in range(40, 200, 6):
-        retangulo(desenho, 4, y, 12, 1, MARINHO)
-        retangulo(desenho, 384, y, 12, 1, MARINHO)
 
     # --- gabinete ---
     retangulo(desenho, 26, 2, 348, 249, PRETO_AZULADO)
     retangulo(desenho, 28, 4, 344, 245, MARINHO)
-    retangulo(desenho, 20, 36, 2, 150, DOURADO)        # frisos dourados dos lados
-    retangulo(desenho, 378, 36, 2, 150, DOURADO)
 
     # --- letreiro ---
     retangulo(desenho, 34, 5, 332, 24, PRETO_AZULADO)

@@ -6,7 +6,8 @@ Gera, em public/jogo/img/interface/:
   favicon.png              - ícone da aba do navegador
   passaporte-fechado.png   - botão de jogar
   passaporte-aberto.png    - botão de jogar com o mouse em cima ou em foco
-  aviao.png                - botão de recomeçar e marcador de progresso
+  aviao.png                - botão de recomeçar
+  aviao-tinta.png          - avião escuro, que marca o progresso no cartão de embarque
   globo.png                - botão do seletor de skins (o mar é transparente:
                              a cor vem do CSS, uma para cada skin)
   icone-globo.png, icone-mala.png, icone-aviao.png,
@@ -243,6 +244,14 @@ FAVICON = [
 ]
 
 
+def trocar_letras(mapa, de, para):
+    """Devolve uma cópia do mapa com uma letra trocada por outra (muda a cor)."""
+    novo = []
+    for linha in mapa:
+        novo.append(linha.replace(de, para))
+    return novo
+
+
 def gerar_do_mapa(mapa, nome, escala, com_contorno):
     """Desenha um mapa, põe o contorno escuro (se pedido), amplia e grava."""
     imagem = nova_imagem(len(mapa[0]), len(mapa))
@@ -284,6 +293,8 @@ def gerar():
     gerar_do_mapa(PASSAPORTE_FECHADO, "passaporte-fechado", 4, True)
     gerar_do_mapa(PASSAPORTE_ABERTO, "passaporte-aberto", 4, True)
     gerar_do_mapa(AVIAO, "aviao", 4, True)
+    # o mesmo avião do ícone, com o creme (C) trocado por azul-marinho (M)
+    gerar_do_mapa(trocar_letras(ICONE_AVIAO, "C", "M"), "aviao-tinta", 2, False)
     gerar_do_mapa(GLOBO, "globo", 3, False)
     gerar_do_mapa(ICONE_GLOBO, "icone-globo", 2, False)
     gerar_do_mapa(ICONE_MALA, "icone-mala", 2, False)

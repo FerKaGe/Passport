@@ -13,12 +13,15 @@
     <title>Passport | Jogo</title>
     <link rel="icon" href="img/interface/favicon.png" />
 
+    <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele -->
+    <link rel="stylesheet" href="../css/skins.css" />
     <link rel="stylesheet" href="../css/jogo.css" />
     <link rel="stylesheet" href="../css/tema.css" />
     <link rel="stylesheet" href="../css/sidebar.css" />
 
     <!-- A ordem importa: jogo.js usa o vetor "fases", que está em fases.js -->
     <script src="../js/sessao.js"></script>
+    <script src="../js/skins.js"></script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/fases.js"></script>
     <script src="../js/jogo.js"></script>
@@ -68,7 +71,7 @@
                         <div class="campo canhoto">
                             <small>TRECHO <span id="span_progresso">0/5</span></small>
                             <div class="rota">
-                                <img id="img_aviaozinho" class="aviaozinho" src="img/interface/aviao.png" alt="" />
+                                <img id="img_aviaozinho" class="aviaozinho" src="img/interface/aviao-tinta.png" alt="" />
                             </div>
                         </div>
                     </div>
