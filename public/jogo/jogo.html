@@ -14,6 +14,7 @@
     <link rel="icon" href="img/interface/favicon.png" />
 
     <link rel="stylesheet" href="../css/jogo.css" />
+    <link rel="stylesheet" href="../css/tema.css" />
     <link rel="stylesheet" href="../css/sidebar.css" />
 
     <!-- A ordem importa: jogo.js usa o vetor "fases", que está em fases.js -->
@@ -37,7 +38,8 @@
     <main class="palco">
 
         <div class="barra-topo">
-            <a href="inicio.html">&larr; Portão de embarque</a>
+            <!-- Elemento tematizado: placa de aeroporto -->
+            <a href="inicio.html" class="placa">&larr; TELA INICIAL</a>
             <span>ESPAÇO, SETA PARA CIMA OU CLIQUE = PULAR</span>
         </div>
 
@@ -49,20 +51,48 @@
                 <img id="img_viajante" class="viajante" src="img/personagem/correndo.gif" alt="Viajante" />
                 <img id="img_obstaculo" class="obstaculo" src="img/obstaculos/cacto.gif" alt="Obstáculo" />
 
-                <!-- Painel: pontuação, destino atual, progresso da fase e carimbos ganhos -->
                 <div class="painel">
-                    <div>MILHAS <span id="span_milhas">0</span></div>
-                    <div><span id="span_destino">ATACAMA</span> <span id="span_progresso">0/5</span></div>
-                    <div id="div_passaporte" class="passaporte"></div>
+
+                    <!-- Elemento tematizado: o placar é um CARTÃO DE EMBARQUE.
+                         Os textos são escritos pelo atualizarPainel() (js/jogo.js). -->
+                    <div class="cartao-embarque">
+                        <div class="campo">
+                            <small>DESTINO</small>
+                            <span id="span_destino" class="valor">ATACAMA</span>
+                        </div>
+                        <div class="campo">
+                            <small>MILHAS</small>
+                            <span id="span_milhas" class="valor">0</span>
+                        </div>
+                        <!-- O canhoto do cartão: um avião anda pela linha conforme a fase avança -->
+                        <div class="campo canhoto">
+                            <small>TRECHO <span id="span_progresso">0/5</span></small>
+                            <div class="rota">
+                                <img id="img_aviaozinho" class="aviaozinho" src="img/interface/aviao.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Elemento tematizado: os carimbos ganhos ficam numa PÁGINA DE PASSAPORTE,
+                         com um espaço para cada destino (escritos pelo atualizarPainel()) -->
+                    <div id="div_passaporte" class="passaporte" aria-label="Carimbos ganhos"></div>
+
                 </div>
 
-                <!-- Aparece quando o jogador ganha um carimbo (escrito pelo darCarimbo()) -->
+                <!-- Elemento tematizado: o checkpoint é o CARIMBO do destino batendo na tela
+                     (escrito pelo darCarimbo()) -->
                 <div id="div_carimbo" class="carimbo"></div>
 
                 <!-- Aparece no game over e no fim do jogo -->
                 <div id="div_aviso" class="aviso"></div>
 
-                <button id="btn_embarcar" class="embarcar" onclick="iniciarJogo()">EMBARCAR</button>
+                <!-- Elemento tematizado: o botão de jogar é um PASSAPORTE que abre;
+                     no game over ele vira um AVIÃO (mostrarBotao(), em js/jogo.js).
+                     Continua sendo um <button>: funciona com Tab, Enter e Espaço. -->
+                <button id="btn_embarcar" class="botao-tema botao-passaporte" onclick="iniciarJogo()">
+                    <span class="botao-icone" aria-hidden="true"></span>
+                    <span id="span_botao">EMBARCAR</span>
+                </button>
 
             </div>
 

@@ -14,6 +14,7 @@
     <link rel="icon" href="img/interface/favicon.png" />
 
     <link rel="stylesheet" href="../css/jogo-inicio.css" />
+    <link rel="stylesheet" href="../css/tema.css" />
     <link rel="stylesheet" href="../css/sidebar.css" />
 
     <script src="../js/sessao.js"></script>
@@ -36,6 +37,7 @@
             </div>
 
             <div class="titulo-jogo">
+                <!-- Elemento tematizado: etiqueta de bagagem -->
                 <span class="etiqueta">JOGO DO PASSAPORTE</span>
                 <h1>Carimbe o <span class="destaque">mundo</span></h1>
                 <p>
@@ -44,7 +46,12 @@
                     passaporte, e a viagem fica mais rápida.
                 </p>
 
-                <a href="jogo.html" class="embarcar">✈ EMBARCAR</a>
+                <!-- Elemento tematizado: o botão de jogar é um passaporte que abre.
+                     É um <button> de verdade; o onclick leva para a página do jogo. -->
+                <button class="botao-tema botao-passaporte" onclick="embarcar()">
+                    <span class="botao-icone" aria-hidden="true"></span>
+                    <span>EMBARCAR</span>
+                </button>
 
                 <p class="como-jogar">Para pular: Espaço, seta para cima ou clique.</p>
 
@@ -66,6 +73,11 @@
 </html>
 
 <script>
+    // Chamada pelo botão EMBARCAR: abre a página do jogo
+    function embarcar() {
+        window.location = "jogo.html";
+    }
+
     // Escreve a lista de destinos e os cartões-postais a partir do vetor
     // "fases" (js/fases.js). É o mesmo vetor que o jogo usa: mudou lá, muda aqui.
     function montarRoteiro() {

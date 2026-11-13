@@ -22,12 +22,17 @@
    Paleta do Passport: azul-marinho e dourado de capa de passaporte
    (docs/refatoracao/01-diagnostico.md, seção 5.4). */
 :root {
-  --cor-fundo: #0B132B;
-  --cor-borda: #2B3A5C;
-  --cor-texto: #F8F4E8;
-  --cor-texto-apagado: #8D93A6;
-  --cor-destaque: #E0B04A;
-  --cor-carimbo: #E0B04A;
+  --cor-fundo: #0B132B;            /* fundo da página */
+  --cor-borda: #2B3A5C;            /* contornos discretos */
+  --cor-contorno: #060A18;         /* contorno grosso e sombra dos objetos */
+  --cor-texto: #F8F4E8;            /* texto principal */
+  --cor-texto-apagado: #8D93A6;    /* legendas */
+  --cor-destaque: #E0B04A;         /* botões (dourado da capa do passaporte) */
+  --cor-destaque-texto: #0B132B;   /* texto em cima do botão */
+  --cor-papel: #F4E9D0;            /* página do passaporte e cartão de embarque */
+  --cor-papel-sombra: #A8956A;     /* tracejado dos espaços vazios */
+  --cor-tinta: #14213D;            /* texto em cima do papel */
+  --fonte-titulo: "Press Start 2P", monospace;
 
   /* Tamanho fixo: o jogo tem a mesma velocidade em qualquer tela */
   --largura-tabuleiro: 960px;
@@ -43,7 +48,7 @@ body {
   min-height: 100vh;
   background-color: var(--cor-fundo);
   color: var(--cor-texto);
-  font-family: "Press Start 2P", monospace;
+  font-family: var(--fonte-titulo);
 }
 
 .palco {
@@ -58,16 +63,12 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 1200px;
-  height: 28px;
+  height: 36px;
   margin-bottom: 8px;
   font-size: 10px;
   color: var(--cor-texto-apagado);
 }
 
-.barra-topo a {
-  color: var(--cor-destaque);
-  text-decoration: none;
-}
 
 /* ---------- Moldura e tabuleiro ---------- */
 
@@ -179,34 +180,99 @@ body {
   animation-play-state: paused;
 }
 
-/* ---------- Painel ---------- */
+/* ---------- Painel: cartão de embarque e página do passaporte ---------- */
 
 .painel {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 14px;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+/* O placar é um cartão de embarque: papel claro, texto escuro e, à direita,
+   um "canhoto" separado por uma linha tracejada (o picote do cartão). */
+.cartao-embarque {
+  display: flex;
+  border: 3px solid var(--cor-contorno);
+  background-color: var(--cor-papel);
+  color: var(--cor-tinta);
+  box-shadow: 4px 4px 0 var(--cor-contorno);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 14px;
+}
+
+/* nome do campo, pequeno, em cima do valor (como num cartão de verdade) */
+.campo small {
+  font-size: 8px;
+}
+
+.campo .valor {
   font-size: 14px;
 }
 
+/* largura fixa: o cartão não muda de tamanho quando as milhas ganham mais um dígito */
+#span_milhas {
+  min-width: 84px;
+}
+
+#span_destino {
+  min-width: 140px;
+}
+
+.canhoto {
+  width: 170px;
+  border-left: 3px dashed var(--cor-tinta);
+}
+
+/* A rota é uma linha pontilhada; o avião anda sobre ela.
+   position: relative faz o "left" do avião ser medido a partir da rota. */
+.rota {
+  position: relative;
+  height: 16px;
+  margin-right: 24px; /* sobra para o avião não sair do cartão quando chega em 100% */
+  border-bottom: 3px dotted var(--cor-tinta);
+}
+
+/* O JavaScript muda o "left" (atualizarPainel); o transition faz o avião
+   deslizar até o lugar novo em vez de pular. */
+.aviaozinho {
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 24px;
+  image-rendering: pixelated;
+  transition: left 0.3s;
+}
+
+/* Página do passaporte: um espaço por destino */
 .passaporte {
   display: flex;
-  gap: 6px;
+  gap: 4px;
+  padding: 6px;
+  border: 3px solid var(--cor-contorno);
+  background-color: var(--cor-papel);
+  box-shadow: 4px 4px 0 var(--cor-contorno);
 }
 
-/* Um quadradinho por destino; fica cheio quando o carimbo é ganho */
+/* espaço vazio: quadrado tracejado, esperando o carimbo */
 .selo {
-  width: 16px;
-  height: 16px;
-  border: 2px solid var(--cor-texto);
+  width: 36px;
+  height: 36px;
+  border: 2px dashed var(--cor-papel-sombra);
 }
 
+/* espaço carimbado: é a imagem do carimbo do destino */
 .selo.carimbado {
-  background-color: var(--cor-carimbo);
-  border-color: var(--cor-carimbo);
+  border: none;
+  image-rendering: pixelated;
 }
 
-/* ---------- Carimbo, aviso e botão ---------- */
+/* ---------- Carimbo (checkpoint) e aviso ---------- */
 
 /* left 50% + translate(-50%) centraliza de verdade: o left põe a borda
    esquerda no meio e o translate puxa meia largura de volta. */
@@ -214,15 +280,28 @@ body {
   display: none;
   position: absolute;
   left: 50%;
-  top: 30%;
-  padding: 18px 26px;
-  border: 4px double var(--cor-carimbo);
-  color: var(--cor-carimbo);
-  font-size: 16px;
+  top: 46%;
+  color: var(--cor-tinta);
+  font-size: 12px;
   line-height: 1.8;
   text-align: center;
   transform: translate(-50%, -50%) rotate(-8deg);
   animation: bater 300ms;
+}
+
+.carimbo img {
+  display: block;
+  width: 160px;
+  margin: 0 auto;
+  image-rendering: pixelated;
+}
+
+/* a legenda fica num pedaço de papel, para dar leitura em qualquer fundo */
+.carimbo p {
+  margin-top: 8px;
+  padding: 8px 14px;
+  border: 3px solid var(--cor-contorno);
+  background-color: var(--cor-papel);
 }
 
 /* O carimbo chega grande e "bate" no tamanho normal */
@@ -238,30 +317,26 @@ body {
   }
 }
 
+/* Aviso de game over e de fim de jogo: uma faixa escura com letras claras */
 .aviso {
   display: none;
   position: absolute;
   left: 50%;
-  top: 52%;
-  font-size: 20px;
+  top: 40%;
+  padding: 14px 20px;
+  border: 3px solid var(--cor-destaque);
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-size: 18px;
   white-space: nowrap;
   transform: translate(-50%, -50%);
 }
 
-.embarcar {
+/* O botão do tabuleiro usa as classes de css/tema.css (botao-tema).
+   Aqui fica só a posição dele: centralizado, na parte de baixo. */
+#btn_embarcar {
   position: absolute;
   left: 50%;
-  top: 68%;
-  padding: 15px 30px;
-  border: 3px solid var(--cor-borda);
-  background-color: var(--cor-texto);
-  color: var(--cor-fundo);
-  font-family: "Press Start 2P", monospace;
-  font-size: 18px;
-  cursor: pointer;
+  top: 66%;
   transform: translate(-50%, -50%);
-}
-
-.embarcar:hover {
-  background-color: var(--cor-destaque);
 }
