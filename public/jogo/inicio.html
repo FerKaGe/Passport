@@ -11,7 +11,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Passport | Jogo do Passaporte</title>
-    <link rel="icon" href="../assets/icon/favicon2.ico" />
+    <link rel="icon" href="img/interface/favicon.png" />
 
     <link rel="stylesheet" href="../css/jogo-inicio.css" />
     <link rel="stylesheet" href="../css/sidebar.css" />
@@ -26,9 +26,13 @@
     <aside id="barra_lateral" class="glass-sidebar"></aside>
 
     <main>
+        <header class="cabecalho">
+            <img class="logo" src="img/interface/logo.png" alt="Passport: carimbe o mundo" />
+        </header>
+
         <section class="apresentacao">
             <div class="previa-jogo">
-                <img src="../assets/jogo/inicio/previa-jogo.png" alt="Tela do Jogo do Passaporte" />
+                <img src="img/inicio/previa.png" alt="Cena do jogo: o corgi correndo no deserto do Atacama, com um cacto à frente" />
             </div>
 
             <div class="titulo-jogo">
@@ -49,6 +53,12 @@
                 <ol id="ol_roteiro" class="roteiro"></ol>
             </div>
         </section>
+
+        <!-- Os cartões-postais também são escritos pelo montarRoteiro() -->
+        <section class="historia">
+            <h2>A VIAGEM EM 7 POSTAIS</h2>
+            <div id="div_cartoes" class="cartoes"></div>
+        </section>
     </main>
 
 </body>
@@ -56,21 +66,27 @@
 </html>
 
 <script>
-    // Escreve a lista de destinos a partir do vetor "fases" (js/fases.js).
-    // É o mesmo vetor que o jogo usa: mudou lá, muda aqui também.
+    // Escreve a lista de destinos e os cartões-postais a partir do vetor
+    // "fases" (js/fases.js). É o mesmo vetor que o jogo usa: mudou lá, muda aqui.
     function montarRoteiro() {
-        var html = "";
+        var htmlRoteiro = "";
+        var htmlCartoes = "";
 
         for (var i = 0; i < fases.length; i++) {
             // Só mostra o país entre parênteses quando ele é diferente do nome
             // do destino (Atacama fica no Chile, mas Portugal é Portugal).
+            var texto = fases[i].nome;
             if (fases[i].pais != fases[i].nome) {
-                html += `<li>${fases[i].nome} <small>(${fases[i].pais})</small></li>`;
-            } else {
-                html += `<li>${fases[i].nome}</li>`;
+                texto += ` <small>(${fases[i].pais})</small>`;
             }
+
+            // alt="" porque o carimbo só enfeita: o nome já está escrito ao lado
+            htmlRoteiro += `<li><img src="${fases[i].carimbo}" alt="" /> ${texto}</li>`;
+
+            htmlCartoes += `<img src="${fases[i].cartao}" alt="Cartão-postal de ${fases[i].nome}" />`;
         }
 
-        ol_roteiro.innerHTML = html;
+        ol_roteiro.innerHTML = htmlRoteiro;
+        div_cartoes.innerHTML = htmlCartoes;
     }
 </script>

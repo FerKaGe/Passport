@@ -19,15 +19,14 @@
 }
 
 /* Variáveis CSS: um nome para cada valor que se repete.
-   As cores ainda são as do JumpGoat, para combinar com a moldura antiga;
-   a paleta do Passport entra junto com a arte nova. */
+   Paleta do Passport: azul-marinho e dourado de capa de passaporte. */
 :root {
-  --cor-fundo: #08070a;
-  --cor-borda: #7b2cbf;
-  --cor-texto: #f4f0fa;
-  --cor-texto-apagado: #a99bbf;
-  --cor-destaque: #c77dff;
-  --cor-carimbo: #ffd650;
+  --cor-fundo: #0B132B;
+  --cor-borda: #2B3A5C;
+  --cor-texto: #F8F4E8;
+  --cor-texto-apagado: #8D93A6;
+  --cor-destaque: #E0B04A;
+  --cor-carimbo: #E0B04A;
 
   /* Tamanho fixo: o jogo tem a mesma velocidade em qualquer tela */
   --largura-tabuleiro: 960px;
@@ -57,7 +56,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 1199px;
+  width: 1200px;
   height: 28px;
   margin-bottom: 8px;
   font-size: 10px;
@@ -71,16 +70,19 @@ body {
 
 /* ---------- Moldura e tabuleiro ---------- */
 
-/* A moldura antiga (GIF de 1918x987) é esticada para 1199x758. Com essa
-   medida, o "buraco" transparente dela fica exatamente com 960x480,
-   começando em 120px da esquerda e 97px do topo: o lugar do tabuleiro.
-   flex-shrink: 0 impede a moldura de encolher em janela estreita. */
+/* A moldura (GIF de 1200x759) aparece no tamanho real, sem esticar.
+   O "buraco" transparente dela tem exatamente 960x480 e começa em 120px
+   da esquerda e 96px do topo: o lugar do tabuleiro. Essas medidas vêm de
+   ferramentas/sprites/moldura.py.
+   flex-shrink: 0 impede a moldura de encolher em janela estreita.
+   image-rendering: pixelated manda o navegador não suavizar a imagem
+   quando ela é redimensionada: os quadradinhos continuam nítidos. */
 .moldura {
   position: relative;
   flex-shrink: 0;
-  width: 1199px;
-  height: 758px;
-  background-image: url(../assets/jogo/moldura/moldura-fliperama.gif);
+  width: 1200px;
+  height: 759px;
+  background-image: url(../jogo/img/moldura/moldura.gif);
   background-size: 100% 100%;
   image-rendering: pixelated;
 }
@@ -91,12 +93,15 @@ body {
 .tabuleiro {
   position: absolute;
   left: 120px;
-  top: 97px;
+  top: 96px;
   width: var(--largura-tabuleiro);
   height: var(--altura-tabuleiro);
   overflow: hidden;
+  /* O fundo (1536x720) é reduzido até cobrir o tabuleiro (960x480):
+     cada ponto do desenho, que tem 6px no arquivo, fica com 4px na tela. */
   background-size: cover;
   background-position: center;
+  image-rendering: pixelated;
 
   /* Tempo que o obstáculo leva para atravessar. O JavaScript troca este
      valor a cada fase (carregarFase, em js/jogo.js). */
@@ -110,6 +115,7 @@ body {
   left: 40px;
   bottom: 0;
   width: 150px;
+  image-rendering: pixelated;
   pointer-events: none; /* o clique "atravessa" a imagem e chega no tabuleiro */
 }
 
@@ -145,6 +151,7 @@ body {
   position: absolute;
   bottom: 0;
   right: -120px;
+  image-rendering: pixelated;
   pointer-events: none;
 }
 
