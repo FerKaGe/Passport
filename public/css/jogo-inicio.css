@@ -21,13 +21,16 @@
    Paleta do Passport. */
 :root {
   --cor-fundo: #0B132B;              /* fundo da página */
-  --cor-borda: #2B3A5C;              /* contornos */
-  --cor-destaque: #E0B04A;           /* botões */
-  --cor-destaque-claro: #E0B04A;     /* palavras em destaque */
+  --cor-borda: #2B3A5C;              /* contornos discretos */
+  --cor-contorno: #060A18;           /* contorno grosso e sombra dos objetos */
+  --cor-destaque: #E0B04A;           /* botões e palavras em destaque */
   --cor-destaque-texto: #0B132B;     /* texto em cima do botão */
   --cor-texto: #F8F4E8;              /* títulos */
   --cor-texto-secundario: #C9C2B0;   /* parágrafos */
   --cor-texto-apagado: #8D93A6;      /* legendas */
+  --cor-papel: #F4E9D0;              /* etiqueta de bagagem */
+  --cor-tinta: #14213D;              /* texto em cima do papel */
+  --fonte-titulo: "Press Start 2P", monospace;
 }
 
 body {
@@ -85,7 +88,7 @@ body {
 }
 
 .destaque {
-  color: var(--cor-destaque-claro);
+  color: var(--cor-destaque);
 }
 
 .titulo-jogo p {
@@ -99,31 +102,7 @@ body {
   color: var(--cor-texto-apagado);
 }
 
-/* etiqueta de bagagem em cima do título */
-.etiqueta {
-  padding: 8px 18px;
-  border: solid 1px var(--cor-borda);
-  border-radius: 999px;
-  color: var(--cor-destaque-claro);
-  font-family: "Press Start 2P", monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-}
-
-.embarcar {
-  padding: 14px 24px;
-  border: solid 2px var(--cor-destaque);
-  border-radius: 999px;
-  color: var(--cor-texto);
-  font-family: "Press Start 2P", monospace;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-.embarcar:hover {
-  background-color: var(--cor-destaque);
-  color: var(--cor-destaque-texto);
-}
+/* A etiqueta de bagagem e o botão-passaporte estão em css/tema.css */
 
 /* lista de destinos, escrita pelo montarRoteiro() */
 .roteiro-titulo {
@@ -131,6 +110,7 @@ body {
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
   letter-spacing: 2px;
+  color: var(--cor-texto);
 }
 
 .roteiro {

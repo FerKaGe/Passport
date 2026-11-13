@@ -14,11 +14,15 @@
 // Para criar uma página nova no menu, basta acrescentar uma linha aqui.
 // Os links começam com "../" porque toda página logada fica uma pasta abaixo
 // de public/ (em public/dashboard/ ou em public/jogo/).
+// Os ícones são objetos de viagem em pixel art (gerados por
+// ferramentas/sprites/interface.py): globo, mala, avião e passaporte.
+var PASTA_ICONES = "../jogo/img/interface/";
+
 var itensDaSidebar = [
-    { id: "dashboard",   nome: "Dashboard",   icone: "📊", link: "../dashboard/dashboard.html" },
-    { id: "calculadora", nome: "Calculadora", icone: "🧮", link: "../dashboard/calculadora.html" },
-    { id: "jogo",        nome: "Jogo",        icone: "🏃", link: "../jogo/inicio.html" },
-    { id: "sobre",       nome: "Sobre mim",   icone: "🙋", link: "../dashboard/sobre.html" }
+    { id: "dashboard",   nome: "Dashboard",   icone: "icone-globo.png",      link: "../dashboard/dashboard.html" },
+    { id: "calculadora", nome: "Calculadora", icone: "icone-mala.png",       link: "../dashboard/calculadora.html" },
+    { id: "jogo",        nome: "Jogo",        icone: "icone-aviao.png",      link: "../jogo/inicio.html" },
+    { id: "sobre",       nome: "Sobre mim",   icone: "icone-passaporte.png", link: "../dashboard/sobre.html" }
 ];
 
 // Escreve a barra dentro do <aside id="barra_lateral">.
@@ -31,7 +35,7 @@ function montarSidebar(paginaAtual) {
     // por isso montarSidebar() precisa ser chamada ANTES de validarSessao().
     html += `
         <a href="../dashboard/dashboard.html" class="glass-sidebar__brand">
-            <span class="glass-sidebar__icon" aria-hidden="true">🛂</span>
+            <img class="glass-sidebar__icon" src="${PASTA_ICONES}favicon.png" alt="" />
             <span class="glass-sidebar__label">Passport</span>
         </a>
         <div class="glass-sidebar__usuario glass-sidebar__label">
@@ -53,7 +57,7 @@ function montarSidebar(paginaAtual) {
 
         html += `
             <a href="${item.link}" class="${classes}" title="${item.nome}">
-                <span class="glass-sidebar__icon" aria-hidden="true">${item.icone}</span>
+                <img class="glass-sidebar__icon" src="${PASTA_ICONES}${item.icone}" alt="" />
                 <span class="glass-sidebar__label">${item.nome}</span>
             </a>
         `;
@@ -74,7 +78,7 @@ function montarSidebar(paginaAtual) {
             </div>
 
             <button type="button" class="glass-sidebar__item is-danger" onclick="limparSessao()" title="Sair">
-                <span class="glass-sidebar__icon" aria-hidden="true">⏻</span>
+                <img class="glass-sidebar__icon" src="${PASTA_ICONES}icone-portao.png" alt="" />
                 <span class="glass-sidebar__label">Sair</span>
             </button>
         </div>

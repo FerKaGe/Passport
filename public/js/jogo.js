@@ -95,6 +95,11 @@ function preCarregarImagens() {
 
     var imagemTonto = new Image();
     imagemTonto.src = IMAGEM_TONTO;
+
+    // O passaporte aberto só aparece com o mouse em cima do botão;
+    // baixando antes, ele não "pisca" na primeira vez.
+    var imagemPassaporteAberto = new Image();
+    imagemPassaporteAberto.src = PASTA_IMG + "interface/passaporte-aberto.png";
 }
 
 // ---------------------------------------------------------------------------
@@ -129,6 +134,10 @@ function iniciarJogo() {
     div_aviso.style.display = "none";
     div_carimbo.style.display = "none";
     btn_embarcar.style.display = "none";
+
+    // Se o jogador começou pelo teclado, o foco estava no botão que acabou de
+    // sumir. blur() solta o foco, para a tecla Espaço servir só para pular.
+    btn_embarcar.blur();
 
     carregarFase(indiceFase);
     soltarObstaculo();
@@ -339,8 +348,17 @@ function gameOver() {
     div_aviso.innerHTML = "VOO CANCELADO!";
     div_aviso.style.display = "block";
 
-    btn_embarcar.innerHTML = "NOVO VOO";
-    btn_embarcar.style.display = "block";
+    mostrarBotao("NOVO VOO", "botao-aviao");
+}
+
+// Mostra o botão do tabuleiro com o texto e o desenho pedidos.
+// tipo é o nome da classe CSS que escolhe o desenho (css/tema.css):
+//   "botao-passaporte" - passaporte que abre (começar a viagem)
+//   "botao-aviao"      - avião que decola (tentar de novo)
+function mostrarBotao(texto, tipo) {
+    span_botao.innerHTML = texto;
+    btn_embarcar.className = "botao-tema " + tipo;
+    btn_embarcar.style.display = "flex";
 }
 
 // ---------------------------------------------------------------------------
@@ -376,7 +394,11 @@ function darCarimbo() {
 
     img_obstaculo.classList.remove("andando");   // tira o obstáculo de cena
 
-    div_carimbo.innerHTML = `CARIMBADO!<br><b>${fase.pais.toUpperCase()}</b>`;
+    // O carimbo do destino "bate" na tela (a animação está em css/jogo.css)
+    div_carimbo.innerHTML = `
+        <img src="${fase.carimbo}" alt="" />
+        <p>CARIMBADO!<br><b>${fase.pais.toUpperCase()}</b></p>
+    `;
     div_carimbo.style.display = "block";
 
     // Era a última fase do vetor?
@@ -386,8 +408,7 @@ function darCarimbo() {
         div_aviso.innerHTML = "PASSAPORTE COMPLETO!";
         div_aviso.style.display = "block";
 
-        btn_embarcar.innerHTML = "VIAJAR DE NOVO";
-        btn_embarcar.style.display = "block";
+        mostrarBotao("VIAJAR DE NOVO", "botao-passaporte");
     } else {
         estado = "carimbo";
 
@@ -423,14 +444,20 @@ function atualizarPainel() {
     span_destino.innerHTML = fase.nome.toUpperCase();
     span_progresso.innerHTML = obstaculosPulados + "/" + fase.meta;
 
-    // Um quadradinho para cada fase do vetor: cheio se o carimbo já foi ganho
+    // O aviãozinho do cartão de embarque anda conforme a fase avança:
+    // 0% no começo da linha, 100% quando a meta é atingida.
+    var porcentagem = obstaculosPulados / fase.meta * 100;
+    img_aviaozinho.style.left = porcentagem + "%";
+
+    // Página do passaporte: um espaço para cada fase do vetor.
+    // Fase já vencida mostra o carimbo dela; as outras ficam vazias.
     var html = "";
 
     for (var i = 0; i < fases.length; i++) {
         if (i < carimbos.length) {
-            html += `<span class="selo carimbado" title="${fases[i].pais}"></span>`;
+            html += `<img class="selo carimbado" src="${fases[i].carimbo}" alt="Carimbo: ${fases[i].pais}" title="${fases[i].pais}" />`;
         } else {
-            html += `<span class="selo" title="${fases[i].pais}"></span>`;
+            html += `<span class="selo" title="${fases[i].pais}: falta carimbar"></span>`;
         }
     }
 

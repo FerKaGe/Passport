@@ -16,7 +16,7 @@
 
 /* Variáveis: mude estes valores para adaptar a barra ao seu site. */
 :root {
-  --glass-sidebar-rail: 68px;   /* largura fechada: só os ícones */
+  --glass-sidebar-rail: 72px;   /* largura fechada: só os ícones */
   --glass-sidebar-open: 240px;  /* largura aberta: ícones e textos */
   --glass-sidebar-gap: 16px;    /* distância da barra até as bordas da tela */
   --glass-sidebar-radius: 20px;
@@ -45,8 +45,8 @@
 
 /* Sidebar */
 
-/* border-box: a largura de 68px já inclui o padding e a borda.
-   (No padrão do navegador eles seriam somados e a barra ficaria com 90px.) */
+/* border-box: a largura de 72px já inclui o padding e a borda.
+   (No padrão do navegador eles seriam somados e a barra ficaria com 94px.) */
 .glass-sidebar,
 .glass-sidebar * {
   box-sizing: border-box;
@@ -108,7 +108,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 0 12px; /* mesmo recuo dos itens do menu, para os ícones ficarem na mesma coluna */
+  padding: 0 9px; /* mesmo recuo dos itens do menu, para os ícones ficarem na mesma coluna */
   color: inherit;
   font-size: 20px;
   font-weight: 700;
@@ -119,7 +119,7 @@
 /* Saudação com o nome de quem fez login (o nome é escrito pelo validarSessao() do js/sessao.js) */
 .glass-sidebar__usuario {
   margin-top: 10px;
-  padding: 0 12px;
+  padding: 0 9px;
   font-size: 14px;
   white-space: nowrap;
 }
@@ -144,7 +144,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 10px 12px;
+  padding: 8px;
   border: 1px solid transparent;
   border-radius: 12px;
   background: none;
@@ -171,12 +171,14 @@
 .glass-sidebar__item.is-danger:hover {
   color: var(--glass-sidebar-danger);
 }
+/* Os ícones são imagens de 32x32 px em pixel art (um ponto do desenho = 2px).
+   Largura fixa: todos os ícones e textos ficam alinhados na mesma coluna.
+   image-rendering: pixelated mantém os quadradinhos nítidos. */
 .glass-sidebar__icon {
   flex-shrink: 0;
-  width: 24px; /* largura fixa: todos os ícones e textos ficam alinhados na mesma coluna */
-  font-size: 20px;
-  line-height: 1;
-  text-align: center;
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
 }
 
 /* Espaço reservado para o seletor de skins (ainda não implementado).
