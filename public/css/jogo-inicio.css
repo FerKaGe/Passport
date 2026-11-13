@@ -18,16 +18,16 @@
 }
 
 /* Variáveis CSS: os nomes dizem para que a cor serve, não qual cor ela é.
-   Os valores ainda são os do JumpGoat; a paleta do Passport entra com a arte nova. */
+   Paleta do Passport (docs/refatoracao/01-diagnostico.md, seção 5.4). */
 :root {
-  --cor-fundo: #08070a;              /* fundo da página */
-  --cor-borda: #2e2240;              /* contornos */
-  --cor-destaque: #7b2cbf;           /* botões */
-  --cor-destaque-claro: #c77dff;     /* palavras em destaque */
-  --cor-brilho: rgba(123, 44, 191, 0.35); /* brilho em volta da imagem */
-  --cor-texto: #f4f0fa;              /* títulos */
-  --cor-texto-secundario: #c9beda;   /* parágrafos */
-  --cor-texto-apagado: #a99bbf;      /* legendas */
+  --cor-fundo: #0B132B;              /* fundo da página */
+  --cor-borda: #2B3A5C;              /* contornos */
+  --cor-destaque: #E0B04A;           /* botões */
+  --cor-destaque-claro: #E0B04A;     /* palavras em destaque */
+  --cor-destaque-texto: #0B132B;     /* texto em cima do botão */
+  --cor-texto: #F8F4E8;              /* títulos */
+  --cor-texto-secundario: #C9C2B0;   /* parágrafos */
+  --cor-texto-apagado: #8D93A6;      /* legendas */
 }
 
 body {
@@ -46,12 +46,27 @@ body {
   justify-content: center;
 }
 
+.cabecalho {
+  padding: 28px 50px 0;
+}
+
+/* image-rendering: pixelated: o navegador não suaviza a imagem ao
+   redimensionar, e os quadradinhos da pixel art continuam nítidos. */
+.logo {
+  display: block;
+  width: 338px;   /* metade do arquivo (676px): cada ponto do desenho fica com 2px */
+  image-rendering: pixelated;
+}
+
+/* A prévia tem 1120px no arquivo; 560px é exatamente a metade. A sombra é
+   um bloco deslocado, sem desfoque, como as sombras da pixel art. */
 .previa-jogo img {
   display: block;
-  width: 600px;
+  width: 560px;
   max-width: 100%;
-  box-shadow: 0 0 80px var(--cor-brilho);
-  border-radius: 20px;
+  border: 4px solid var(--cor-destaque);
+  box-shadow: 8px 8px 0 var(--cor-borda);
+  image-rendering: pixelated;
 }
 
 .titulo-jogo {
@@ -107,6 +122,7 @@ body {
 
 .embarcar:hover {
   background-color: var(--cor-destaque);
+  color: var(--cor-destaque-texto);
 }
 
 /* lista de destinos, escrita pelo montarRoteiro() */
@@ -124,6 +140,47 @@ body {
   line-height: 1.7;
 }
 
+/* carimbo de cada destino, ao lado do nome */
+.roteiro img {
+  width: 32px;
+  vertical-align: middle;
+  image-rendering: pixelated;
+}
+
+.roteiro li {
+  margin-bottom: 4px;
+}
+
 .roteiro small {
   color: var(--cor-texto-apagado);
+}
+
+/* ---------- Cartões-postais ---------- */
+
+.historia {
+  padding: 0 50px 60px;
+}
+
+.historia h2 {
+  margin-bottom: 20px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  color: var(--cor-texto);
+  text-align: center;
+}
+
+/* flex-wrap: wrap deixa os cartões passarem para a linha de baixo
+   quando não cabem mais na largura da tela */
+.cartoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* 280px é um quarto do arquivo (1120px): 1 ponto do desenho = 1px */
+.cartoes img {
+  width: 280px;
+  box-shadow: 6px 6px 0 var(--cor-borda);
+  image-rendering: pixelated;
 }

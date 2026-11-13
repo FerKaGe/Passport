@@ -25,8 +25,10 @@ var MILHAS_POR_SEGUNDO = 100;   // pontuação: quantas milhas o viajante ganha 
 var FOLGA_VIAJANTE = 35;        // pixels de cada lado do viajante que não contam na colisão
 var TEMPO_DO_CARIMBO = 2000;    // milissegundos que o carimbo fica na tela entre duas fases
 
-var IMAGEM_CORRENDO = "../assets/jogo/personagem/correndo.gif";
-var IMAGEM_TONTO = "../assets/jogo/personagem/tonto.gif";
+// Os três desenhos do viajante (PASTA_IMG vem de js/fases.js)
+var IMAGEM_CORRENDO = PASTA_IMG + "personagem/correndo.gif";
+var IMAGEM_PULANDO = PASTA_IMG + "personagem/pulando.gif";
+var IMAGEM_TONTO = PASTA_IMG + "personagem/tonto.gif";
 
 // ---------------------------------------------------------------------------
 // Estado da partida (valores que mudam enquanto o jogo roda)
@@ -87,6 +89,9 @@ function preCarregarImagens() {
             imagemObstaculo.src = fases[i].obstaculos[j].imagem;
         }
     }
+
+    var imagemPulando = new Image();
+    imagemPulando.src = IMAGEM_PULANDO;
 
     var imagemTonto = new Image();
     imagemTonto.src = IMAGEM_TONTO;
@@ -209,6 +214,7 @@ function pular() {
     }
 
     pulando = true;
+    img_viajante.src = IMAGEM_PULANDO;        // troca o desenho: pernas encolhidas
     img_viajante.classList.add("pulando");   // liga a animação "pulo" do CSS
 }
 
@@ -218,6 +224,7 @@ function pular() {
 function aoTerminarPulo() {
     pulando = false;
     img_viajante.classList.remove("pulando");
+    img_viajante.src = IMAGEM_CORRENDO;       // de volta ao chão: volta a correr
 }
 
 // ---------------------------------------------------------------------------

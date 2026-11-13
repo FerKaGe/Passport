@@ -12,3 +12,6 @@ desktop.ini
 __pycache__/
 
 .github
+
+# Ambiente Python dos scripts de sprite (cada pessoa cria o seu)
+ferramentas/.venv/
