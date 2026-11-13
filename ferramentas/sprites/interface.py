@@ -17,7 +17,7 @@ Como rodar:  python ferramentas/sprites/interface.py
 """
 
 from pixel import (CREME, DOURADO, DOURADO_CLARO, DOURADO_ESCURO, MARINHO, MARINHO_CLARO, MARINHO_ESCURO, PAPEL,
-                   PAPEL_SOMBRA, TINTA_VERMELHA, ampliar, caminho, contornar, desenhar_mapa, escrever,
+                   PAPEL_SOMBRA, TINTA_VERDE, TINTA_VERMELHA, ampliar, caminho, contornar, desenhar_mapa, escrever,
                    largura_do_texto, nova_imagem, salvar_png)
 
 PALETA = {
@@ -31,7 +31,7 @@ PALETA = {
     "P": PAPEL,
     "p": PAPEL_SOMBRA,
     "V": TINTA_VERMELHA,
-    "T": "#1F7A6E",
+    "T": TINTA_VERDE,
     "S": "#8CC4EE",
     "K": "#1A1420",
 }
