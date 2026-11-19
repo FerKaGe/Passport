@@ -1,0 +1,306 @@
+/*
+ * Glass Sidebar
+ * Adaptada da Glass Sidebar, de Igor Fuchs Pereira (licença MIT).
+ * Copyright (c) 2026 Igor Fuchs Pereira
+ * Licença completa: docs/licencas/glass-sidebar-LICENSE.txt
+ *
+ * Barra lateral flutuante com efeito de vidro, que se alarga por cima da página ao passar o mouse.
+ * O CSS abre e fecha a barra sozinho. O JavaScript (js/sidebar.js) só escreve os itens do menu.
+ *
+ * Como usar numa página logada:
+ *   1. <link rel="stylesheet" href="../css/sidebar.css">
+ *   2. <body class="glass-sidebar-page">  (reserva o espaço da barra fechada)
+ *   3. <aside id="barra_lateral" class="glass-sidebar"></aside>
+ *   4. <script src="../js/sidebar.js"></script> e chamar montarSidebar("nome-da-pagina")
+ */
+
+/* Variáveis: mude estes valores para adaptar a barra ao seu site. */
+:root {
+  --glass-sidebar-rail: 72px;   /* largura fechada: só os ícones */
+  --glass-sidebar-open: 240px;  /* largura aberta: ícones e textos */
+  --glass-sidebar-gap: 16px;    /* distância da barra até as bordas da tela */
+  --glass-sidebar-radius: 20px;
+  --glass-sidebar-speed: 0.25s; /* duração da animação de abrir e fechar */
+
+  /* Fundo do vidro. O último número do rgba() é a opacidade (0 = invisível, 1 = sólido).
+     Precisa ser semitransparente para o backdrop-filter aparecer; veja a explicação em .glass-sidebar.
+     É um preto translúcido: como todas as skins têm fundo escuro, ele serve para todas. */
+  --glass-sidebar-bg: rgba(8, 8, 12, 0.55);
+  --glass-sidebar-bg-strong: rgba(8, 8, 12, 0.88); /* mais opaco: fundo do item sob o mouse */
+  --glass-sidebar-border: rgba(255, 255, 255, 0.12); /* borda clara, que imita o reflexo na beira do vidro */
+  --glass-sidebar-shadow: 0 18px 45px -18px rgba(0, 0, 0, 0.85);
+
+  /* Estas vêm da skin (css/skins.css): mudou a skin, a barra muda junto. */
+  --glass-sidebar-text: var(--cor-texto);
+  --glass-sidebar-active-bg: var(--cor-superficie);
+  --glass-sidebar-active-text: var(--cor-destaque);
+  --glass-sidebar-accent: var(--cor-destaque); /* contorno do item focado e marca do item atual */
+  --glass-sidebar-danger: #FF8A7A;
+}
+
+/* Reserva à esquerda só a largura da barra fechada, mais a distância dos dois lados.
+   Aberta, a barra passa por cima do conteúdo em vez de empurrá-lo. */
+.glass-sidebar-page {
+  padding-left: calc(var(--glass-sidebar-rail) + var(--glass-sidebar-gap) * 2);
+}
+
+/* Sidebar */
+
+/* border-box: a largura de 72px já inclui o padding e a borda.
+   (No padrão do navegador eles seriam somados e a barra ficaria com 94px.) */
+.glass-sidebar,
+.glass-sidebar * {
+  box-sizing: border-box;
+}
+
+/* O efeito de vidro vem da combinação de background com backdrop-filter:
+     - backdrop-filter aplica filtros no que está ATRÁS da barra (a página), não na barra em si.
+       blur(16px) desfoca esse conteúdo, como um vidro fosco; saturate(160%) deixa as cores
+       de trás mais vivas, compensando o tom claro que o fundo adiciona por cima.
+     - background precisa ser semitransparente (opacidade 0.55 em --glass-sidebar-bg).
+       Opaco (1), ele cobriria tudo e o desfoque não apareceria; totalmente transparente (0),
+       sobraria só um borrão sem cor, e o texto da barra ficaria difícil de ler.
+     O vidro aparece mais quando há cores ou imagens atrás; sobre um fundo liso, fica só translúcido. */
+
+.glass-sidebar {
+  background: var(--glass-sidebar-bg);
+  backdrop-filter: blur(16px) saturate(160%);
+
+  /* fixed tira a barra do fluxo da página: ela não ocupa espaço e fica parada ao rolar. */
+  position: fixed;
+  top: var(--glass-sidebar-gap);
+  bottom: var(--glass-sidebar-gap);
+  left: var(--glass-sidebar-gap);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  width: var(--glass-sidebar-rail);
+  padding: 16px 10px;
+  border: 1px solid var(--glass-sidebar-border);
+  border-radius: var(--glass-sidebar-radius);
+  box-shadow: var(--glass-sidebar-shadow);
+  color: var(--glass-sidebar-text);
+  font-family: var(--fonte-texto);
+  transition: width var(--glass-sidebar-speed) ease;
+  /* Corta os textos que não cabem na barra fechada. Sem isto, o texto invisível
+     "vaza" para fora e a barra abre com o mouse ainda longe dela. */
+  overflow: hidden;
+}
+
+/* Abertura: enquanto o mouse está sobre a barra, ela se alarga. O transition acima anima a mudança.
+   :focus-within vale quando algum item de dentro está focado, então a barra também abre com a tecla Tab. */
+.glass-sidebar:hover,
+.glass-sidebar:focus-within {
+  width: var(--glass-sidebar-open);
+}
+
+/* Os textos estão sempre no HTML: só ficam invisíveis enquanto a barra está fechada. */
+.glass-sidebar__label {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.glass-sidebar:hover .glass-sidebar__label,
+.glass-sidebar:focus-within .glass-sidebar__label {
+  opacity: 1;
+}
+
+/* Logo e nome no topo */
+.glass-sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 9px; /* mesmo recuo dos itens do menu, para os ícones ficarem na mesma coluna */
+  color: inherit;
+  font-family: var(--fonte-titulo);
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap; /* o nome não quebra em duas linhas enquanto a barra se alarga */
+}
+
+/* Saudação com o nome de quem fez login (o nome é escrito pelo validarSessao() do js/sessao.js) */
+.glass-sidebar__usuario {
+  margin-top: 10px;
+  padding: 0 9px;
+  font-size: var(--tamanho-texto);
+  white-space: nowrap;
+}
+
+.glass-sidebar__nav,
+.glass-sidebar__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.glass-sidebar__nav {
+  margin-top: 28px;
+}
+.glass-sidebar__bottom {
+  margin-top: auto; /* ocupa o espaço que sobra e empurra este grupo para o fim da barra */
+  padding-top: 12px;
+  border-top: 1px solid var(--glass-sidebar-border);
+}
+
+/* Itens: links e botões ficam com a mesma aparência. */
+.glass-sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: none;
+  color: inherit;
+  font-family: inherit; /* o <button> não herda a fonte da página sozinho */
+  font-size: var(--tamanho-texto);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.glass-sidebar__item:hover {
+  background: var(--glass-sidebar-bg-strong);
+  border-color: var(--glass-sidebar-border);
+}
+/* :focus-visible só vale para o foco do teclado (Tab), então o contorno não aparece ao clicar. */
+.glass-sidebar__item:focus-visible {
+  outline: 2px solid var(--glass-sidebar-accent);
+  outline-offset: -2px; /* desenha o contorno por dentro do item */
+}
+/* Item da página atual: fundo mais claro, texto na cor de destaque e uma
+   marca grossa à esquerda (box-shadow "inset" desenha por dentro do item). */
+.glass-sidebar__item.is-active {
+  background: var(--glass-sidebar-active-bg);
+  color: var(--glass-sidebar-active-text);
+  box-shadow: inset 4px 0 0 var(--glass-sidebar-accent);
+}
+.glass-sidebar__item.is-danger:hover {
+  color: var(--glass-sidebar-danger);
+}
+/* Os ícones são imagens de 32x32 px em pixel art (um ponto do desenho = 2px).
+   Largura fixa: todos os ícones e textos ficam alinhados na mesma coluna.
+   image-rendering: pixelated mantém os quadradinhos nítidos. */
+.glass-sidebar__icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+
+/* ---------- Seletor de skins ---------- */
+
+.glass-sidebar__skins {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 0 8px;
+}
+
+/* Linha da skin atual: é o que aparece com a barra fechada */
+.skins__atual {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 9px;
+  font-size: var(--tamanho-texto);
+  white-space: nowrap;
+}
+
+/* O globo é uma imagem com o "mar" transparente em cima de um círculo
+   colorido. A cor do círculo vem do vetor skins (style="background-color"),
+   então a mesma imagem serve para todas as skins.
+   padding + background-clip: content-box deixam a cor 2px para dentro,
+   escondida embaixo do contorno preto da imagem. */
+.skins__globo,
+.skins__botao {
+  flex-shrink: 0;
+  padding: 2px;
+  border: none;
+  border-radius: 50%;
+  background-clip: content-box;
+}
+
+.skins__globo {
+  width: 32px;
+  height: 32px;
+}
+
+.skins__globo img,
+.skins__botao img {
+  display: block;
+  width: 100%;
+  image-rendering: pixelated;
+}
+
+/* A lista de botões fica escondida com a barra fechada (não caberia)
+   e aparece quando a barra abre, com o mouse ou com o Tab. */
+.skins__lista {
+  display: none;
+  flex-wrap: wrap;
+  gap: 4px;
+  /* Largura fixa: 4 globos de 48px + 3 espaços de 4px + 4px de cada lado.
+     Sem ela, enquanto a barra ainda está abrindo (estreita), os globos se
+     empilhariam numa coluna só e depois "pulariam" para duas linhas. */
+  width: 212px;
+  padding: 0 4px;
+}
+
+.glass-sidebar:hover .skins__lista,
+.glass-sidebar:focus-within .skins__lista {
+  display: flex;
+}
+
+.skins__botao {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+/* mouse em cima: o globo cresce um pouco */
+.skins__botao:hover {
+  transform: scale(1.12);
+}
+
+/* foco do teclado: contorno na cor de destaque */
+.skins__botao:focus-visible {
+  outline: 3px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+/* a skin escolhida ganha um anel claro em volta.
+   [aria-pressed="true"] é um seletor de atributo, como o [data-skin]. */
+.skins__botao[aria-pressed="true"] {
+  box-shadow: 0 0 0 3px var(--cor-texto);
+}
+
+/* "Voltar para a padrão": escondido com a barra fechada, como a lista */
+.skins__padrao {
+  display: none;
+  margin: 0 6px;
+  padding: 6px 8px;
+  border: 2px solid var(--cor-borda);
+  background: none;
+  color: var(--cor-texto);
+  font-family: inherit;
+  font-size: var(--tamanho-texto);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* :not([hidden]) = "menos quando o JavaScript escondeu o botão"
+   (ele fica escondido enquanto a skin atual já é a padrão). */
+.glass-sidebar:hover .skins__padrao:not([hidden]),
+.glass-sidebar:focus-within .skins__padrao:not([hidden]) {
+  display: block;
+}
+
+.skins__padrao:hover,
+.skins__padrao:focus-visible {
+  border-color: var(--cor-destaque);
+  color: var(--cor-destaque);
+}
+
+.skins__padrao:focus-visible {
+  outline: 2px solid var(--cor-destaque);
+  outline-offset: 2px;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="icon" href="../jogo/img/interface/favicon.png" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport | Sobre mim</title>
+
+    <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele -->
+    <link rel="stylesheet" href="../css/skins.css" />
+    <link rel="stylesheet" href="../css/dashboards.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+
+    <script src="../js/sessao.js"></script>
+    <script src="../js/skins.js"></script>
+    <script src="../js/sidebar.js"></script>
+</head>
+
+<!--
+    Ordem do onload:
+    1. montarSidebar() escreve a barra lateral (js/sidebar.js)
+    2. validarSessao() confere o login e escreve o nome na barra (js/sessao.js)
+-->
+
+<body class="glass-sidebar-page" onload="montarSidebar('sobre'), validarSessao()">
+
+    <!-- A barra lateral é escrita aqui dentro pelo montarSidebar() -->
+    <aside id="barra_lateral" class="glass-sidebar"></aside>
+
+    <main class="conteudo">
+        <h1>Sobre mim</h1>
+
+        <div class="em-construcao">
+            <p><b>Tela em construção.</b></p>
+            <p>Aqui vai entrar a história de como a paixão por viajar começou.</p>
+        </div>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,3 @@
+# Biblioteca usada pelos scripts que geram as imagens do jogo.
+# O site (Node.js) não usa Python: isto só serve para redesenhar as imagens.
+pillow

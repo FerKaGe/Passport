@@ -1,0 +1,107 @@
+<!--
+    Tela de início do Jogo do Passaporte
+    Adaptada da tela Jump-goat-home, de Fabricio Lima (licença MIT).
+    Copyright (c) 2026 Fabricio Lima
+    Licença completa: docs/licencas/JumpGoat-LICENSE.txt
+-->
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passport | Jogo do Passaporte</title>
+    <link rel="icon" href="img/interface/favicon.png" />
+
+    <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele -->
+    <link rel="stylesheet" href="../css/skins.css" />
+    <link rel="stylesheet" href="../css/jogo-inicio.css" />
+    <link rel="stylesheet" href="../css/tema.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+
+    <script src="../js/sessao.js"></script>
+    <script src="../js/skins.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/fases.js"></script>
+</head>
+
+<body class="glass-sidebar-page" onload="montarSidebar('jogo'), validarSessao(), montarRoteiro()">
+
+    <aside id="barra_lateral" class="glass-sidebar"></aside>
+
+    <main>
+        <header class="cabecalho">
+            <img class="logo" src="img/interface/logo.png" alt="Passport: carimbe o mundo" />
+        </header>
+
+        <section class="apresentacao">
+            <div class="previa-jogo">
+                <img src="img/inicio/previa.png" alt="Cena do jogo: o corgi correndo no deserto do Atacama, com um cacto à frente" />
+            </div>
+
+            <div class="titulo-jogo">
+                <!-- Elemento tematizado: etiqueta de bagagem -->
+                <span class="etiqueta">JOGO DO PASSAPORTE</span>
+                <h1>Carimbe o <span class="destaque">mundo</span></h1>
+                <p>
+                    Corra do deserto do Atacama até Orlando, pulando os obstáculos de
+                    cada destino. A cada país vencido você ganha um carimbo no
+                    passaporte, e a viagem fica mais rápida.
+                </p>
+
+                <!-- Elemento tematizado: o botão de jogar é um passaporte que abre.
+                     É um <button> de verdade; o onclick leva para a página do jogo. -->
+                <button class="botao-tema botao-passaporte" onclick="embarcar()">
+                    <span class="botao-icone" aria-hidden="true"></span>
+                    <span>EMBARCAR</span>
+                </button>
+
+                <p class="como-jogar">Para pular: Espaço, seta para cima ou clique.</p>
+
+                <!-- A lista de destinos é escrita pelo montarRoteiro(), no script abaixo -->
+                <p class="roteiro-titulo">ROTEIRO</p>
+                <ol id="ol_roteiro" class="roteiro"></ol>
+            </div>
+        </section>
+
+        <!-- Os cartões-postais também são escritos pelo montarRoteiro() -->
+        <section class="historia">
+            <h2>A VIAGEM EM 7 POSTAIS</h2>
+            <div id="div_cartoes" class="cartoes"></div>
+        </section>
+    </main>
+
+</body>
+
+</html>
+
+<script>
+    // Chamada pelo botão EMBARCAR: abre a página do jogo
+    function embarcar() {
+        window.location = "jogo.html";
+    }
+
+    // Escreve a lista de destinos e os cartões-postais a partir do vetor
+    // "fases" (js/fases.js). É o mesmo vetor que o jogo usa: mudou lá, muda aqui.
+    function montarRoteiro() {
+        var htmlRoteiro = "";
+        var htmlCartoes = "";
+
+        for (var i = 0; i < fases.length; i++) {
+            // Só mostra o país entre parênteses quando ele é diferente do nome
+            // do destino (Atacama fica no Chile, mas Portugal é Portugal).
+            var texto = fases[i].nome;
+            if (fases[i].pais != fases[i].nome) {
+                texto += ` <small>(${fases[i].pais})</small>`;
+            }
+
+            // alt="" porque o carimbo só enfeita: o nome já está escrito ao lado
+            htmlRoteiro += `<li><img src="${fases[i].carimbo}" alt="" /> ${texto}</li>`;
+
+            htmlCartoes += `<img src="${fases[i].cartao}" alt="Cartão-postal de ${fases[i].nome}" />`;
+        }
+
+        ol_roteiro.innerHTML = htmlRoteiro;
+        div_cartoes.innerHTML = htmlCartoes;
+    }
+</script>

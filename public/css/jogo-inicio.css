@@ -1,0 +1,144 @@
+/*
+ * Tela de início do Jogo do Passaporte
+ * Adaptada da tela Jump-goat-home, de Fabricio Lima (licença MIT).
+ * Copyright (c) 2026 Fabricio Lima
+ * Licença completa: docs/licencas/JumpGoat-LICENSE.txt
+ */
+
+/* As cores e as fontes vêm de css/skins.css (variáveis --cor-... e --fonte-...). */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--fonte-texto);
+  font-size: var(--tamanho-texto);
+  background-color: var(--cor-fundo);
+}
+
+/* display: flex coloca a imagem e os textos lado a lado */
+.apresentacao {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  padding: 60px 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.cabecalho {
+  padding: 28px 50px 0;
+}
+
+/* image-rendering: pixelated: o navegador não suaviza a imagem ao
+   redimensionar, e os quadradinhos da pixel art continuam nítidos. */
+.logo {
+  display: block;
+  width: 338px;   /* metade do arquivo (676px): cada ponto do desenho fica com 2px */
+  image-rendering: pixelated;
+}
+
+/* A prévia tem 1120px no arquivo; 560px é exatamente a metade. A sombra é
+   um bloco deslocado, sem desfoque, como as sombras da pixel art. */
+.previa-jogo img {
+  display: block;
+  width: 560px;
+  max-width: 100%;
+  border: 4px solid var(--cor-destaque);
+  box-shadow: 8px 8px 0 var(--cor-borda);
+  image-rendering: pixelated;
+}
+
+.titulo-jogo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 460px;
+}
+
+.titulo-jogo h1 {
+  font-size: 34px;
+  line-height: 1.4;
+  font-family: var(--fonte-titulo);
+  color: var(--cor-texto);
+}
+
+.destaque {
+  color: var(--cor-destaque);
+}
+
+.titulo-jogo p {
+  line-height: 1.4;
+  color: var(--cor-texto-suave);
+}
+
+.titulo-jogo .como-jogar {
+  color: var(--cor-texto-apagado);
+}
+
+/* A etiqueta de bagagem e o botão-passaporte estão em css/tema.css */
+
+/* lista de destinos, escrita pelo montarRoteiro() */
+.roteiro-titulo {
+  margin-top: 8px;
+  font-family: var(--fonte-titulo);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cor-texto);
+}
+
+.roteiro {
+  padding-left: 22px;
+  color: var(--cor-texto-suave);
+  line-height: 1.7;
+}
+
+/* carimbo de cada destino, ao lado do nome */
+.roteiro img {
+  width: 32px;
+  vertical-align: middle;
+  image-rendering: pixelated;
+}
+
+.roteiro li {
+  margin-bottom: 4px;
+}
+
+.roteiro small {
+  color: var(--cor-texto-apagado);
+}
+
+/* ---------- Cartões-postais ---------- */
+
+.historia {
+  padding: 0 50px 60px;
+}
+
+.historia h2 {
+  margin-bottom: 20px;
+  font-family: var(--fonte-titulo);
+  font-size: 14px;
+  color: var(--cor-texto);
+  text-align: center;
+}
+
+/* flex-wrap: wrap deixa os cartões passarem para a linha de baixo
+   quando não cabem mais na largura da tela */
+.cartoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* 280px é um quarto do arquivo (1120px): 1 ponto do desenho = 1px */
+.cartoes img {
+  width: 280px;
+  box-shadow: 6px 6px 0 var(--cor-borda);
+  image-rendering: pixelated;
+}
