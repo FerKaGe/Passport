@@ -79,6 +79,22 @@
   transform: translate(8px, -6px) rotate(-12deg);
 }
 
+/* Botão de calcular (Calculadora): a mala da barra lateral */
+/* A mala é dourada como o botão: o fundo escuro do ícone faz ela aparecer */
+.botao-mala .botao-icone {
+  width: 48px;
+  height: 48px;
+  background-color: var(--cor-contorno);
+  background-image: url(../jogo/img/interface/icone-mala.png);
+  background-size: 32px;
+}
+
+/* ...que dá um pulinho com o mouse em cima ou com o foco do teclado */
+.botao-mala:hover .botao-icone,
+.botao-mala:focus .botao-icone {
+  transform: translateY(-4px);
+}
+
 /* ---------- Etiqueta de bagagem ---------- */
 
 /* position: relative deixa o "furo" (o ::before) se posicionar dentro dela. */

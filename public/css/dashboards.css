@@ -245,3 +245,105 @@ input:focus-visible,
   text-align: right;
   white-space: nowrap;
 }
+
+/* ---------- Calculadora ---------- */
+
+/* duas colunas: o formulário e o recibo; em tela estreita, uma embaixo da outra */
+.calculadora {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.formulario-calculo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1 1 320px;
+  margin-top: 0;
+}
+
+.formulario-calculo .campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formulario-calculo label {
+  color: var(--cor-texto);
+}
+
+input[type="number"] {
+  padding: 6px 8px;
+  border: 2px solid var(--cor-destaque);
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.formulario-calculo .botao-tema {
+  align-self: flex-start;
+}
+
+/* O recibo é um papel: fundo claro e texto escuro, como a página do passaporte.
+   :empty vale quando a div não tem nada dentro: aí o recibo não aparece. */
+.recibo {
+  flex: 1 1 320px;
+  padding: 20px 24px;
+  border: 3px solid var(--cor-contorno);
+  background-color: var(--cor-papel);
+  color: var(--cor-tinta);
+  box-shadow: 6px 6px 0 var(--cor-contorno);
+}
+
+.recibo:empty {
+  display: none;
+}
+
+.recibo h2 {
+  color: var(--cor-tinta);
+}
+
+.recibo-destino {
+  margin: 0 0 12px;
+  padding-bottom: 12px;
+  border-bottom: 3px dashed var(--cor-tinta);
+}
+
+.recibo-tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recibo-tabela th,
+.recibo-tabela td {
+  padding: 4px 0;
+  font-weight: normal;
+  text-align: left;
+}
+
+.recibo-tabela td {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.recibo-subtotal th,
+.recibo-subtotal td {
+  padding-top: 8px;
+  border-top: 2px solid var(--cor-tinta);
+}
+
+.recibo-total th,
+.recibo-total td {
+  padding: 8px 0;
+  border-top: 3px dashed var(--cor-tinta);
+  border-bottom: 3px dashed var(--cor-tinta);
+  font-size: 1.3em;
+}
+
+.recibo-rodape {
+  margin: 12px 0 0;
+  font-size: 0.85em;
+}

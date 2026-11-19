@@ -11,30 +11,79 @@
     <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele -->
     <link rel="stylesheet" href="../css/skins.css" />
     <link rel="stylesheet" href="../css/dashboards.css">
+    <link rel="stylesheet" href="../css/tema.css">
     <link rel="stylesheet" href="../css/sidebar.css">
 
     <script src="../js/sessao.js"></script>
     <script src="../js/skins.js"></script>
     <script src="../js/sidebar.js"></script>
+    <script src="../js/custos.js"></script>
+    <script src="../js/calculadora.js"></script>
 </head>
 
 <!--
     Ordem do onload:
     1. montarSidebar() escreve a barra lateral (js/sidebar.js)
     2. validarSessao() confere o login e escreve o nome na barra (js/sessao.js)
+    3. carregarCalculadora() busca os tipos e os custos no banco (js/calculadora.js)
 -->
 
-<body class="glass-sidebar-page" onload="montarSidebar('calculadora'), validarSessao()">
+<body class="glass-sidebar-page" onload="montarSidebar('calculadora'), validarSessao(), carregarCalculadora()">
 
     <!-- A barra lateral é escrita aqui dentro pelo montarSidebar() -->
     <aside id="barra_lateral" class="glass-sidebar"></aside>
 
     <main class="conteudo">
         <h1>Calculadora de custo</h1>
+        <p class="subtitulo">Quanto custaria fazer uma destas viagens, saindo de São Paulo.</p>
 
-        <div class="em-construcao">
-            <p><b>Tela em construção.</b></p>
-            <p>Aqui vai entrar a calculadora de custo por destino, tipo de viagem, dias e número de pessoas.</p>
+        <div class="calculadora">
+
+            <!--
+                onsubmit: roda o calcular() quando o botão é apertado OU quando
+                se aperta Enter num campo. "return false" impede o formulário de
+                recarregar a página.
+                novalidate: desliga a conferência automática do navegador, para
+                as mensagens virem das nossas validações (js/calculadora.js).
+            -->
+            <form class="painel formulario-calculo" onsubmit="calcular(); return false;" novalidate>
+                <div class="campo">
+                    <label for="select_destino">Destino</label>
+                    <select id="select_destino">
+                        <option value="">Carregando...</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="select_tipo">Tipo de viagem</label>
+                    <select id="select_tipo" onchange="carregarCustos()">
+                        <option>Carregando...</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="input_dias">Dias (de 1 a 90)</label>
+                    <input id="input_dias" type="number" min="1" max="90" step="1" value="7" />
+                </div>
+
+                <div class="campo">
+                    <label for="input_pessoas">Pessoas (de 1 a 10)</label>
+                    <input id="input_pessoas" type="number" min="1" max="10" step="1" value="1" />
+                </div>
+
+                <!-- Elemento tematizado: a mala. Continua sendo um <button> de verdade. -->
+                <button type="submit" class="botao-tema botao-mala">
+                    <span class="botao-icone" aria-hidden="true"></span>
+                    <span>FAZER A MALA</span>
+                </button>
+
+                <!-- aria-live: o leitor de tela lê a mensagem quando ela aparece -->
+                <p id="p_mensagem" class="aviso" aria-live="polite"></p>
+            </form>
+
+            <!-- O recibo é escrito pelo calcular() -->
+            <div id="div_recibo" class="recibo" aria-live="polite"></div>
+
         </div>
     </main>
 

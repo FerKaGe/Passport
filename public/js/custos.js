@@ -34,3 +34,10 @@ function converterParaMoedaLocal(valorEmReais, cotacao) {
 function formatarDinheiro(valor, moeda) {
     return valor.toLocaleString("pt-BR", { style: "currency", currency: moeda });
 }
+
+// A cotação de moedas "pequenas" tem muitas casas: 1 peso argentino vale
+// R$ 0,0055. Com 2 casas, como dinheiro, ela apareceria como R$ 0,01.
+// maximumFractionDigits: 4 deixa mostrar até 4 casas depois da vírgula.
+function formatarCotacao(cotacao) {
+    return Number(cotacao).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 4 });
+}
