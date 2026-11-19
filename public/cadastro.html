@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
-<body>
+<body onload="carregarTiposDeViagem()">
   <!--header inicio-->
   <div class="header">
     <div class="container">
@@ -66,6 +66,13 @@
             <span>Confirmação da Senha:</span>
             <input id="confirmacao_senha_input" type="password" placeholder="******" />
           </div>
+          <div class="campo">
+            <!-- As opções são escritas pelo carregarTiposDeViagem(), com os dados do banco -->
+            <label for="tipo_viagem_select">Que tipo de viagem você prefere?</label>
+            <select id="tipo_viagem_select">
+              <option value="">Carregando...</option>
+            </select>
+          </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
         <div id="div_aguardar" class="loading-div">
@@ -99,13 +106,15 @@
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    var tipoViagemVar = tipo_viagem_select.value;
 
     // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == ""
+      confirmacaoSenhaVar == "" ||
+      tipoViagemVar == ""
     ) {
       mostrarMensagem("Preencha todos os campos para se cadastrar.");
       return false;
@@ -128,7 +137,8 @@
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
-        senhaServer: senhaVar
+        senhaServer: senhaVar,
+        tipoViagemServer: tipoViagemVar
       }),
     })
       .then(function (resposta) {
@@ -150,6 +160,28 @@
       });
 
     return false;
+  }
+
+  // Busca os tipos de viagem no banco (rota /viagens/tipos) e escreve uma
+  // <option> para cada um. O value é o id: é ele que vai para o cadastro.
+  function carregarTiposDeViagem() {
+    fetch("/viagens/tipos")
+      .then(function (resposta) {
+        return resposta.json();
+      })
+      .then(function (tipos) {
+        var html = `<option value="">Escolha uma opção</option>`;
+
+        for (var i = 0; i < tipos.length; i++) {
+          html += `<option value="${tipos[i].id}">${tipos[i].nome}: ${tipos[i].descricao}</option>`;
+        }
+
+        tipo_viagem_select.innerHTML = html;
+      })
+      .catch(function (erro) {
+        console.log("Erro ao buscar os tipos de viagem: ", erro);
+        tipo_viagem_select.innerHTML = `<option value="">Não foi possível carregar</option>`;
+      });
   }
 
   // Mostra o aviso no canto da tela e esconde sozinho depois de 5 segundos.

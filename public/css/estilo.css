@@ -176,7 +176,8 @@ body {
   flex-direction: column;
 }
 
-.formulario span {
+.formulario span,
+.formulario label {
   font-size: 15px;
   font-weight: 800;
 }
