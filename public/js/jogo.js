@@ -397,9 +397,12 @@ function darCarimbo() {
     // O carimbo do destino "bate" na tela (a animação está em css/jogo.css)
     div_carimbo.innerHTML = `
         <img src="${fase.carimbo}" alt="" />
-        <p>CARIMBADO!<br><b>${fase.pais.toUpperCase()}</b></p>
+        <p id="p_carimbo">CARIMBADO!<br><b>${fase.pais.toUpperCase()}</b></p>
     `;
     div_carimbo.style.display = "block";
+
+    // Grava no banco. O jogo não espera a resposta: continua na hora.
+    registrarCarimbo(fase.idDestino, Math.floor(milhas));
 
     // Era a última fase do vetor?
     if (indiceFase == fases.length - 1) {
@@ -415,6 +418,39 @@ function darCarimbo() {
         // Deixa o carimbo um tempo na tela e depois segue viagem
         setTimeout(proximaFase, TEMPO_DO_CARIMBO);
     }
+}
+
+// Grava o carimbo no banco (rota POST /carimbos/registrar).
+// A resposta diz se o carimbo é novo: na primeira vez que o jogador vence
+// um destino, a skin desse destino é liberada.
+// Se o banco não responder, o jogo segue: o carimbo desta partida vale igual.
+function registrarCarimbo(idDestino, pontuacao) {
+    fetch("/carimbos/registrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            idUsuarioServer: sessionStorage.ID_USUARIO,
+            idDestinoServer: idDestino,
+            pontuacaoServer: pontuacao
+        })
+    })
+        .then(function (resposta) {
+            if (!resposta.ok) {
+                throw "Erro " + resposta.status;
+            }
+            return resposta.json();
+        })
+        .then(function (resultado) {
+            if (resultado.novo) {
+                p_carimbo.innerHTML += `<br><span class="skin-liberada">SKIN LIBERADA!</span>`;
+
+                // Atualiza a barra lateral: o globo deste destino perde o cadeado
+                montarSeletorDeSkins();
+            }
+        })
+        .catch(function (erro) {
+            console.log("Não foi possível gravar o carimbo no banco: ", erro);
+        });
 }
 
 function proximaFase() {

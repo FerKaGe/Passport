@@ -250,10 +250,37 @@
 }
 
 .skins__botao {
+  position: relative;  /* o cadeado se posiciona a partir do botão */
   width: 48px;
   height: 48px;
   cursor: pointer;
   transition: transform 0.15s;
+}
+
+/* Skin bloqueada: filter: grayscale(1) tira as cores (fica cinza).
+   O cadeado fica no canto de baixo, à direita, por cima do globo. */
+.skins__botao.bloqueada {
+  filter: grayscale(1);
+  opacity: 0.6;
+  cursor: help;
+}
+
+.skins__botao .skins__cadeado {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 20px;
+}
+
+/* aviso "ganhe o carimbo..." quando se clica numa skin bloqueada */
+.skins__aviso {
+  margin: 0 6px;
+  font-size: 0.8em;
+  white-space: normal;   /* este texto pode quebrar em várias linhas */
+}
+
+.skins__aviso:empty {
+  display: none;
 }
 
 /* mouse em cima: o globo cresce um pouco */

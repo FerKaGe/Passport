@@ -9,6 +9,8 @@
     <title>Passport | Login</title>
 
     <script src="./js/sessao.js"></script>
+    <!-- skins.js: o login guarda a skin escolhida com guardarSkin() -->
+    <script src="./js/skins.js"></script>
 
     <link rel="stylesheet" href="./css/estilo.css">
     <link rel="icon" href="jogo/img/interface/favicon.png" />
@@ -124,6 +126,15 @@
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.TIPO_VIAGEM_USUARIO = json.tipoViagem;
+
+                    // A skin escolhida volta do banco: guarda no navegador para as
+                    // páginas logadas já abrirem com ela (guardarSkin, em js/skins.js).
+                    // Sem skin escolhida (id vazio), vale a padrão.
+                    if (json.skin.id == null) {
+                        guardarSkin(SKIN_PADRAO);
+                    } else {
+                        guardarSkin(json.skin);
+                    }
 
                     setTimeout(function () {
                         window.location = "./dashboard/dashboard.html";
