@@ -13,16 +13,28 @@ body {
 
 /* área de conteúdo, à direita da barra lateral */
 .conteudo {
-  max-width: 960px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: 40px 24px 60px;
 }
 
 .conteudo h1 {
-  margin-top: 0;
+  margin: 0 0 8px;
   font-family: var(--fonte-titulo);
   font-size: 24px;
   color: var(--cor-destaque);
+}
+
+.conteudo h2 {
+  margin: 0 0 16px;
+  font-family: var(--fonte-titulo);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--cor-texto);
+}
+
+.subtitulo {
+  margin: 0 0 24px;
 }
 
 /* aviso das telas que ainda não foram feitas */
@@ -35,4 +47,201 @@ body {
 
 .em-construcao b {
   color: var(--cor-texto);
+}
+
+/* Cartão no estilo do jogo: borda grossa e sombra "em bloco" (sem desfoque) */
+.painel,
+.kpi,
+.filtro {
+  border: 3px solid var(--cor-contorno);
+  background-color: var(--cor-superficie);
+  box-shadow: 6px 6px 0 var(--cor-contorno);
+}
+
+.painel {
+  margin-top: 28px;
+  padding: 20px;
+}
+
+/* mensagem de erro (fica vazia quando está tudo certo) */
+.aviso {
+  min-height: 1em;
+  margin: 12px 0;
+  color: #FF8A7A;
+}
+
+/* ---------- Filtros ---------- */
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 16px;
+  min-width: 220px;
+}
+
+.filtro label,
+.filtro legend {
+  color: var(--cor-texto);
+}
+
+/* A legend de um fieldset fica em cima da borda; float a traz para dentro */
+.filtro legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+select {
+  padding: 6px 8px;
+  border: 2px solid var(--cor-destaque);
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Os botões de dias: o rádio fica visível, só pintado com a cor da skin */
+.dias {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.dias label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--cor-destaque);  /* accent-color pinta o rádio com a cor dada */
+}
+
+/* foco visível em tudo que se usa pelo teclado */
+select:focus-visible,
+input:focus-visible,
+.kpi a:focus-visible {
+  outline: 3px solid var(--cor-texto);
+  outline-offset: 3px;
+}
+
+/* ---------- Indicadores ---------- */
+
+/* grid com colunas de no mínimo 220px: em tela estreita, os cartões descem */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+}
+
+.kpi small {
+  font-family: var(--fonte-titulo);
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--cor-texto-apagado);
+  text-transform: uppercase;
+}
+
+.kpi b {
+  font-size: 1.4em;
+  font-weight: normal;
+  color: var(--cor-destaque);
+}
+
+.kpi a {
+  color: var(--cor-texto);
+}
+
+.selos-mini {
+  display: flex;
+  gap: 4px;
+}
+
+.selo-mini {
+  width: 14px;
+  height: 14px;
+  border: 2px dashed var(--cor-texto-apagado);
+}
+
+.selo-mini.cheio {
+  border: 2px solid var(--cor-destaque);
+  background-color: var(--cor-destaque);
+}
+
+/* ---------- Gráfico e tabela ---------- */
+
+.area-grafico {
+  position: relative;  /* o Chart.js precisa disto para acertar o tamanho */
+  height: 420px;
+}
+
+/* a tabela rola de lado em tela estreita, em vez de estourar a página */
+.rolagem-tabela {
+  overflow-x: auto;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela th,
+.tabela td {
+  padding: 10px 8px;
+  border-bottom: 2px solid var(--cor-borda);
+  text-align: left;
+  vertical-align: top;
+}
+
+.tabela thead th {
+  font-family: var(--fonte-titulo);
+  font-size: 9px;
+  line-height: 1.6;
+  color: var(--cor-texto-apagado);
+}
+
+.tabela tbody th {
+  font-weight: normal;
+  color: var(--cor-texto);
+}
+
+/* as cidades aparecem embaixo do país, menores */
+.tabela small {
+  display: block;
+  font-size: 0.8em;
+  color: var(--cor-texto-apagado);
+}
+
+.tabela b {
+  font-weight: normal;
+  color: var(--cor-destaque);
+}
+
+/* números alinhados à direita, para as casas decimais ficarem uma embaixo da outra.
+   ".tabela .numero" (e não só ".numero") para vencer a regra ".tabela td" acima,
+   que alinha à esquerda: o seletor mais específico ganha. */
+.tabela .numero {
+  text-align: right;
+  white-space: nowrap;
 }
