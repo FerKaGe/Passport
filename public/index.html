@@ -1,78 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Passport | Página Inicial</title>
-
-    <script src="./js/sessao.js"></script>
-
-    <link rel="stylesheet" href="./css/estilo.css">
     <link rel="icon" href="jogo/img/interface/favicon.png" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele.
+         Esta página não carrega o js/skins.js: fica sempre na skin padrão. -->
+    <link rel="stylesheet" href="./css/skins.css">
+    <link rel="stylesheet" href="./css/tema.css">
+    <link rel="stylesheet" href="./css/estilo.css">
+
+    <!-- fases.js tem a imagem do carimbo e do cartão-postal de cada destino -->
+    <script src="./js/fases.js"></script>
+    <script src="./js/home.js"></script>
 </head>
 
-<body>
-    <div class="header">
-      <div class="container">
-        <h1 class="titulo">Passport</h1>
-        <ul class="navbar">
-          <li class="agora">
-            <a href="#">Inicial</a>
-          </li>
-          <li>|</li>
-          <li>
-            <a href="login.html">Login</a>
-          </li>
-          <li>
-            <a href="cadastro.html">Cadastro</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  
-    <div class="banner">
-      <div class="container">
-        <p>Preservando <span>hoje</span> para existirem <span>amanhã</span>.</p>
-      </div>
-    </div>
-  
-    <div class="social">
-      <div class="container">
-        <div class="boxes">
-          <div class="box">
-            <img src="assets/imgs/planet-earth_color.png">
-            <h4>Missão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/lightbulb_color.png">
-            <h4>Visão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/growth_color.png">
-            <h4>Valores</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
+<body onload="carregarLinhaDoTempo()">
+
+    <header class="cabecalho">
+        <div class="container">
+            <a href="index.html" class="cabecalho-logo">
+                <img src="jogo/img/interface/logo.png" alt="Passport: carimbe o mundo" />
+            </a>
+            <!-- Elemento tematizado: placas de aeroporto (css/tema.css) -->
+            <nav aria-label="Menu">
+                <ul class="menu-publico">
+                    <li><a href="index.html" class="placa" aria-current="page">TELA INICIAL</a></li>
+                    <li><a href="login.html" class="placa">ENTRAR</a></li>
+                    <li><a href="cadastro.html" class="placa">CRIAR CONTA</a></li>
+                </ul>
+            </nav>
         </div>
-      </div>
-    </div>
-  
-    <div class="footer">
-      <div class="container">
-        <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023-2026</h4>
-      </div>
-    </div>
-  </body>
+    </header>
+
+    <main>
+        <section class="apresentacao">
+            <div class="container">
+                <div class="apresentacao-texto">
+                    <h1>7 países, 3 continentes, <span>muitas histórias</span></h1>
+
+                    <!-- FRASE DE APRESENTAÇÃO: trocar pelo texto do Fernando -->
+                    <p>
+                        Um passaporte com as viagens que já fiz, quanto cada uma custaria
+                        hoje saindo de São Paulo e um jogo para carimbar cada destino.
+                    </p>
+
+                    <!-- É um link (leva para outra página), com a aparência do botão-passaporte -->
+                    <a href="cadastro.html" class="botao-tema botao-passaporte">
+                        <span class="botao-icone" aria-hidden="true"></span>
+                        <span>CRIAR CONTA</span>
+                    </a>
+                </div>
+
+                <div class="apresentacao-imagem">
+                    <img src="jogo/img/personagem/correndo.gif" alt="O corgi viajante do Jogo do Passaporte, correndo" />
+                </div>
+            </div>
+        </section>
+
+        <section class="secao" aria-labelledby="h2_linha_do_tempo">
+            <div class="container">
+                <h2 id="h2_linha_do_tempo">Linha do tempo</h2>
+
+                <!-- Os itens são escritos pelo carregarLinhaDoTempo() (js/home.js), com os dados do banco -->
+                <ol id="ol_linha_do_tempo" class="linha-do-tempo">
+                    <li>Carregando as viagens...</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="secao" aria-labelledby="h2_recursos">
+            <div class="container">
+                <h2 id="h2_recursos">O que tem lá dentro</h2>
+
+                <ul class="recursos">
+                    <li class="recurso">
+                        <img src="jogo/img/interface/icone-globo.png" alt="" />
+                        <h3>Dashboard</h3>
+                        <p>Quanto custaria cada viagem hoje, em 7, 15 ou 30 dias, e qual destino sai mais barato.</p>
+                    </li>
+                    <li class="recurso">
+                        <img src="jogo/img/interface/icone-mala.png" alt="" />
+                        <h3>Calculadora</h3>
+                        <p>Escolha o destino, o tipo de viagem, os dias e as pessoas, e veja a conta em reais e na moeda do país.</p>
+                    </li>
+                    <li class="recurso">
+                        <img src="jogo/img/interface/icone-aviao.png" alt="" />
+                        <h3>Jogo do Passaporte</h3>
+                        <p>Pule os obstáculos de cada destino, ganhe os carimbos e libere as skins do site.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <div class="container">
+            Projeto Individual · SPTech · 2026
+        </div>
+    </footer>
+
+</body>
 
 </html>

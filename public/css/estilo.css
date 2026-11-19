@@ -1,303 +1,440 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/*
+ * Estilo das páginas públicas: Home (index.html), Login e Cadastro.
+ *
+ * As cores e as fontes vêm de css/skins.css (carregado antes deste arquivo).
+ * As páginas públicas ficam sempre na skin padrão: elas não carregam o
+ * js/skins.js, que é quem troca a skin (a não ser o login, que aplica a
+ * padrão logo que abre).
+ *
+ * Os botões e a placa de aeroporto vêm de css/tema.css.
+ */
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
-  padding: 0;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: black;
+  min-height: 100vh;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto-suave);
+  font-family: var(--fonte-texto);
+  font-size: var(--tamanho-texto);
+  line-height: 1.4;
 }
 
-:root {
-  --tamanho-header: 80px;
-  --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-  --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-  --tamanho-footer: 65px;
-}
-
+/* largura máxima do conteúdo e o respiro dos lados */
 .container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fonte-titulo);
+  font-weight: normal;
+  line-height: 1.5;
+  color: var(--cor-texto);
+}
+
+a {
+  color: var(--cor-destaque);
+}
+
+/* foco visível em tudo que se usa pelo teclado */
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--cor-texto);
+  outline-offset: 3px;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+.cabecalho {
+  padding: 20px 0;
+  border-bottom: 3px solid var(--cor-contorno);
+  background-color: var(--cor-superficie);
+}
+
+/* flex-wrap: em tela estreita, as placas descem para baixo do logo */
+.cabecalho .container {
   display: flex;
-  width: 80%;
-  margin: auto;
-}
-
-.header {
-  height: var(--tamanho-header);
-  border-bottom: 2px solid #32b9cd;
-}
-
-.header .container {
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
   align-items: center;
-  height: 100%;
+  justify-content: space-between;
 }
 
-.header a {
-  text-decoration: none;
-  color: #e3b062;
+.cabecalho-logo img {
+  display: block;
+  width: 220px;
+  max-width: 100%;
+  image-rendering: pixelated;
 }
 
-.agora {
-  font-weight: 800;
-}
-
-.navbar {
-  width: 300px;
+.menu-publico {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  list-style: none;
-  color: #e3b062;
-}
-
-.titulo {
-  color: #32b9cd;
-  width: fit-content;
-  font-weight: 500;
-}
-
-.header h1 {
-  margin: 0;
-}
-
-/* BANNER */
-
-.banner {
-  height: var(--tamanho-banner);
-  color: white;
-  background-image: url('../assets/imgs/bg-jelly-fish-para-home.png');
-  background-size: cover;
-}
-
-.banner .container {
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.banner .container p {
-  width: 50%;
+  flex-wrap: wrap;
+  gap: 10px;
   margin: 0;
   padding: 0;
-  font-size: 36px;
+  list-style: none;
 }
 
-.banner .container span {
-  font-weight: 800;
+/* aria-current="page" marca a placa da página em que você está */
+.menu-publico .placa[aria-current="page"] {
+  background-color: var(--cor-texto);
+  color: var(--cor-fundo);
 }
 
-/* MISSÃO VISÃO VALORES */
+/* ---------- Rodapé ---------- */
 
-.social {
-  background-color: #e5e5e5;
-  display: flex;
-}
-
-.social .container {
-  justify-content: center;
-}
-
-.box img {
-  width: 170px;
-}
-
-.social .container .boxes {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 30px 0;
-}
-
-.social p {
+.rodape {
+  margin-top: 60px;
+  padding: 24px 0;
+  border-top: 3px solid var(--cor-contorno);
+  background-color: var(--cor-superficie);
+  color: var(--cor-texto-apagado);
   text-align: center;
 }
 
-.box {
+/* ---------- Home: apresentação ---------- */
+
+.apresentacao .container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 40px;
   align-items: center;
+  justify-content: space-between;
+  padding-top: 48px;
+  padding-bottom: 24px;
 }
 
-/* FOOTER */
-
-.footer {
-  background-color: #32b9cd;
-  height: 150px;
-  color: #fff;
-  display: flex;
-  font-size: 15px;
+.apresentacao-texto {
+  flex: 1 1 420px;
 }
 
-.footer .container {
-  justify-content: center;
+.apresentacao h1 {
+  margin: 0 0 16px;
+  font-size: 26px;
+}
+
+.apresentacao h1 span {
+  color: var(--cor-destaque);
+}
+
+.apresentacao p {
+  margin: 0 0 24px;
+}
+
+/* <a> com a aparência do botão-passaporte: sem o sublinhado de link */
+.apresentacao .botao-tema {
+  display: inline-flex;
+  text-decoration: none;
+}
+
+/* o corgi do jogo, numa "janela" com borda dourada */
+.apresentacao-imagem {
+  flex: 0 1 300px;
+  padding: 20px;
+  border: 4px solid var(--cor-destaque);
+  background-color: var(--cor-superficie);
+  box-shadow: 8px 8px 0 var(--cor-contorno);
   text-align: center;
 }
 
-.footer .container .version {
+.apresentacao-imagem img {
+  width: 150px;
+  image-rendering: pixelated;
+}
+
+/* ---------- Home: linha do tempo ---------- */
+
+.secao {
+  padding-top: 40px;
+}
+
+.secao h2 {
+  margin: 0 0 24px;
+  font-size: 16px;
+}
+
+/* A linha vertical é a borda esquerda da lista;
+   cada viagem tem um "ponto" (::before) em cima dessa linha. */
+.linha-do-tempo {
+  margin: 0;
+  padding: 0 0 0 28px;
+  border-left: 4px dashed var(--cor-destaque);
+  list-style: none;
+}
+
+.viagem {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 28px;
+  padding: 16px;
+  border: 3px solid var(--cor-contorno);
+  background-color: var(--cor-superficie);
+  box-shadow: 6px 6px 0 var(--cor-contorno);
+}
+
+.viagem::before {
+  content: "";
+  position: absolute;
+  left: -44px;
+  top: 28px;
+  width: 24px;
+  height: 24px;
+  border: 4px solid var(--cor-fundo);
+  background-color: var(--cor-destaque);
+}
+
+.viagem-carimbo {
+  width: 80px;
+  image-rendering: pixelated;
+}
+
+.viagem-texto {
+  flex: 1 1 220px;
+}
+
+.viagem-texto h3 {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.viagem-texto p {
+  margin: 0;
+}
+
+.viagem-data {
+  color: var(--cor-destaque);
+}
+
+.viagem-cartao {
+  width: 280px;
+  max-width: 100%;
+  image-rendering: pixelated;
+}
+
+/* ---------- Home: o que tem lá dentro ---------- */
+
+.recursos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recurso {
+  padding: 20px;
+  border: 3px solid var(--cor-contorno);
+  background-color: var(--cor-superficie);
+  box-shadow: 6px 6px 0 var(--cor-contorno);
+}
+
+.recurso img {
+  width: 48px;
+  image-rendering: pixelated;
+}
+
+.recurso h3 {
+  margin: 12px 0 8px;
   font-size: 12px;
 }
 
-/* LOGIN */
-
-.login {
-  height: var(--tamanho-login);
-  background-image: url('../assets/imgs/bg-jelly-fish-para-home.png');
-  background-size: cover;
-}
-
-.login .container {
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.card {
-  width: 50%;
-  background-color: #e5e5e5;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  color: palevioletred;
-  flex-direction: column;
-  height: fit-content;
-  padding: 20px 0;
-}
-
-.card h2 {
+.recurso p {
   margin: 0;
-  font-size: 30px;
+}
+
+/* mensagem de "não foi possível carregar" */
+.aviso {
+  color: #FF8A7A;
+}
+
+/* ---------- Login e Cadastro: o passaporte aberto ---------- */
+
+.area-passaporte {
+  padding: 40px 0;
+}
+
+/* As duas páginas lado a lado; em tela estreita, uma em cima da outra */
+.passaporte-aberto {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
+  border: 4px solid var(--cor-contorno);
+  box-shadow: 10px 10px 0 var(--cor-contorno);
+}
+
+/* página da esquerda: a capa por dentro, azul com dourado */
+.pagina-capa {
+  display: flex;
+  flex: 1 1 320px;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  border-right: 4px dashed var(--cor-destaque);  /* a "costura" do meio do passaporte */
+  background-color: var(--cor-superficie);
+  text-align: center;
+}
+
+.pagina-capa img {
+  image-rendering: pixelated;
+}
+
+.pagina-capa .logo-passaporte {
+  width: 240px;
+  max-width: 100%;
+}
+
+.pagina-capa .carimbo-enfeite {
+  width: 120px;
+  transform: rotate(-10deg);
+}
+
+.pagina-capa h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* página da direita: papel, onde fica o formulário */
+.pagina-papel {
+  flex: 1 1 360px;
+  padding: 32px 28px;
+  background-color: var(--cor-papel);
+  color: var(--cor-tinta);
+}
+
+.pagina-papel h2 {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: var(--cor-tinta);
+}
+
+.pagina-papel a {
+  color: var(--cor-tinta);
+  font-weight: bold;
 }
 
 .formulario {
   display: flex;
-  height: 90%;
-  width: 80%;
-  justify-content: space-around;
   flex-direction: column;
-}
-
-.formulario span,
-.formulario label {
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.formulario input {
-  border: 2px solid #32b9cd;
-  text-align: center;
-  border-radius: 10px;
-  margin: 0;
-}
-
-.formulario select {
-  border: 2px solid #32b9cd;
-  background-color: white;
-  color: gray;
-  height: 36px;
-  text-align: center;
-  border-radius: 10px;
-  margin: 0;
+  gap: 14px;
 }
 
 .campo {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  padding: 5px 0;
+  gap: 4px;
 }
 
-.botao {
-  cursor: pointer;
-  font-family: "Barlow", sans-serif;
-  border: 0;
-  border-radius: 5px;
-  font-weight: 600;
-  font-size: 18px;
-  color: #fff;
-  background-color: #ED145B;
-  width: 120px;
-  height: 30px;
-  align-self: center;
-  margin-top: 20px;
+.campo label {
+  color: var(--cor-tinta);
 }
 
-.loading-div {
-  width: 50px;
+/* campos escritos "à máquina" sobre o papel: só a linha de baixo */
+.campo input,
+.campo select {
+  padding: 6px 4px;
+  border: none;
+  border-bottom: 3px solid var(--cor-tinta);
+  background-color: transparent;
+  color: var(--cor-tinta);
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.formulario .botao-tema {
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+.troca-de-pagina {
+  margin: 20px 0 0;
+}
+
+/* ---------- Mensagens como carimbos ---------- */
+
+/* O carimbo fica escondido até o JavaScript mostrar (display: block).
+   Borda dupla e um pouco torto, como um carimbo de verdade. */
+.carimbo-mensagem {
   display: none;
+  margin: 16px 0 0;
+  padding: 8px 12px;
+  border: 4px double;
+  font-family: var(--fonte-titulo);
+  font-size: 10px;
+  line-height: 1.8;
+  transform: rotate(-2deg);
 }
 
-.loading-div img {
-  height: 50px;
-  width: 50px;
+/* NEGADO: vermelho de carimbo (contraste de 5,7:1 sobre o papel) */
+.carimbo-mensagem.negado {
+  border-color: #B5121B;
+  color: #B5121B;
 }
 
-#div_erros_login {
-  display: none
+/* APROVADO: verde de carimbo (contraste de 5,3:1 sobre o papel) */
+.carimbo-mensagem.aprovado {
+  border-color: #1A6B58;
+  color: #1A6B58;
 }
 
-/* FORMULARIO */
-
-.alerta_erro{
-  display: flex;
-  justify-content: flex-end;
+/* a palavra NEGADO ou APROVADO, em cima da mensagem */
+.carimbo-mensagem b {
+  display: block;
+  font-size: 14px;
 }
 
-.card_erro {
-  display: none;
-  background-color: #fff;
-  color: black;
-  width: 230px;
-  position: fixed;
-  border-radius: 4px;
-  border: #ED145B 3px solid;
-  padding: 10px;
-  margin-right: 10%;
+/* ---------- Carregando: o avião girando ---------- */
+
+.carregando {
+  display: none;               /* o aguardar() de js/sessao.js mostra */
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
 }
 
-.card_erro #mensagem_erro{
-  font-weight: 500;
-  font-size: 20px;
+.carregando img {
+  width: 40px;
+  image-rendering: pixelated;
+  animation: girar 1s linear infinite;
 }
 
-.formulario .tipo_campo {
-  font-size: 20px;
-  font-weight: 600 !important;
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.formulario {
-  display: flex;
-  flex-direction: column;
-}
+/* ---------- Tela estreita (celular) ---------- */
 
-input {
-  margin-bottom: 10px;
-  border: 2px solid #32b9cd;
-  padding: 10px;
-  text-align: center;
-  border-radius: 10px;
-}
+@media (max-width: 700px) {
+  .apresentacao h1 {
+    font-size: 18px;
+  }
 
-.btn {
-  font-family: "Barlow", sans-serif;
-  border: 0;
-  border-radius: 5px;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 10px 15px;
-  color: white;
-  background-color: #ED145B;
-  width: 120px;
-  align-self: center;
-  margin-top: 5px;
-}
-
-.loading-div {
-  width: 50px;
-  margin: auto;
-  display: none;
-}
-
-.loading-div img {
-  height: 50px;
-  width: 50px;
+  /* a costura do passaporte passa a ser embaixo da capa */
+  .pagina-capa {
+    border-right: none;
+    border-bottom: 4px dashed var(--cor-destaque);
+  }
 }

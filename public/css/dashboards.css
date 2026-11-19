@@ -160,7 +160,8 @@ input:focus-visible,
   font-size: 9px;
   letter-spacing: 1px;
   color: var(--cor-texto-apagado);
-  text-transform: uppercase;
+  /* Sem text-transform: uppercase. A Press Start 2P desenha as maiúsculas
+     acentuadas (É, Í) como minúsculas: "MELHOR ÉPOCA" virava "MELHOR éPOCA". */
 }
 
 .kpi b {
