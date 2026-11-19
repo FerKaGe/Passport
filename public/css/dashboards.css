@@ -348,3 +348,82 @@ input[type="number"] {
   margin: 12px 0 0;
   font-size: 0.85em;
 }
+
+/* ---------- Sobre mim ---------- */
+
+.historia {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  align-items: flex-start;
+  margin-top: 0;
+}
+
+.historia-foto {
+  width: 150px;
+  image-rendering: pixelated;
+}
+
+.historia-texto {
+  flex: 1 1 360px;
+}
+
+.historia-texto p {
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+/* o texto provisório aparece tracejado, para não passar despercebido */
+.rascunho {
+  padding: 12px;
+  border: 2px dashed var(--cor-destaque);
+  color: var(--cor-texto-apagado);
+}
+
+.numeros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.mapa-carimbos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carimbo-do-mapa {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  text-align: center;
+}
+
+.carimbo-do-mapa img {
+  width: 96px;
+  image-rendering: pixelated;
+}
+
+/* carimbo que ainda falta: sem cor e meio apagado */
+.carimbo-do-mapa.falta img {
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+
+.carimbo-do-mapa.falta span {
+  color: var(--cor-texto-apagado);
+}
+
+.conteudo a {
+  color: var(--cor-destaque);
+}
+
+.conteudo a:focus-visible {
+  outline: 3px solid var(--cor-texto);
+  outline-offset: 3px;
+}

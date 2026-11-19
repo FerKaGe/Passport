@@ -4,20 +4,8 @@
  * As viagens vêm do banco pela rota pública GET /viagens/destinos
  * (país, cidades e datas; sem preços). As imagens do carimbo e do
  * cartão-postal de cada destino vêm do vetor fases (js/fases.js),
- * ligadas pelo id do destino.
+ * ligadas pelo id do destino (buscarFase, em js/fases.js).
  */
-
-// Procura no vetor fases (js/fases.js) a fase deste destino.
-// Devolve null se não achar.
-function buscarFase(idDestino) {
-    for (var i = 0; i < fases.length; i++) {
-        if (fases[i].idDestino == idDestino) {
-            return fases[i];
-        }
-    }
-
-    return null;
-}
 
 // Chamada pelo onload da página
 function carregarLinhaDoTempo() {

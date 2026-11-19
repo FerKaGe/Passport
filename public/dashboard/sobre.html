@@ -4,7 +4,6 @@
 <head>
     <link rel="icon" href="../jogo/img/interface/favicon.png" />
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passport | Sobre mim</title>
 
@@ -16,15 +15,18 @@
     <script src="../js/sessao.js"></script>
     <script src="../js/skins.js"></script>
     <script src="../js/sidebar.js"></script>
+    <script src="../js/fases.js"></script>
+    <script src="../js/sobre.js"></script>
 </head>
 
 <!--
     Ordem do onload:
     1. montarSidebar() escreve a barra lateral (js/sidebar.js)
     2. validarSessao() confere o login e escreve o nome na barra (js/sessao.js)
+    3. carregarSobre() busca os números e os carimbos no banco (js/sobre.js)
 -->
 
-<body class="glass-sidebar-page" onload="montarSidebar('sobre'), validarSessao()">
+<body class="glass-sidebar-page" onload="montarSidebar('sobre'), validarSessao(), carregarSobre()">
 
     <!-- A barra lateral é escrita aqui dentro pelo montarSidebar() -->
     <aside id="barra_lateral" class="glass-sidebar"></aside>
@@ -32,10 +34,44 @@
     <main class="conteudo">
         <h1>Sobre mim</h1>
 
-        <div class="em-construcao">
-            <p><b>Tela em construção.</b></p>
-            <p>Aqui vai entrar a história de como a paixão por viajar começou.</p>
-        </div>
+        <section class="painel historia">
+            <!-- FOTO: para usar uma foto sua, coloque o arquivo em public/assets/fotos/
+                 e troque o src abaixo por "../assets/fotos/NOME-DO-ARQUIVO.jpg" -->
+            <img class="historia-foto" src="../jogo/img/personagem/correndo.gif" alt="O corgi viajante do Jogo do Passaporte" />
+
+            <div class="historia-texto">
+                <h2>Como a paixão por viajar começou</h2>
+
+                <!-- TEXTO DO FERNANDO AQUI: a história de como a paixão por viajar começou.
+                     Cada parágrafo dentro de um <p>. -->
+                <p class="rascunho">
+                    [Espaço reservado para o texto do Fernando: como a paixão por viajar começou.]
+                </p>
+            </div>
+        </section>
+
+        <!-- Os números são calculados pelo carregarNumeros() (js/sobre.js) com os dados do banco -->
+        <section class="numeros" aria-label="As viagens em números">
+            <article class="kpi">
+                <small>Países visitados</small>
+                <b id="b_paises">...</b>
+            </article>
+            <article class="kpi">
+                <small>Viajando desde</small>
+                <b id="b_primeiro_ano">...</b>
+            </article>
+            <article class="kpi">
+                <small>Viagem mais recente</small>
+                <b id="b_ultimo_ano">...</b>
+            </article>
+        </section>
+
+        <section class="painel">
+            <h2>Seus carimbos no jogo: <span id="span_carimbos_ganhos">...</span></h2>
+            <!-- Escritos pelo carregarMapaDeCarimbos() (js/sobre.js) -->
+            <ul id="ul_mapa_carimbos" class="mapa-carimbos"></ul>
+            <p><a href="../jogo/inicio.html">Ir para o jogo</a></p>
+        </section>
     </main>
 
 </body>

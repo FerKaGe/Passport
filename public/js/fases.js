@@ -135,3 +135,16 @@ var fases = [
         obstaculos: [obstaculoJacare, obstaculoCone]
     }
 ];
+
+// Procura no vetor fases a fase de um destino (pelo id da tabela destino).
+// Devolve null se não achar. Usada pela Home (js/home.js) e pelo
+// Sobre mim (js/sobre.js) para achar o carimbo e o cartão de cada destino.
+function buscarFase(idDestino) {
+    for (var i = 0; i < fases.length; i++) {
+        if (fases[i].idDestino == idDestino) {
+            return fases[i];
+        }
+    }
+
+    return null;
+}
