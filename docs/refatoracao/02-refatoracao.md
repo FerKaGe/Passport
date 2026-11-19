@@ -958,7 +958,7 @@ Com um banco falso em memória, que recebe o mesmo SQL que o model monta. Isso t
 
 ## Próxima etapa (para registro)
 
-1. **Arte.** Corgi bípede (mesma estrutura da cabra; cores de corgi, orelhas grandes, tronco comprido e patas curtas), com a mesma qualidade do sprite atual; GIF de game over com menos quadros; obstáculos e fundos de cada destino; moldura do Passport; paleta nova. Os GIFs serão feitos por mim (Claude).
+1. **Arte.** Corgi bípede (mesma estrutura da cabra; cores de corgi, orelhas grandes, tronco comprido e patas curtas), com a mesma qualidade do sprite atual; GIF de game over com menos quadros; obstáculos e fundos de cada destino; moldura do Passport; paleta nova. Os GIFs serão gerados por scripts na próxima etapa.
 2. **Carimbos no banco.** Tabelas `destino` e `carimbo`, rota `/carimbos` e o `fetch` em `darCarimbo`.
 3. **Skins.** Cores na tabela `destino` (decisão D10) e o seletor no espaço já marcado da sidebar.
 4. **Telas.** Home, Dashboard, Calculadora e Sobre mim.
