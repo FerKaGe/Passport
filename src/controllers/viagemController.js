@@ -11,6 +11,17 @@ function listarTipos(req, res) {
         });
 }
 
+function listarDestinos(req, res) {
+    viagemModel.listarDestinos()
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log("\nHouve um erro ao listar os destinos! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 function listarCustos(req, res) {
     // req.params traz o pedaço variável do endereço (o :idTipoViagem da rota).
     // Number() transforma o texto em número; se não for número, vira NaN.
@@ -34,5 +45,6 @@ function listarCustos(req, res) {
 
 module.exports = {
     listarTipos,
+    listarDestinos,
     listarCustos
 };
