@@ -1,0 +1,132 @@
+/*
+ * Elementos tematizados do Passport: botões e avisos que viram objetos de viagem.
+ * Usado pelas páginas do jogo (jogo/inicio.html e jogo/jogo.html).
+ *
+ * As cores vêm de variáveis CSS (--cor-destaque, --cor-papel...), então
+ * todos estes elementos mudam junto quando a skin muda.
+ *
+ * O estilo imita pixel art: cantos retos, bordas grossas e sombra "em bloco"
+ * (deslocada, sem desfoque), como nas imagens do jogo.
+ */
+
+/* ---------- Botão-objeto ---------- */
+
+/* É um <button> de verdade: funciona com Tab, Enter e Espaço sem nenhum
+   JavaScript a mais. O desenho (passaporte ou avião) fica num <span> ao
+   lado do texto. */
+.botao-tema {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 20px 10px 10px;
+  border: 4px solid var(--cor-contorno);
+  background-color: var(--cor-destaque);
+  color: var(--cor-destaque-texto);
+  box-shadow: 6px 6px 0 var(--cor-contorno);
+  font-family: var(--fonte-titulo);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* O desenho do botão é o fundo deste <span>. */
+.botao-icone {
+  width: 60px;
+  height: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  image-rendering: pixelated;
+  transition: transform 0.2s;
+}
+
+/* Mouse em cima OU foco do teclado: a sombra cresce (o botão "levanta"). */
+.botao-tema:hover,
+.botao-tema:focus {
+  box-shadow: 10px 10px 0 var(--cor-contorno);
+}
+
+/* Foco: contorno claro em volta, para quem navega pelo teclado enxergar
+   onde está. outline-offset afasta o contorno da borda do botão. */
+.botao-tema:focus {
+  outline: 4px solid var(--cor-texto);
+  outline-offset: 4px;
+}
+
+/* Enquanto o botão está apertado, a sombra quase some (o botão "afunda"). */
+.botao-tema:active {
+  box-shadow: 2px 2px 0 var(--cor-contorno);
+}
+
+/* Botão de jogar: um passaporte fechado... */
+.botao-passaporte .botao-icone {
+  background-image: url(../jogo/img/interface/passaporte-fechado.png);
+}
+
+/* ...que abre com o mouse em cima ou com o foco do teclado. */
+.botao-passaporte:hover .botao-icone,
+.botao-passaporte:focus .botao-icone {
+  background-image: url(../jogo/img/interface/passaporte-aberto.png);
+}
+
+/* Botão de recomeçar: um avião... */
+.botao-aviao .botao-icone {
+  background-image: url(../jogo/img/interface/aviao.png);
+}
+
+/* ...que decola: anda para a frente, sobe e inclina o bico. */
+.botao-aviao:hover .botao-icone,
+.botao-aviao:focus .botao-icone {
+  transform: translate(8px, -6px) rotate(-12deg);
+}
+
+/* ---------- Etiqueta de bagagem ---------- */
+
+/* position: relative deixa o "furo" (o ::before) se posicionar dentro dela. */
+.etiqueta {
+  position: relative;
+  padding: 10px 16px 10px 34px;
+  border: 3px solid var(--cor-contorno);
+  background-color: var(--cor-papel);
+  color: var(--cor-tinta);
+  box-shadow: 4px 4px 0 var(--cor-contorno);
+  font-family: var(--fonte-titulo);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+/* ::before cria um elemento que não existe no HTML: aqui, o furo por onde
+   passa o barbante da etiqueta. */
+.etiqueta::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border: 3px solid var(--cor-contorno);
+  background-color: var(--cor-fundo);
+}
+
+/* ---------- Placa de aeroporto ---------- */
+
+.placa {
+  padding: 8px 12px;
+  border: 3px solid var(--cor-contorno);
+  background-color: var(--cor-destaque);
+  color: var(--cor-destaque-texto);
+  font-family: var(--fonte-titulo);
+  font-size: 10px;
+  text-decoration: none;
+}
+
+.placa:hover,
+.placa:focus {
+  background-color: var(--cor-texto);
+  color: var(--cor-fundo);
+}
+
+.placa:focus {
+  outline: 3px solid var(--cor-destaque);
+  outline-offset: 3px;
+}

@@ -1,0 +1,108 @@
+<!--
+    Jogo do Passaporte
+    Adaptado do JumpGoat, de Fabricio Lima (licença MIT).
+    Copyright (c) 2026 Fabricio Lima
+    Licença completa: docs/licencas/JumpGoat-LICENSE.txt
+-->
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passport | Jogo</title>
+    <link rel="icon" href="img/interface/favicon.png" />
+
+    <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele -->
+    <link rel="stylesheet" href="../css/skins.css" />
+    <link rel="stylesheet" href="../css/jogo.css" />
+    <link rel="stylesheet" href="../css/tema.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+
+    <!-- A ordem importa: jogo.js usa o vetor "fases", que está em fases.js -->
+    <script src="../js/sessao.js"></script>
+    <script src="../js/skins.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/fases.js"></script>
+    <script src="../js/jogo.js"></script>
+</head>
+
+<!--
+    Ordem do onload:
+    1. montarSidebar() escreve a barra lateral (js/sidebar.js)
+    2. validarSessao() confere o login e escreve o nome na barra (js/sessao.js)
+    3. prepararJogo() registra os ouvintes e carrega a primeira fase (js/jogo.js)
+-->
+
+<body class="glass-sidebar-page" onload="montarSidebar('jogo'), validarSessao(), prepararJogo()">
+
+    <aside id="barra_lateral" class="glass-sidebar"></aside>
+
+    <main class="palco">
+
+        <div class="barra-topo">
+            <!-- Elemento tematizado: placa de aeroporto -->
+            <a href="inicio.html" class="placa">&larr; TELA INICIAL</a>
+            <span>ESPAÇO, SETA PARA CIMA OU CLIQUE = PULAR</span>
+        </div>
+
+        <!-- A moldura de fliperama é o fundo desta div; o tabuleiro fica no "buraco" dela -->
+        <div class="moldura">
+
+            <div id="div_tabuleiro" class="tabuleiro">
+
+                <img id="img_viajante" class="viajante" src="img/personagem/correndo.gif" alt="Viajante" />
+                <img id="img_obstaculo" class="obstaculo" src="img/obstaculos/cacto.gif" alt="Obstáculo" />
+
+                <div class="painel">
+
+                    <!-- Elemento tematizado: o placar é um CARTÃO DE EMBARQUE.
+                         Os textos são escritos pelo atualizarPainel() (js/jogo.js). -->
+                    <div class="cartao-embarque">
+                        <div class="campo">
+                            <small>DESTINO</small>
+                            <span id="span_destino" class="valor">ATACAMA</span>
+                        </div>
+                        <div class="campo">
+                            <small>MILHAS</small>
+                            <span id="span_milhas" class="valor">0</span>
+                        </div>
+                        <!-- O canhoto do cartão: um avião anda pela linha conforme a fase avança -->
+                        <div class="campo canhoto">
+                            <small>TRECHO <span id="span_progresso">0/5</span></small>
+                            <div class="rota">
+                                <img id="img_aviaozinho" class="aviaozinho" src="img/interface/aviao-tinta.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Elemento tematizado: os carimbos ganhos ficam numa PÁGINA DE PASSAPORTE,
+                         com um espaço para cada destino (escritos pelo atualizarPainel()) -->
+                    <div id="div_passaporte" class="passaporte" aria-label="Carimbos ganhos"></div>
+
+                </div>
+
+                <!-- Elemento tematizado: o checkpoint é o CARIMBO do destino batendo na tela
+                     (escrito pelo darCarimbo()) -->
+                <div id="div_carimbo" class="carimbo"></div>
+
+                <!-- Aparece no game over e no fim do jogo -->
+                <div id="div_aviso" class="aviso"></div>
+
+                <!-- Elemento tematizado: o botão de jogar é um PASSAPORTE que abre;
+                     no game over ele vira um AVIÃO (mostrarBotao(), em js/jogo.js).
+                     Continua sendo um <button>: funciona com Tab, Enter e Espaço. -->
+                <button id="btn_embarcar" class="botao-tema botao-passaporte" onclick="iniciarJogo()">
+                    <span class="botao-icone" aria-hidden="true"></span>
+                    <span id="span_botao">EMBARCAR</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
