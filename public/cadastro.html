@@ -59,11 +59,28 @@
             </div>
             <div class="campo">
               <label for="senha_input">Senha</label>
-              <input id="senha_input" type="password" autocomplete="new-password" />
+              <!-- oninput: roda a cada letra digitada (ou apagada) no campo.
+                   aria-describedby liga o campo à lista de regras: o leitor de
+                   tela lê as regras junto com o nome do campo. -->
+              <input id="senha_input" type="password" autocomplete="new-password"
+                aria-describedby="ul_requisitos_senha" oninput="atualizarRequisitosSenha()" />
+
+              <!-- As regras da senha forte. Cada <li> fica "ok" (verde) ou "falta"
+                   conforme a pessoa digita (atualizarRequisitosSenha, no script abaixo). -->
+              <ul id="ul_requisitos_senha" class="requisitos-senha">
+                <li id="li_senha_tamanho" class="falta">De 8 a 50 caracteres</li>
+                <li id="li_senha_maiuscula" class="falta">Uma letra maiúscula</li>
+                <li id="li_senha_minuscula" class="falta">Uma letra minúscula</li>
+                <li id="li_senha_numero" class="falta">Um número</li>
+                <li id="li_senha_especial" class="falta">Um caractere especial (como ! @ # $ %)</li>
+              </ul>
             </div>
             <div class="campo">
               <label for="confirmacao_senha_input">Confirme a senha</label>
-              <input id="confirmacao_senha_input" type="password" autocomplete="new-password" />
+              <input id="confirmacao_senha_input" type="password" autocomplete="new-password"
+                aria-describedby="span_confirmacao" oninput="conferirConfirmacao()" />
+              <!-- aria-live: o leitor de tela avisa quando o texto muda -->
+              <span id="span_confirmacao" class="confirmacao-senha" aria-live="polite"></span>
             </div>
             <div class="campo">
               <!-- As opções são escritas pelo carregarTiposDeViagem(), com os dados do banco -->
@@ -134,6 +151,12 @@
       return false;
     }
 
+    // Verificando se a senha é forte (as mesmas regras da lista do campo)
+    if (!senhaEhForte(senhaVar)) {
+      mostrarMensagem("A senha ainda não é forte: confira as regras embaixo do campo.", "negado");
+      return false;
+    }
+
     // Verificando se a senha foi digitada igual nos dois campos
     if (senhaVar != confirmacaoSenhaVar) {
       mostrarMensagem("A senha e a confirmação da senha estão diferentes.", "negado");
@@ -174,6 +197,97 @@
       });
 
     return false;
+  }
+
+  // ---------------------------------------------------------------------
+  // Senha forte
+  // ---------------------------------------------------------------------
+
+  var SENHA_MINIMO = 8;
+  var SENHA_MAXIMO = 50;   // a coluna senha do banco é VARCHAR(50)
+
+  // Passa por cada caractere da senha e anota o que encontrou.
+  // Devolve um objeto com true ou false para cada regra.
+  function analisarSenha(senha) {
+    var temMaiuscula = false;
+    var temMinuscula = false;
+    var temNumero = false;
+    var temEspecial = false;
+
+    for (var i = 0; i < senha.length; i++) {
+      var caractere = senha[i];
+
+      // Uma letra muda quando passa para maiúscula ou minúscula; o resto não.
+      // Assim "Á" e "ç" também contam como letra.
+      var ehMaiuscula = caractere != caractere.toLowerCase();
+      var ehMinuscula = caractere != caractere.toUpperCase();
+      var ehNumero = caractere >= "0" && caractere <= "9";
+
+      if (ehMaiuscula) {
+        temMaiuscula = true;
+      } else if (ehMinuscula) {
+        temMinuscula = true;
+      } else if (ehNumero) {
+        temNumero = true;
+      } else if (caractere != " ") {
+        // não é letra, não é número e não é espaço: é especial (! @ # $ %...)
+        temEspecial = true;
+      }
+    }
+
+    return {
+      tamanho: senha.length >= SENHA_MINIMO && senha.length <= SENHA_MAXIMO,
+      maiuscula: temMaiuscula,
+      minuscula: temMinuscula,
+      numero: temNumero,
+      especial: temEspecial
+    };
+  }
+
+  // A senha é forte quando cumpre todas as regras
+  function senhaEhForte(senha) {
+    var regras = analisarSenha(senha);
+
+    return regras.tamanho && regras.maiuscula && regras.minuscula && regras.numero && regras.especial;
+  }
+
+  // Marca um item da lista como cumprido ("ok") ou não ("falta")
+  function marcarRequisito(item, cumprido) {
+    if (cumprido) {
+      item.className = "ok";
+    } else {
+      item.className = "falta";
+    }
+  }
+
+  // Chamada pelo oninput do campo de senha: a cada tecla, refaz a lista
+  function atualizarRequisitosSenha() {
+    var regras = analisarSenha(senha_input.value);
+
+    marcarRequisito(li_senha_tamanho, regras.tamanho);
+    marcarRequisito(li_senha_maiuscula, regras.maiuscula);
+    marcarRequisito(li_senha_minuscula, regras.minuscula);
+    marcarRequisito(li_senha_numero, regras.numero);
+    marcarRequisito(li_senha_especial, regras.especial);
+
+    // Se a confirmação já foi digitada, confere de novo (a senha mudou)
+    conferirConfirmacao();
+  }
+
+  // Chamada pelo oninput da confirmação: diz se as duas senhas são iguais
+  function conferirConfirmacao() {
+    var confirmacao = confirmacao_senha_input.value;
+
+    if (confirmacao == "") {
+      span_confirmacao.innerHTML = "";
+      span_confirmacao.className = "confirmacao-senha";
+    } else if (confirmacao == senha_input.value) {
+      span_confirmacao.innerHTML = "As senhas são iguais.";
+      span_confirmacao.className = "confirmacao-senha ok";
+    } else {
+      span_confirmacao.innerHTML = "As senhas ainda estão diferentes.";
+      span_confirmacao.className = "confirmacao-senha falta";
+    }
   }
 
   // Busca os tipos de viagem no banco (rota /viagens/tipos) e escreve uma

@@ -363,6 +363,48 @@ button:focus-visible {
   margin-top: 8px;
 }
 
+/* ---------- Regras da senha forte (cadastro) ---------- */
+
+.requisitos-senha {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85em;
+}
+
+/* O símbolo vem antes do texto (::before). Não é só a cor que muda:
+   o símbolo também, para quem não distingue vermelho de verde. */
+.requisitos-senha li::before,
+.confirmacao-senha::before {
+  display: inline-block;
+  width: 1.4em;
+}
+
+.requisitos-senha .falta,
+.confirmacao-senha.falta {
+  color: #8A3A1C;   /* marrom-avermelhado: 6,4:1 sobre o papel */
+}
+
+.requisitos-senha .falta::before,
+.confirmacao-senha.falta::before {
+  content: "✗";
+}
+
+.requisitos-senha .ok,
+.confirmacao-senha.ok {
+  color: #1A6B58;   /* verde de carimbo: 5,3:1 sobre o papel */
+}
+
+.requisitos-senha .ok::before,
+.confirmacao-senha.ok::before {
+  content: "✓";
+}
+
+.confirmacao-senha {
+  min-height: 1.4em;
+  font-size: 0.85em;
+}
+
 .troca-de-pagina {
   margin: 20px 0 0;
 }
