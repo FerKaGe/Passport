@@ -1,14 +1,46 @@
 /*
- * Home: a linha do tempo das viagens.
+ * Home: os cartões dos países.
  *
  * As viagens vêm do banco pela rota pública GET /viagens/destinos
- * (país, cidades e datas; sem preços). As imagens do carimbo e do
- * cartão-postal de cada destino vêm do vetor fases (js/fases.js),
- * ligadas pelo id do destino (buscarFase, em js/fases.js).
+ * (país, cidades e datas; sem preços). A bandeira de cada destino vem do
+ * vetor fases (js/fases.js), ligada pelo id do destino (buscarFase).
  */
 
+// Os meses abreviados, na ordem: a posição 0 é janeiro.
+var MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+
+// Transforma "11/2016" em "nov/2016".
+// split("/") quebra o texto na barra: "11/2016" vira ["11", "2016"].
+// O mês 11 fica na posição 10 do vetor MESES, por isso o "- 1".
+function nomeDoMes(mesAno) {
+    var partes = mesAno.split("/");
+    var mes = Number(partes[0]);
+
+    return MESES[mes - 1];
+}
+
+function anoDe(mesAno) {
+    return mesAno.split("/")[1];
+}
+
+// Escreve o período da viagem do jeito mais curto:
+//   mesmo mês            "07/2024" e "07/2024" -> "jul/2024"
+//   mesmo ano            "06/2024" e "07/2024" -> "jun a jul/2024"
+//   anos diferentes      "11/2016" e "02/2017" -> "nov/2016 a fev/2017"
+function formatarPeriodo(ida, volta) {
+    if (ida == volta) {
+        return nomeDoMes(ida) + "/" + anoDe(ida);
+    }
+
+    if (anoDe(ida) == anoDe(volta)) {
+        return nomeDoMes(ida) + " a " + nomeDoMes(volta) + "/" + anoDe(volta);
+    }
+
+    return nomeDoMes(ida) + "/" + anoDe(ida) + " a " + nomeDoMes(volta) + "/" + anoDe(volta);
+}
+
 // Chamada pelo onload da página
-function carregarLinhaDoTempo() {
+function carregarPaises() {
     fetch("/viagens/destinos")
         .then(function (resposta) {
             if (!resposta.ok) {
@@ -23,37 +55,29 @@ function carregarLinhaDoTempo() {
                 var destino = destinos[i];
                 var fase = buscarFase(destino.id);
 
-                // Viagem que começou e terminou no mesmo mês aparece só com um mês
-                var quando = destino.ida;
-                if (destino.volta != destino.ida) {
-                    quando += " a " + destino.volta;
-                }
-
-                // Imagens só se o destino tiver uma fase no jogo
-                var carimbo = "";
-                var cartao = "";
+                var bandeira = "";
                 if (fase != null) {
-                    carimbo = `<img class="viagem-carimbo" src="${fase.carimbo}" alt="" />`;
-                    cartao = `<img class="viagem-cartao" src="${fase.cartao}" alt="Cartão-postal de ${fase.nome}" />`;
+                    bandeira = `<img src="${fase.bandeira}" alt="" />`;
                 }
 
+                // Cada cartão é um link para a viagem no Sobre mim:
+                // "#viagem-1" faz a página descer até o elemento com id="viagem-1".
                 html += `
-                    <li class="viagem">
-                        ${carimbo}
-                        <div class="viagem-texto">
-                            <span class="viagem-data">${quando}</span>
-                            <h3>${destino.pais}</h3>
-                            <p>${destino.cidades}</p>
-                        </div>
-                        ${cartao}
+                    <li>
+                        <a class="pais" href="dashboard/sobre.html#viagem-${destino.id}">
+                            ${bandeira}
+                            <span class="pais-nome">${destino.pais}</span>
+                            <span class="pais-lugares">${destino.cidades}</span>
+                            <span class="pais-periodo">${formatarPeriodo(destino.ida, destino.volta)}</span>
+                        </a>
                     </li>
                 `;
             }
 
-            ol_linha_do_tempo.innerHTML = html;
+            ul_paises.innerHTML = html;
         })
         .catch(function (erro) {
-            console.log("Erro ao buscar as viagens: ", erro);
-            ol_linha_do_tempo.innerHTML = `<li class="aviso">Não foi possível carregar as viagens. O servidor está ligado?</li>`;
+            console.log("Erro ao buscar os países: ", erro);
+            ul_paises.innerHTML = `<li class="aviso">Não foi possível carregar os países. O servidor está ligado?</li>`;
         });
 }

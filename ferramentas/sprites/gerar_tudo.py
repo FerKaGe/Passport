@@ -5,6 +5,7 @@ Gera todas as imagens do jogo de uma vez, na ordem certa.
 Como rodar:  python ferramentas/sprites/gerar_tudo.py
 """
 
+import bandeiras
 import carimbos
 import fundos
 import inicio
@@ -41,6 +42,8 @@ for carimbo in carimbos.CARIMBOS:
     carimbos.gerar_carimbo(carimbo)
 
 interface.gerar()
+
+bandeiras.gerar()
 
 inicio.gerar_previa()
 for cartao in inicio.CARTOES:

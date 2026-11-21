@@ -12,6 +12,7 @@
  *   pais           - país que aparece no carimbo
  *   fundo          - imagem de fundo do tabuleiro
  *   carimbo        - imagem do carimbo que o jogador ganha ao terminar a fase
+ *   bandeira       - bandeira do país (cartões da Home e linha da vida do Sobre mim)
  *   cartao         - cartão-postal que aparece na tela de início
  *   tempoTravessia - quantos milissegundos o obstáculo leva para cruzar a tela
  *                    (quanto MENOR, mais rápido e mais difícil)
@@ -39,6 +40,7 @@ var PASTA_FUNDOS = PASTA_IMG + "fundos/";
 var PASTA_OBSTACULOS = PASTA_IMG + "obstaculos/";
 var PASTA_CARIMBOS = PASTA_IMG + "carimbos/";
 var PASTA_INICIO = PASTA_IMG + "inicio/";
+var PASTA_BANDEIRAS = PASTA_IMG + "bandeiras/";
 
 // Obstáculos. Cada fase escolhe os seus no vetor "obstaculos".
 var obstaculoCacto = { nome: "cacto", imagem: PASTA_OBSTACULOS + "cacto.gif", largura: 72, altura: 135, folga: 16 };
@@ -63,6 +65,7 @@ var fases = [
         pais: "Chile",
         fundo: PASTA_FUNDOS + "atacama.png",
         carimbo: PASTA_CARIMBOS + "atacama.png",
+        bandeira: PASTA_BANDEIRAS + "atacama.png",
         cartao: PASTA_INICIO + "cartao-atacama.png",
         tempoTravessia: 1800,
         meta: 5,
@@ -74,6 +77,7 @@ var fases = [
         pais: "Argentina",
         fundo: PASTA_FUNDOS + "mendoza.png",
         carimbo: PASTA_CARIMBOS + "mendoza.png",
+        bandeira: PASTA_BANDEIRAS + "mendoza.png",
         cartao: PASTA_INICIO + "cartao-mendoza.png",
         tempoTravessia: 1650,
         meta: 5,
@@ -85,6 +89,7 @@ var fases = [
         pais: "Espanha",
         fundo: PASTA_FUNDOS + "espanha.png",
         carimbo: PASTA_CARIMBOS + "espanha.png",
+        bandeira: PASTA_BANDEIRAS + "espanha.png",
         cartao: PASTA_INICIO + "cartao-espanha.png",
         tempoTravessia: 1500,
         meta: 6,
@@ -96,6 +101,7 @@ var fases = [
         pais: "Portugal",
         fundo: PASTA_FUNDOS + "portugal.png",
         carimbo: PASTA_CARIMBOS + "portugal.png",
+        bandeira: PASTA_BANDEIRAS + "portugal.png",
         cartao: PASTA_INICIO + "cartao-portugal.png",
         tempoTravessia: 1400,
         meta: 6,
@@ -107,6 +113,7 @@ var fases = [
         pais: "Gibraltar",
         fundo: PASTA_FUNDOS + "gibraltar.png",
         carimbo: PASTA_CARIMBOS + "gibraltar.png",
+        bandeira: PASTA_BANDEIRAS + "gibraltar.png",
         cartao: PASTA_INICIO + "cartao-gibraltar.png",
         tempoTravessia: 1300,
         meta: 7,
@@ -118,6 +125,7 @@ var fases = [
         pais: "Moçambique",
         fundo: PASTA_FUNDOS + "mocambique.png",
         carimbo: PASTA_CARIMBOS + "mocambique.png",
+        bandeira: PASTA_BANDEIRAS + "mocambique.png",
         cartao: PASTA_INICIO + "cartao-mocambique.png",
         tempoTravessia: 1200,
         meta: 7,
@@ -129,6 +137,7 @@ var fases = [
         pais: "Estados Unidos",
         fundo: PASTA_FUNDOS + "orlando.png",
         carimbo: PASTA_CARIMBOS + "orlando.png",
+        bandeira: PASTA_BANDEIRAS + "orlando.png",
         cartao: PASTA_INICIO + "cartao-orlando.png",
         tempoTravessia: 1100,
         meta: 8,

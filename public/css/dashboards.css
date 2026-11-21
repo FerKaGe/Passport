@@ -373,11 +373,160 @@ input[type="number"] {
   line-height: 1.5;
 }
 
-/* o texto provisório aparece tracejado, para não passar despercebido */
-.rascunho {
-  padding: 12px;
-  border: 2px dashed var(--cor-destaque);
-  color: var(--cor-texto-apagado);
+.historia-texto h2 {
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.historia-frase {
+  font-size: 1.2em;
+  color: var(--cor-destaque);
+}
+
+/* ---------- Sobre mim: linha da vida ---------- */
+
+.caminho-intro {
+  max-width: 760px;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+/* A linha vertical é a borda esquerda; cada viagem fica pendurada nela */
+.linha-da-vida {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-left: 20px;
+  border-left: 4px dashed var(--cor-destaque);
+}
+
+/* scroll-margin-top: ao chegar pelo link da Home (#viagem-3),
+   a viagem não fica colada no topo da janela */
+.viagem-vida {
+  scroll-margin-top: 24px;
+}
+
+.viagem-vida-topo {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.viagem-vida-bandeira {
+  width: 78px;
+  image-rendering: pixelated;
+}
+
+.viagem-vida-topo h3 {
+  margin: 0 0 4px;
+  font-family: var(--fonte-titulo);
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.6;
+  color: var(--cor-texto);
+}
+
+.viagem-vida-periodo {
+  color: var(--cor-destaque);
+}
+
+/* texto e imagem lado a lado; em tela estreita, a imagem desce */
+.viagem-vida-corpo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.viagem-vida-texto {
+  flex: 1 1 360px;
+}
+
+.viagem-vida-texto p {
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+/* "Vale a visita" e "Dica": menores, com uma barra na cor de destaque */
+.viagem-vida-dica {
+  padding-left: 10px;
+  border-left: 3px solid var(--cor-destaque);
+  font-size: 0.9em;
+}
+
+.viagem-vida-dica b {
+  color: var(--cor-texto);
+}
+
+.viagem-vida-imagem {
+  width: 280px;
+  max-width: 100%;
+  box-shadow: 6px 6px 0 var(--cor-contorno);
+  image-rendering: pixelated;
+}
+
+/* ---------- Sobre mim: aprendizados e chamadas ---------- */
+
+.aprendizados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.aprendizado {
+  padding: 16px;
+  border: 3px solid var(--cor-contorno);
+  border-top: 6px solid var(--cor-destaque);
+  background-color: var(--cor-fundo);
+}
+
+.aprendizado small {
+  font-family: var(--fonte-titulo);
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--cor-destaque);
+}
+
+.aprendizado h3 {
+  margin: 8px 0;
+  font-family: var(--fonte-titulo);
+  font-size: 11px;
+  font-weight: normal;
+  line-height: 1.6;
+  color: var(--cor-texto);
+}
+
+.aprendizado p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.chamadas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+/* Os botões-objeto aqui são links: sem o sublinhado e com a cor do texto
+   do botão. Sem isto, a regra ".conteudo a" (mais abaixo) pintaria o texto
+   de dourado em cima do botão dourado, e ele sumiria.
+   ".chamadas .botao-tema" tem duas classes, então vence ".conteudo a". */
+.chamadas .botao-tema {
+  color: var(--cor-destaque-texto);
+  text-decoration: none;
+}
+
+.mapa-titulo {
+  margin: 0 0 16px;
+  font-family: var(--fonte-titulo);
+  font-size: 11px;
+  font-weight: normal;
+  color: var(--cor-texto);
 }
 
 .numeros {
@@ -426,4 +575,26 @@ input[type="number"] {
 .conteudo a:focus-visible {
   outline: 3px solid var(--cor-texto);
   outline-offset: 3px;
+}
+
+/* ---------- Tela estreita (celular) ---------- */
+
+/* Nas páginas logadas, a barra lateral já ocupa uns 100px da tela.
+   Em tela estreita, as margens e a bandeira diminuem para o texto caber. */
+@media (max-width: 700px) {
+  .conteudo {
+    padding: 24px 12px 40px;
+  }
+
+  .painel {
+    padding: 14px;
+  }
+
+  .linha-da-vida {
+    padding-left: 12px;
+  }
+
+  .viagem-vida-bandeira {
+    width: 52px;
+  }
 }

@@ -106,11 +106,11 @@ INSERT INTO tipo_viagem (nome, descricao) VALUES
 -- >>> VALORES SIMULADOS: TROCAR ANTES DA APRESENTAÇÃO <<<
 --     cotacao_real (6ª coluna de números) e melhor_epoca (confira)
 INSERT INTO destino (pais, cidades, inicio_viagem, fim_viagem, melhor_epoca, moeda, cotacao_real, cor_fundo, cor_botao, fonte) VALUES
-    ('Chile',          'Deserto do Atacama',                    '2016-11-01', '2017-02-28', 'Março a maio e setembro a novembro', 'CLP', 0.005800, '#2B1A12', '#E76F51', 'Jersey 20'),
+    ('Chile',          'Atacama',                               '2016-11-01', '2017-02-28', 'Março a maio e setembro a novembro', 'CLP', 0.005800, '#2B1A12', '#E76F51', 'Jersey 20'),
     ('Argentina',      'Mendoza',                               '2023-12-01', '2024-01-31', 'Março e abril (vindima)',            'ARS', 0.005500, '#2A0C1B', '#74ACDF', 'Jersey 15'),
     ('Espanha',        'Madrid, Sevilha, Utrera, Cádiz, Ronda', '2024-06-01', '2024-07-31', 'Abril a junho e setembro a outubro', 'EUR', 6.200000, '#2A0A0A', '#F1BF00', 'Silkscreen'),
     ('Portugal',       'Lisboa, Algarve, Portimão',             '2024-07-01', '2024-07-31', 'Abril a outubro',                    'EUR', 6.200000, '#0A1F3D', '#6FB1E8', 'Jersey 10'),
-    ('Gibraltar',      'Gibraltar (território britânico)',      '2024-07-01', '2024-08-31', 'Maio a setembro',                    'GBP', 7.200000, '#1C1F26', '#F25C5C', 'Handjet'),
+    ('Gibraltar',      'Gibraltar',                             '2024-07-01', '2024-08-31', 'Maio a setembro',                    'GBP', 7.200000, '#1C1F26', '#F25C5C', 'Handjet'),
     ('Moçambique',     'Maputo, Ponta do Ouro',                 '2024-08-01', '2024-10-31', 'Maio a novembro',                    'MZN', 0.085000, '#06282B', '#1CC5B7', 'Pixelify Sans'),
     ('Estados Unidos', 'Orlando',                               '2026-09-01', '2026-09-30', 'Março a maio e setembro a novembro', 'USD', 5.400000, '#120B3A', '#FF7AB6', 'Jersey 25');
 

@@ -13,12 +13,12 @@
     <link rel="stylesheet" href="./css/tema.css">
     <link rel="stylesheet" href="./css/estilo.css">
 
-    <!-- fases.js tem a imagem do carimbo e do cartão-postal de cada destino -->
+    <!-- fases.js tem a bandeira de cada destino -->
     <script src="./js/fases.js"></script>
     <script src="./js/home.js"></script>
 </head>
 
-<body onload="carregarLinhaDoTempo()">
+<body onload="carregarPaises()">
 
     <header class="cabecalho">
         <div class="container">
@@ -37,22 +37,22 @@
     </header>
 
     <main>
+        <!-- H1. Apresentação -->
         <section class="apresentacao">
             <div class="container">
                 <div class="apresentacao-texto">
-                    <h1>7 países, 3 continentes, <span>muitas histórias</span></h1>
+                    <h1>Oi, eu sou o Fernando Mateus. E este é o meu <span>passaporte</span>.</h1>
+                    <p>7 países, 4 continentes e uma curiosidade que começou num avião para Maceió.</p>
 
-                    <!-- FRASE DE APRESENTAÇÃO: trocar pelo texto do Fernando -->
-                    <p>
-                        Um passaporte com as viagens que já fiz, quanto cada uma custaria
-                        hoje saindo de São Paulo e um jogo para carimbar cada destino.
-                    </p>
-
-                    <!-- É um link (leva para outra página), com a aparência do botão-passaporte -->
-                    <a href="cadastro.html" class="botao-tema botao-passaporte">
-                        <span class="botao-icone" aria-hidden="true"></span>
-                        <span>CRIAR CONTA</span>
-                    </a>
+                    <!-- São links (levam a outro lugar), com aparência de botão.
+                         O primeiro desce até a seção "Como tudo começou" (o id dela). -->
+                    <div class="botoes-apresentacao">
+                        <a href="#como-tudo-comecou" class="link-contorno">Conhecer minha história</a>
+                        <a href="cadastro.html" class="botao-tema botao-passaporte">
+                            <span class="botao-icone" aria-hidden="true"></span>
+                            <span>Criar conta</span>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="apresentacao-imagem">
@@ -61,38 +61,120 @@
             </div>
         </section>
 
-        <section class="secao" aria-labelledby="h2_linha_do_tempo">
+        <!-- H2. Como tudo começou: 4 ciclos de 7 anos -->
+        <section id="como-tudo-comecou" class="secao" aria-labelledby="h2_como_comecou">
             <div class="container">
-                <h2 id="h2_linha_do_tempo">Linha do tempo</h2>
+                <h2 id="h2_como_comecou">Como tudo começou</h2>
+                <p class="secao-intro">
+                    Costumo viver focado no presente e no futuro. Mas, quando olho para trás,
+                    cada fase da minha vida explica um pedaço de quem eu sou hoje.
+                </p>
 
-                <!-- Os itens são escritos pelo carregarLinhaDoTempo() (js/home.js), com os dados do banco -->
-                <ol id="ol_linha_do_tempo" class="linha-do-tempo">
-                    <li>Carregando as viagens...</li>
+                <ol class="ciclos">
+                    <li class="ciclo">
+                        <span class="ciclo-idade">0 a 7 anos</span>
+                        <h3>O primeiro voo</h3>
+                        <p>
+                            Minha primeira viagem de avião foi para Maceió. Do calor e das praias
+                            lotadas eu mal lembro. Do voo, lembro de tudo.
+                        </p>
+                    </li>
+                    <li class="ciclo">
+                        <span class="ciclo-idade">8 a 14 anos</span>
+                        <h3>O mundo dentro do computador</h3>
+                        <p>
+                            Aos 11 anos descobri o World of Warcraft e passei a conversar com gente
+                            de todos os cantos do planeta. O inglês que minha mãe me ensinou em casa
+                            virou ferramenta de verdade, e ali nasceu a vontade de conhecer outras
+                            culturas e outras línguas.
+                        </p>
+                    </li>
+                    <li class="ciclo">
+                        <span class="ciclo-idade">14 a 21 anos</span>
+                        <h3>O deserto e os idiomas</h3>
+                        <p>
+                            No ensino médio, passei três meses trabalhando numa agência de turismo
+                            no deserto do Atacama. Voltei falando espanhol, com o inglês melhor e com
+                            amigos do mundo inteiro. Em paralelo, cinco anos de alemão me apresentaram
+                            a cultura e a história de outro país.
+                        </p>
+                    </li>
+                    <li class="ciclo">
+                        <span class="ciclo-idade">21 a 26 anos</span>
+                        <h3>O mundo de verdade</h3>
+                        <p>
+                            Conheci a Katherine, que ama viajar e não me deixa perder uma oportunidade.
+                            Com ela, aceitei todas as que apareceram: Argentina, Espanha, Portugal,
+                            Gibraltar, Moçambique e Estados Unidos.
+                        </p>
+                    </li>
                 </ol>
             </div>
         </section>
 
+        <!-- H3. Por que eu viajo -->
+        <section class="secao" aria-labelledby="h2_por_que">
+            <div class="container">
+                <div class="destaque-texto">
+                    <h2 id="h2_por_que">Por que eu viajo</h2>
+                    <p>
+                        Viajo para entender por que as pessoas vivem do jeito que vivem. Cada lugar
+                        me ensinou alguma coisa: um idioma, um jeito de trabalhar, um motivo para
+                        valorizar o próprio esforço. Este site é o meu jeito de guardar e
+                        compartilhar esses aprendizados.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- H4. Países: um cartão por destino, escrito pelo carregarPaises() (js/home.js)
+             com os dados do banco. Cada cartão leva à viagem no Sobre mim. -->
+        <section class="secao" aria-labelledby="h2_paises">
+            <div class="container">
+                <h2 id="h2_paises">Países</h2>
+                <p class="secao-intro">Clique num país para ler a história da viagem (precisa entrar na conta).</p>
+
+                <ul id="ul_paises" class="paises">
+                    <li>Carregando os países...</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- H5. O que tem atrás do login -->
         <section class="secao" aria-labelledby="h2_recursos">
             <div class="container">
-                <h2 id="h2_recursos">O que tem lá dentro</h2>
+                <h2 id="h2_recursos">Crie sua conta e viaje comigo</h2>
 
                 <ul class="recursos">
                     <li class="recurso">
+                        <img src="jogo/img/interface/icone-passaporte.png" alt="" />
+                        <h3>Sobre mim</h3>
+                        <p>As fotos e as histórias de cada viagem.</p>
+                    </li>
+                    <li class="recurso">
                         <img src="jogo/img/interface/icone-globo.png" alt="" />
                         <h3>Dashboard</h3>
-                        <p>Quanto custaria cada viagem hoje, em 7, 15 ou 30 dias, e qual destino sai mais barato.</p>
+                        <p>Quanto custa cada destino no seu estilo de viagem (aventura, low cost ou exclusiva), a melhor época e o destino mais barato.</p>
                     </li>
                     <li class="recurso">
                         <img src="jogo/img/interface/icone-mala.png" alt="" />
                         <h3>Calculadora</h3>
-                        <p>Escolha o destino, o tipo de viagem, os dias e as pessoas, e veja a conta em reais e na moeda do país.</p>
+                        <p>Monte o orçamento da sua viagem saindo de São Paulo.</p>
                     </li>
                     <li class="recurso">
                         <img src="jogo/img/interface/icone-aviao.png" alt="" />
-                        <h3>Jogo do Passaporte</h3>
-                        <p>Pule os obstáculos de cada destino, ganhe os carimbos e libere as skins do site.</p>
+                        <h3>Jogo</h3>
+                        <p>Corra pelos países, ganhe carimbos no passaporte e libere novas cores para o site.</p>
                     </li>
                 </ul>
+
+                <div class="botoes-apresentacao">
+                    <a href="cadastro.html" class="botao-tema botao-passaporte">
+                        <span class="botao-icone" aria-hidden="true"></span>
+                        <span>Criar conta grátis</span>
+                    </a>
+                    <a href="login.html" class="link-contorno">Já tenho conta</a>
+                </div>
             </div>
         </section>
     </main>
