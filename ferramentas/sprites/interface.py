@@ -12,6 +12,7 @@ Gera, em public/jogo/img/interface/:
                              a cor vem do CSS, uma para cada skin)
   icone-globo.png, icone-mala.png, icone-aviao.png,
   icone-passaporte.png, icone-portao.png - ícones da barra lateral
+  cadeado.png              - cadeado em cima dos globos das skins bloqueadas
 
 Como rodar:  python ferramentas/sprites/interface.py
 """
@@ -222,6 +223,22 @@ ICONE_PORTAO = [
     "................",
 ]
 
+# Cadeado das skins bloqueadas (12 x 12), por cima do globo
+CADEADO = [
+    "...KKKKKK...",
+    "..KK....KK..",
+    "..K......K..",
+    "..K......K..",
+    "KKKKKKKKKKKK",
+    "KDDDDDDDDDDK",
+    "KDDDDKKDDDDK",
+    "KDDDDKKDDDDK",
+    "KDDDDDKDDDDK",
+    "KDDDDDKDDDDK",
+    "KddddddddddK",
+    "KKKKKKKKKKKK",
+]
+
 # ----- favicon (16 x 16): passaporte com globo dourado -----
 
 FAVICON = [
@@ -301,6 +318,7 @@ def gerar():
     gerar_do_mapa(ICONE_AVIAO, "icone-aviao", 2, False)
     gerar_do_mapa(ICONE_PASSAPORTE, "icone-passaporte", 2, False)
     gerar_do_mapa(ICONE_PORTAO, "icone-portao", 2, False)
+    gerar_do_mapa(CADEADO, "cadeado", 2, False)
 
 
 if __name__ == "__main__":

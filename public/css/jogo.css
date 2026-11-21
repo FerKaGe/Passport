@@ -289,6 +289,11 @@ body {
   background-color: var(--cor-papel);
 }
 
+/* Linha que aparece embaixo do carimbo quando ele é novo */
+.skin-liberada {
+  color: #B5121B;  /* vermelho de carimbo: contraste de 5,7:1 sobre o papel */
+}
+
 /* O carimbo chega grande e "bate" no tamanho normal */
 @keyframes bater {
   from {

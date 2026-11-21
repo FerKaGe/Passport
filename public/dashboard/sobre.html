@@ -4,27 +4,30 @@
 <head>
     <link rel="icon" href="../jogo/img/interface/favicon.png" />
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passport | Sobre mim</title>
 
     <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele -->
     <link rel="stylesheet" href="../css/skins.css" />
     <link rel="stylesheet" href="../css/dashboards.css">
+    <link rel="stylesheet" href="../css/tema.css">
     <link rel="stylesheet" href="../css/sidebar.css">
 
     <script src="../js/sessao.js"></script>
     <script src="../js/skins.js"></script>
     <script src="../js/sidebar.js"></script>
+    <script src="../js/fases.js"></script>
+    <script src="../js/sobre.js"></script>
 </head>
 
 <!--
     Ordem do onload:
     1. montarSidebar() escreve a barra lateral (js/sidebar.js)
     2. validarSessao() confere o login e escreve o nome na barra (js/sessao.js)
+    3. carregarSobre() busca os números e os carimbos no banco (js/sobre.js)
 -->
 
-<body class="glass-sidebar-page" onload="montarSidebar('sobre'), validarSessao()">
+<body class="glass-sidebar-page" onload="montarSidebar('sobre'), validarSessao(), carregarSobre()">
 
     <!-- A barra lateral é escrita aqui dentro pelo montarSidebar() -->
     <aside id="barra_lateral" class="glass-sidebar"></aside>
@@ -32,10 +35,238 @@
     <main class="conteudo">
         <h1>Sobre mim</h1>
 
-        <div class="em-construcao">
-            <p><b>Tela em construção.</b></p>
-            <p>Aqui vai entrar a história de como a paixão por viajar começou.</p>
-        </div>
+        <!-- S1. Cabeçalho pessoal: foto, nome e a frase -->
+        <section class="painel historia">
+            <!-- FOTO: para usar uma foto sua, coloque o arquivo em public/assets/fotos/
+                 e troque o src abaixo por "../assets/fotos/NOME-DO-ARQUIVO.jpg" -->
+            <img class="historia-foto" src="../jogo/img/personagem/correndo.gif" alt="O corgi viajante do Jogo do Passaporte" />
+
+            <div class="historia-texto">
+                <h2>Fernando Mateus</h2>
+                <p class="historia-frase">7 países, 3 continentes e muita história pra contar.</p>
+            </div>
+        </section>
+
+        <!-- Os números são calculados pelo carregarNumeros() (js/sobre.js) com os dados do banco -->
+        <section class="numeros" aria-label="As viagens em números">
+            <article class="kpi">
+                <small>Países visitados</small>
+                <b id="b_paises">...</b>
+            </article>
+            <article class="kpi">
+                <small>Viajando desde</small>
+                <b id="b_primeiro_ano">...</b>
+            </article>
+            <article class="kpi">
+                <small>Viagem mais recente</small>
+                <b id="b_ultimo_ano">...</b>
+            </article>
+        </section>
+
+        <!-- S2. Linha da vida: uma viagem por <article>. O id (viagem-1 a viagem-7)
+             é o id do destino no banco: os cartões da Home trazem direto para cá. -->
+        <section class="painel" aria-labelledby="h2_caminho">
+            <h2 id="h2_caminho">O caminho até aqui</h2>
+            <p class="caminho-intro">
+                Olhar para o passado é um exercício raro para mim. Quando paro, percebo que muitas
+                lembranças não nascem boas nem ruins: elas ganham essa cor pelo que trazem depois.
+                Foi com esse olhar que organizei as viagens abaixo.
+            </p>
+
+            <div class="linha-da-vida">
+                <article id="viagem-1" class="viagem-vida">
+                    <header class="viagem-vida-topo">
+                        <img class="viagem-vida-bandeira" src="../jogo/img/bandeiras/atacama.png" alt="" />
+                        <div>
+                            <h3>Atacama, Chile</h3>
+                            <span class="viagem-vida-periodo">nov/2016 a fev/2017</span>
+                        </div>
+                    </header>
+                    <div class="viagem-vida-corpo">
+                        <div class="viagem-vida-texto">
+                            <p>Nas férias do ensino médio, fui morar num vilarejo no meio do deserto para trabalhar numa agência de turismo. Lavava pratos, cozinhava, organizava passeios. Uma colombiana me ensinou espanhol e um canadense me ajudou no inglês. Subi vulcões e pedalei sozinho pelo deserto ouvindo podcasts. A paz daquelas paisagens é inigualável, mas a solidão de passar meses longe de tudo também deixou marca.</p>
+                            <p class="viagem-vida-dica"><b>Vale a visita:</b> Vale da Lua no pôr do sol, Lagunas Baltinache, Aldea de Tulor e observação de estrelas.</p>
+                            <p class="viagem-vida-dica"><b>Dica:</b> o mal da altitude é comum. Beba muita água e deixe os vulcões para depois de alguns dias de adaptação.</p>
+                        </div>
+                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
+                             e troque o src abaixo (e o alt, descrevendo a foto) -->
+                        <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-atacama.png" alt="Cartão-postal do jogo: Atacama, Chile" />
+                    </div>
+                </article>
+                <article id="viagem-2" class="viagem-vida">
+                    <header class="viagem-vida-topo">
+                        <img class="viagem-vida-bandeira" src="../jogo/img/bandeiras/mendoza.png" alt="" />
+                        <div>
+                            <h3>Mendoza, Argentina</h3>
+                            <span class="viagem-vida-periodo">dez/2023 a jan/2024</span>
+                        </div>
+                    </header>
+                    <div class="viagem-vida-corpo">
+                        <div class="viagem-vida-texto">
+                            <p>Viagem com a família da Katherine, entre os melhores restaurantes e as vinícolas da região. No dia da chegada, bati o carro alugado. O prejuízo foi pequeno, mas o susto acompanhou o resto da viagem.</p>
+                            <p class="viagem-vida-dica"><b>Vale a visita:</b> vinícolas de Maipú e do Valle de Uco, o Aconcágua e a represa de Potrerillos, e a Plaza Independencia com o Mercado Central.</p>
+                            <p class="viagem-vida-dica"><b>Dica:</b> reserve as visitas às vinícolas com antecedência e, se for dirigir, combine quem não vai beber.</p>
+                        </div>
+                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
+                             e troque o src abaixo (e o alt, descrevendo a foto) -->
+                        <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-mendoza.png" alt="Cartão-postal do jogo: Mendoza, Argentina" />
+                    </div>
+                </article>
+                <article id="viagem-3" class="viagem-vida">
+                    <header class="viagem-vida-topo">
+                        <img class="viagem-vida-bandeira" src="../jogo/img/bandeiras/espanha.png" alt="" />
+                        <div>
+                            <h3>Espanha</h3>
+                            <span class="viagem-vida-periodo">jun a jul/2024</span>
+                        </div>
+                    </header>
+                    <div class="viagem-vida-corpo">
+                        <div class="viagem-vida-texto">
+                            <p>Uma prima que mora na Espanha me convidou para o casamento dela. Eu nunca tinha visitado aquela parte da família e decidi ir. Foram quarenta dias na Europa, com calor de até 48 graus, passando por Madrid, Sevilha, Utrera, Cádiz e Ronda: cidades com mais de dois mil anos de história, onde entendi por que parte da minha família escolheu ficar por lá.</p>
+                            <p class="viagem-vida-dica"><b>Vale a visita:</b> Museu do Prado e Palácio Real (Madrid), Plaza de España e Real Alcázar (Sevilha), Puente Nuevo (Ronda) e o centro histórico de Cádiz.</p>
+                            <p class="viagem-vida-dica"><b>Dica:</b> no verão, passeie cedo e no fim da tarde, e compre o ingresso do Alcázar antes.</p>
+                        </div>
+                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
+                             e troque o src abaixo (e o alt, descrevendo a foto) -->
+                        <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-espanha.png" alt="Cartão-postal do jogo: Espanha" />
+                    </div>
+                </article>
+                <article id="viagem-4" class="viagem-vida">
+                    <header class="viagem-vida-topo">
+                        <img class="viagem-vida-bandeira" src="../jogo/img/bandeiras/portugal.png" alt="" />
+                        <div>
+                            <h3>Portugal</h3>
+                            <span class="viagem-vida-periodo">jul/2024</span>
+                        </div>
+                    </header>
+                    <div class="viagem-vida-corpo">
+                        <div class="viagem-vida-texto">
+                            <p>Em Portugal, comi peixe todos os dias, provei caracóis e fiquei impressionado com as paisagens de Lisboa, Portimão e Albufeira.</p>
+                            <p class="viagem-vida-dica"><b>Vale a visita:</b> Torre de Belém e Mosteiro dos Jerónimos, o bairro de Alfama, a Praia da Rocha em Portimão e a gruta de Benagil.</p>
+                            <p class="viagem-vida-dica"><b>Dica:</b> prove o pastel de Belém na fonte e faça o passeio de barco pelas grutas do Algarve.</p>
+                        </div>
+                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
+                             e troque o src abaixo (e o alt, descrevendo a foto) -->
+                        <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-portugal.png" alt="Cartão-postal do jogo: Portugal" />
+                    </div>
+                </article>
+                <article id="viagem-5" class="viagem-vida">
+                    <header class="viagem-vida-topo">
+                        <img class="viagem-vida-bandeira" src="../jogo/img/bandeiras/gibraltar.png" alt="" />
+                        <div>
+                            <h3>Gibraltar</h3>
+                            <span class="viagem-vida-periodo">jul a ago/2024</span>
+                        </div>
+                    </header>
+                    <div class="viagem-vida-corpo">
+                        <div class="viagem-vida-texto">
+                            <p>Subi o Rochedo de Gibraltar e vi de perto os famosos macacos, divertidos e perigosos. Lá de cima, tirei uma foto com três países ao mesmo tempo: Gibraltar, Espanha e Marrocos, do outro lado do estreito.</p>
+                            <p class="viagem-vida-dica"><b>Vale a visita:</b> teleférico até o alto do Rochedo, Apes' Den (os macacos), Great Siege Tunnels, St. Michael's Cave e Europa Point, com vista para o Marrocos.</p>
+                            <p class="viagem-vida-dica"><b>Dica:</b> os macacos pegam comida, bolsas e celulares. Guarde tudo e leve o passaporte para cruzar a fronteira.</p>
+                        </div>
+                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
+                             e troque o src abaixo (e o alt, descrevendo a foto) -->
+                        <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-gibraltar.png" alt="Cartão-postal do jogo: Gibraltar" />
+                    </div>
+                </article>
+                <article id="viagem-6" class="viagem-vida">
+                    <header class="viagem-vida-topo">
+                        <img class="viagem-vida-bandeira" src="../jogo/img/bandeiras/mocambique.png" alt="" />
+                        <div>
+                            <h3>Maputo e Ponta do Ouro, Moçambique</h3>
+                            <span class="viagem-vida-periodo">ago a out/2024</span>
+                        </div>
+                    </header>
+                    <div class="viagem-vida-corpo">
+                        <div class="viagem-vida-texto">
+                            <p>Consegui um intercâmbio na Universidade Pedagógica de Maputo. O choque cultural foi imenso. O professor que me recebeu me ensinou a valorizar o próprio esforço e a identificar onde ele é necessário. Lá, aceitei dar uma palestra sobre disciplina para alunos de uma escola técnica. Esperava algo pequeno e encontrei milhares de pessoas e autoridades. Estava nervoso, mas cumpri meu papel.</p>
+                            <p class="viagem-vida-dica"><b>Vale a visita:</b> Mercado Central, Fortaleza e Catedral de Nossa Senhora da Conceição (Maputo), um passeio a pé pelo bairro da Mafalala e o mergulho com golfinhos na Ponta do Ouro.</p>
+                            <p class="viagem-vida-dica"><b>Dica:</b> leve o Certificado Internacional de Vacinação contra febre amarela, que pode ser exigido de quem chega do Brasil.</p>
+                        </div>
+                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
+                             e troque o src abaixo (e o alt, descrevendo a foto) -->
+                        <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-mocambique.png" alt="Cartão-postal do jogo: Maputo e Ponta do Ouro, Moçambique" />
+                    </div>
+                </article>
+                <article id="viagem-7" class="viagem-vida">
+                    <header class="viagem-vida-topo">
+                        <img class="viagem-vida-bandeira" src="../jogo/img/bandeiras/orlando.png" alt="" />
+                        <div>
+                            <h3>Orlando, Estados Unidos</h3>
+                            <span class="viagem-vida-periodo">set/2026</span>
+                        </div>
+                    </header>
+                    <div class="viagem-vida-corpo">
+                        <div class="viagem-vida-texto">
+                            <p>Quando criança, eu sonhava com a Disney e a Universal. Depois de adulto, achei que era coisa de criança e tirei da lista. A Katherine já tinha ido e me garantiu que valia a pena, então dei uma chance. Foi uma das melhores decisões que tomei: o lugar é mágico e cada detalhe é uma descoberta. A experiência mais radical foi a VelociCoaster, na Universal.</p>
+                            <p class="viagem-vida-dica"><b>Vale a visita:</b> Magic Kingdom, EPCOT, Islands of Adventure (onde fica a VelociCoaster) e o Kennedy Space Center.</p>
+                            <p class="viagem-vida-dica"><b>Dica:</b> compre os ingressos antes, chegue na abertura e use o app de cada parque para acompanhar as filas.</p>
+                        </div>
+                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
+                             e troque o src abaixo (e o alt, descrevendo a foto) -->
+                        <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-orlando.png" alt="Cartão-postal do jogo: Orlando, Estados Unidos" />
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- S3. O que as viagens me ensinaram -->
+        <section class="painel" aria-labelledby="h2_ensinaram">
+            <h2 id="h2_ensinaram">O que as viagens me ensinaram</h2>
+
+            <ul class="aprendizados">
+                <li class="aprendizado">
+                    <small>Valores</small>
+                    <h3>Curiosidade e esforço</h3>
+                    <p>
+                        Aprender tem valor prático: foi assim com o inglês no jogo, o espanhol no
+                        deserto e cada idioma depois. E o esforço só vale quando é colocado no lugar certo.
+                    </p>
+                </li>
+                <li class="aprendizado">
+                    <small>Dificuldade</small>
+                    <h3>Ficar longe de casa</h3>
+                    <p>
+                        No Atacama e em Moçambique, a distância da família pesou. Aprendi a viver bem
+                        com a saudade sem deixar que ela me impedisse de ir.
+                    </p>
+                </li>
+                <li class="aprendizado">
+                    <small>Superação</small>
+                    <h3>A palestra em Maputo</h3>
+                    <p>
+                        Eu esperava uma conversa informal e encontrei milhares de pessoas. Mesmo nervoso,
+                        fiz a apresentação sem falhas e ela foi elogiada pelos professores.
+                    </p>
+                </li>
+                <li class="aprendizado">
+                    <h3>Gratidão</h3>
+                    <p>
+                        À minha mãe, que me ensinou o primeiro inglês. À Katherine, que me apoia, me cobra
+                        e me empurra para cada oportunidade. À minha família na Espanha, que me recebeu,
+                        e ao professor que me acolheu em Maputo.
+                    </p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- S4. Chamada para ação, e o mapa dos carimbos de quem está logado -->
+        <section class="painel" aria-label="Chamada para ação">
+            <div class="chamadas">
+                <a href="calculadora.html" class="botao-tema botao-mala">
+                    <span class="botao-icone" aria-hidden="true"></span>
+                    <span>Quanto custaria pra você?</span>
+                </a>
+                <a href="../jogo/inicio.html" class="botao-tema botao-aviao">
+                    <span class="botao-icone" aria-hidden="true"></span>
+                    <span>Ganhe seus carimbos</span>
+                </a>
+            </div>
+
+            <h3 class="mapa-titulo">Seus carimbos no jogo: <span id="span_carimbos_ganhos">...</span></h3>
+            <!-- Escritos pelo carregarMapaDeCarimbos() (js/sobre.js) -->
+            <ul id="ul_mapa_carimbos" class="mapa-carimbos"></ul>
+        </section>
     </main>
 
 </body>

@@ -16,26 +16,102 @@
     <script src="../js/sessao.js"></script>
     <script src="../js/skins.js"></script>
     <script src="../js/sidebar.js"></script>
+
+    <!-- Chart.js 4.4.1, guardado no projeto (licença MIT em docs/licencas/chartjs-LICENSE.txt) -->
+    <script src="../js/lib/chart.umd.js"></script>
+    <script src="../js/custos.js"></script>
+    <script src="../js/dashboard.js"></script>
 </head>
 
 <!--
     Ordem do onload:
     1. montarSidebar() escreve a barra lateral (js/sidebar.js)
     2. validarSessao() confere o login e escreve o nome na barra (js/sessao.js)
+    3. carregarDashboard() busca os dados e desenha a tela (js/dashboard.js)
 -->
 
-<body class="glass-sidebar-page" onload="montarSidebar('dashboard'), validarSessao()">
+<body class="glass-sidebar-page" onload="montarSidebar('dashboard'), validarSessao(), carregarDashboard()">
 
     <!-- A barra lateral é escrita aqui dentro pelo montarSidebar() -->
     <aside id="barra_lateral" class="glass-sidebar"></aside>
 
     <main class="conteudo">
         <h1>Dashboard</h1>
+        <p class="subtitulo">Quanto custaria fazer as minhas viagens hoje, saindo de São Paulo.</p>
 
-        <div class="em-construcao">
-            <p><b>Tela em construção.</b></p>
-            <p>Aqui vão entrar os gráficos com o custo total da viagem para cada destino.</p>
-        </div>
+        <!-- Filtros: tipo de viagem e número de dias -->
+        <section class="filtros" aria-label="Filtros">
+            <div class="filtro">
+                <label for="select_tipo">Tipo de viagem</label>
+                <select id="select_tipo" onchange="trocarTipo()">
+                    <option>Carregando...</option>
+                </select>
+            </div>
+
+            <!-- fieldset agrupa os 3 botões e a legend dá o nome do grupo -->
+            <fieldset class="filtro dias">
+                <legend>Dias</legend>
+                <label><input type="radio" name="dias" value="7" checked onchange="mostrarDados()"> 7</label>
+                <label><input type="radio" name="dias" value="15" onchange="mostrarDados()"> 15</label>
+                <label><input type="radio" name="dias" value="30" onchange="mostrarDados()"> 30</label>
+            </fieldset>
+        </section>
+
+        <p id="p_aviso" class="aviso" aria-live="polite"></p>
+
+        <!-- Indicadores (KPIs): escritos pelo mostrarDados() e pelo carregarCarimbos() -->
+        <section class="kpis" aria-label="Indicadores">
+            <article class="kpi">
+                <small>Destino mais barato</small>
+                <b id="b_kpi_barato">...</b>
+                <span id="span_kpi_barato"></span>
+            </article>
+            <article class="kpi">
+                <small>Voo mais barato</small>
+                <b id="b_kpi_voo">...</b>
+                <span id="span_kpi_voo"></span>
+            </article>
+            <article class="kpi">
+                <small>Melhor época</small>
+                <b id="b_kpi_epoca">...</b>
+                <span id="span_kpi_epoca"></span>
+            </article>
+            <article class="kpi">
+                <small>Seus carimbos</small>
+                <b id="span_kpi_carimbos">...</b>
+                <div id="div_kpi_selos" class="selos-mini"></div>
+                <a href="../jogo/inicio.html">Ganhar mais no jogo</a>
+            </article>
+        </section>
+
+        <!-- Gráfico do Chart.js. A tabela abaixo tem os mesmos números,
+             para quem não enxerga o gráfico. -->
+        <section class="painel">
+            <h2 id="h2_grafico">Custo por pessoa</h2>
+            <div class="area-grafico">
+                <canvas id="canvas_custos" role="img" aria-label="Gráfico do custo por pessoa em cada destino, dividido em voo e hospedagem. Os mesmos valores estão na tabela abaixo."></canvas>
+            </div>
+        </section>
+
+        <section class="painel">
+            <h2>Os destinos</h2>
+            <div class="rolagem-tabela">
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th scope="col">Destino</th>
+                            <th scope="col">Quando fui</th>
+                            <th scope="col">Melhor época</th>
+                            <th scope="col" class="numero">Voo</th>
+                            <th scope="col" class="numero" id="th_hospedagem">Hospedagem</th>
+                            <th scope="col" class="numero">Por pessoa</th>
+                            <th scope="col" class="numero">Na moeda local</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_destinos"></tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
 </body>

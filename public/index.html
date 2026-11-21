@@ -1,78 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Passport | Página Inicial</title>
-
-    <script src="./js/sessao.js"></script>
-
-    <link rel="stylesheet" href="./css/estilo.css">
     <link rel="icon" href="jogo/img/interface/favicon.png" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele.
+         Esta página não carrega o js/skins.js: fica sempre na skin padrão. -->
+    <link rel="stylesheet" href="./css/skins.css">
+    <link rel="stylesheet" href="./css/tema.css">
+    <link rel="stylesheet" href="./css/estilo.css">
+
+    <!-- fases.js tem a bandeira de cada destino -->
+    <script src="./js/fases.js"></script>
+    <script src="./js/home.js"></script>
 </head>
 
-<body>
-    <div class="header">
-      <div class="container">
-        <h1 class="titulo">Passport</h1>
-        <ul class="navbar">
-          <li class="agora">
-            <a href="#">Inicial</a>
-          </li>
-          <li>|</li>
-          <li>
-            <a href="login.html">Login</a>
-          </li>
-          <li>
-            <a href="cadastro.html">Cadastro</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  
-    <div class="banner">
-      <div class="container">
-        <p>Preservando <span>hoje</span> para existirem <span>amanhã</span>.</p>
-      </div>
-    </div>
-  
-    <div class="social">
-      <div class="container">
-        <div class="boxes">
-          <div class="box">
-            <img src="assets/imgs/planet-earth_color.png">
-            <h4>Missão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/lightbulb_color.png">
-            <h4>Visão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/growth_color.png">
-            <h4>Valores</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
+<body onload="carregarPaises()">
+
+    <header class="cabecalho">
+        <div class="container">
+            <a href="index.html" class="cabecalho-logo">
+                <img src="jogo/img/interface/logo.png" alt="Passport: carimbe o mundo" />
+            </a>
+            <!-- Elemento tematizado: placas de aeroporto (css/tema.css) -->
+            <nav aria-label="Menu">
+                <ul class="menu-publico">
+                    <li><a href="index.html" class="placa" aria-current="page">TELA INICIAL</a></li>
+                    <li><a href="login.html" class="placa">ENTRAR</a></li>
+                    <li><a href="cadastro.html" class="placa">CRIAR CONTA</a></li>
+                </ul>
+            </nav>
         </div>
-      </div>
-    </div>
-  
-    <div class="footer">
-      <div class="container">
-        <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023-2026</h4>
-      </div>
-    </div>
-  </body>
+    </header>
+
+    <main>
+        <!-- H1. Apresentação -->
+        <section class="apresentacao">
+            <div class="container">
+                <div class="apresentacao-texto">
+                    <h1>Oi, eu sou o Fernando Mateus. E este é o meu <span>passaporte</span>.</h1>
+                    <p>7 países, 3 continentes e uma curiosidade que começou num avião para Maceió.</p>
+
+                    <!-- São links (levam a outro lugar), com aparência de botão.
+                         O primeiro desce até a seção "Como tudo começou" (o id dela). -->
+                    <div class="botoes-apresentacao">
+                        <a href="#como-tudo-comecou" class="link-contorno">Conhecer minha história</a>
+                        <a href="cadastro.html" class="botao-tema botao-passaporte">
+                            <span class="botao-icone" aria-hidden="true"></span>
+                            <span>Criar conta</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="apresentacao-imagem">
+                    <img src="jogo/img/personagem/correndo.gif" alt="O corgi viajante do Jogo do Passaporte, correndo" />
+                </div>
+            </div>
+        </section>
+
+        <!-- H2. Como tudo começou: 4 ciclos de 7 anos -->
+        <section id="como-tudo-comecou" class="secao" aria-labelledby="h2_como_comecou">
+            <div class="container">
+                <h2 id="h2_como_comecou">Como tudo começou</h2>
+                <p class="secao-intro">
+                    Costumo viver focado no presente e no futuro. Mas, quando olho para trás,
+                    cada fase da minha vida explica um pedaço de quem eu sou hoje.
+                </p>
+
+                <ol class="ciclos">
+                    <li class="ciclo">
+                        <span class="ciclo-idade">0 a 7 anos</span>
+                        <h3>O primeiro voo</h3>
+                        <p>
+                            Minha primeira viagem de avião foi para Maceió. Do calor e das praias
+                            lotadas eu mal lembro. Do voo, lembro de tudo.
+                        </p>
+                    </li>
+                    <li class="ciclo">
+                        <span class="ciclo-idade">8 a 14 anos</span>
+                        <h3>O mundo dentro do computador</h3>
+                        <p>
+                            Aos 11 anos descobri o World of Warcraft e passei a conversar com gente
+                            de todos os cantos do planeta. O inglês que minha mãe me ensinou em casa
+                            virou ferramenta de verdade, e ali nasceu a vontade de conhecer outras
+                            culturas e outras línguas.
+                        </p>
+                    </li>
+                    <li class="ciclo">
+                        <span class="ciclo-idade">14 a 21 anos</span>
+                        <h3>O deserto e os idiomas</h3>
+                        <p>
+                            No ensino médio, passei três meses trabalhando numa agência de turismo
+                            no deserto do Atacama. Voltei falando espanhol, com o inglês melhor e com
+                            amigos do mundo inteiro. Em paralelo, cinco anos de alemão me apresentaram
+                            a cultura e a história de outro país.
+                        </p>
+                    </li>
+                    <li class="ciclo">
+                        <span class="ciclo-idade">21 a 26 anos</span>
+                        <h3>O mundo de verdade</h3>
+                        <p>
+                            Conheci a Katherine, que ama viajar e não me deixa perder uma oportunidade.
+                            Com ela, aceitei todas as que apareceram: Argentina, Espanha, Portugal,
+                            Gibraltar, Moçambique e Estados Unidos.
+                        </p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- H3. Por que eu viajo -->
+        <section class="secao" aria-labelledby="h2_por_que">
+            <div class="container">
+                <div class="destaque-texto">
+                    <h2 id="h2_por_que">Por que eu viajo</h2>
+                    <p>
+                        Viajo para entender por que as pessoas vivem do jeito que vivem. Cada lugar
+                        me ensinou alguma coisa: um idioma, um jeito de trabalhar, um motivo para
+                        valorizar o próprio esforço. Este site é o meu jeito de guardar e
+                        compartilhar esses aprendizados.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- H4. Países: um cartão por destino, escrito pelo carregarPaises() (js/home.js)
+             com os dados do banco. Cada cartão leva à viagem no Sobre mim. -->
+        <section class="secao" aria-labelledby="h2_paises">
+            <div class="container">
+                <h2 id="h2_paises">Países</h2>
+                <p class="secao-intro">Clique num país para ler a história da viagem (precisa entrar na conta).</p>
+
+                <ul id="ul_paises" class="paises">
+                    <li>Carregando os países...</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- H5. O que tem atrás do login -->
+        <section class="secao" aria-labelledby="h2_recursos">
+            <div class="container">
+                <h2 id="h2_recursos">Crie sua conta e viaje comigo</h2>
+
+                <ul class="recursos">
+                    <li class="recurso">
+                        <img src="jogo/img/interface/icone-passaporte.png" alt="" />
+                        <h3>Sobre mim</h3>
+                        <p>As fotos e as histórias de cada viagem.</p>
+                    </li>
+                    <li class="recurso">
+                        <img src="jogo/img/interface/icone-globo.png" alt="" />
+                        <h3>Dashboard</h3>
+                        <p>Quanto custa cada destino no seu estilo de viagem (aventura, low cost ou exclusiva), a melhor época e o destino mais barato.</p>
+                    </li>
+                    <li class="recurso">
+                        <img src="jogo/img/interface/icone-mala.png" alt="" />
+                        <h3>Calculadora</h3>
+                        <p>Monte o orçamento da sua viagem saindo de São Paulo.</p>
+                    </li>
+                    <li class="recurso">
+                        <img src="jogo/img/interface/icone-aviao.png" alt="" />
+                        <h3>Jogo</h3>
+                        <p>Corra pelos países, ganhe carimbos no passaporte e libere novas cores para o site.</p>
+                    </li>
+                </ul>
+
+                <div class="botoes-apresentacao">
+                    <a href="cadastro.html" class="botao-tema botao-passaporte">
+                        <span class="botao-icone" aria-hidden="true"></span>
+                        <span>Criar conta grátis</span>
+                    </a>
+                    <a href="login.html" class="link-contorno">Já tenho conta</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <div class="container">
+            Projeto Individual · SPTech · 2026
+        </div>
+    </footer>
+
+</body>
 
 </html>
