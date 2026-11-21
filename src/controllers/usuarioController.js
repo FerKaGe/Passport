@@ -4,11 +4,7 @@ function autenticar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
-    if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está indefinida!");
-    } else {
+    if (typeof email != "string" || typeof senha != "string") {res.status(400).send("E-mail e senha precisam ser textos!")} else {
 
         usuarioModel.autenticar(email, senha)
             .then(
@@ -17,10 +13,6 @@ function autenticar(req, res) {
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
                     if (resultadoAutenticar.length == 1) {
-                        // Achou exatamente um usuário: devolve os dados que o
-                        // login.html guarda na sessão (a senha não volta).
-                        // tipoViagem e skin: o login.html guarda os dois para as outras telas.
-                        // A skin vem com as cores e a fonte para a página já abrir com ela.
                         res.json({
                             id: resultadoAutenticar[0].id,
                             email: resultadoAutenticar[0].email,
@@ -58,17 +50,12 @@ function cadastrar(req, res) {
     var tipoViagem = Number(req.body.tipoViagemServer);
 
     // Faça as validações dos valores
-    if (nome == undefined) {
-        res.status(400).send("Seu nome está undefined!");
-    } else if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está undefined!");
+    if (typeof nome != "string" || typeof email != "string" || typeof senha != "string") { res.status(400).send("Nome, e-mail e senha precisam ser textos!")
     } else if (isNaN(tipoViagem)) {
         res.status(400).send("Escolha um tipo de viagem!");
     } else {
 
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+
         usuarioModel.cadastrar(nome, email, senha, tipoViagem)
             .then(
                 function (resultado) {
