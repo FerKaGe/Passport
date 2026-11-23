@@ -1,7 +1,3 @@
-/* Estilo das páginas que exigem login e ficam em public/dashboard/.
-   O menu lateral vem de css/sidebar.css.
-   As cores e as fontes vêm de css/skins.css: estas páginas mudam com a skin. */
-
 body {
   margin: 0;
   min-height: 100vh;
@@ -11,7 +7,6 @@ body {
   color: var(--cor-texto-suave);
 }
 
-/* área de conteúdo, à direita da barra lateral */
 .conteudo {
   max-width: 1100px;
   margin: 0 auto;
@@ -37,7 +32,6 @@ body {
   margin: 0 0 24px;
 }
 
-/* aviso das telas que ainda não foram feitas */
 .em-construcao {
   padding: 20px;
   border: 3px dashed var(--cor-destaque);
@@ -49,7 +43,6 @@ body {
   color: var(--cor-texto);
 }
 
-/* Cartão no estilo do jogo: borda grossa e sombra "em bloco" (sem desfoque) */
 .painel,
 .kpi,
 .filtro {
@@ -63,14 +56,11 @@ body {
   padding: 20px;
 }
 
-/* mensagem de erro (fica vazia quando está tudo certo) */
 .aviso {
   min-height: 1em;
   margin: 12px 0;
   color: #FF8A7A;
 }
-
-/* ---------- Filtros ---------- */
 
 .filtros {
   display: flex;
@@ -93,7 +83,6 @@ body {
   color: var(--cor-texto);
 }
 
-/* A legend de um fieldset fica em cima da borda; float a traz para dentro */
 .filtro legend {
   float: left;
   width: 100%;
@@ -110,7 +99,6 @@ select {
   font-size: inherit;
 }
 
-/* Os botões de dias: o rádio fica visível, só pintado com a cor da skin */
 .dias {
   flex-direction: row;
   flex-wrap: wrap;
@@ -128,10 +116,9 @@ select {
 input[type="radio"] {
   width: 18px;
   height: 18px;
-  accent-color: var(--cor-destaque);  /* accent-color pinta o rádio com a cor dada */
+  accent-color: var(--cor-destaque);
 }
 
-/* foco visível em tudo que se usa pelo teclado */
 select:focus-visible,
 input:focus-visible,
 .kpi a:focus-visible {
@@ -139,9 +126,6 @@ input:focus-visible,
   outline-offset: 3px;
 }
 
-/* ---------- Indicadores ---------- */
-
-/* grid com colunas de no mínimo 220px: em tela estreita, os cartões descem */
 .kpis {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -160,8 +144,6 @@ input:focus-visible,
   font-size: 9px;
   letter-spacing: 1px;
   color: var(--cor-texto-apagado);
-  /* Sem text-transform: uppercase. A Press Start 2P desenha as maiúsculas
-     acentuadas (É, Í) como minúsculas: "MELHOR ÉPOCA" virava "MELHOR éPOCA". */
 }
 
 .kpi b {
@@ -190,14 +172,11 @@ input:focus-visible,
   background-color: var(--cor-destaque);
 }
 
-/* ---------- Gráfico e tabela ---------- */
-
 .area-grafico {
-  position: relative;  /* o Chart.js precisa disto para acertar o tamanho */
+  position: relative;
   height: 420px;
 }
 
-/* a tabela rola de lado em tela estreita, em vez de estourar a página */
 .rolagem-tabela {
   overflow-x: auto;
 }
@@ -227,7 +206,6 @@ input:focus-visible,
   color: var(--cor-texto);
 }
 
-/* as cidades aparecem embaixo do país, menores */
 .tabela small {
   display: block;
   font-size: 0.8em;
@@ -239,17 +217,11 @@ input:focus-visible,
   color: var(--cor-destaque);
 }
 
-/* números alinhados à direita, para as casas decimais ficarem uma embaixo da outra.
-   ".tabela .numero" (e não só ".numero") para vencer a regra ".tabela td" acima,
-   que alinha à esquerda: o seletor mais específico ganha. */
 .tabela .numero {
   text-align: right;
   white-space: nowrap;
 }
 
-/* ---------- Calculadora ---------- */
-
-/* duas colunas: o formulário e o recibo; em tela estreita, uma embaixo da outra */
 .calculadora {
   display: flex;
   flex-wrap: wrap;
@@ -288,8 +260,6 @@ input[type="number"] {
   align-self: flex-start;
 }
 
-/* O recibo é um papel: fundo claro e texto escuro, como a página do passaporte.
-   :empty vale quando a div não tem nada dentro: aí o recibo não aparece. */
 .recibo {
   flex: 1 1 320px;
   padding: 20px 24px;
@@ -349,8 +319,6 @@ input[type="number"] {
   font-size: 0.85em;
 }
 
-/* ---------- Sobre mim ---------- */
-
 .historia {
   display: flex;
   flex-wrap: wrap;
@@ -383,15 +351,12 @@ input[type="number"] {
   color: var(--cor-destaque);
 }
 
-/* ---------- Sobre mim: linha da vida ---------- */
-
 .caminho-intro {
   max-width: 760px;
   margin: 0 0 24px;
   line-height: 1.5;
 }
 
-/* A linha vertical é a borda esquerda; cada viagem fica pendurada nela */
 .linha-da-vida {
   display: flex;
   flex-direction: column;
@@ -400,8 +365,6 @@ input[type="number"] {
   border-left: 4px dashed var(--cor-destaque);
 }
 
-/* scroll-margin-top: ao chegar pelo link da Home (#viagem-3),
-   a viagem não fica colada no topo da janela */
 .viagem-vida {
   scroll-margin-top: 24px;
 }
@@ -431,7 +394,6 @@ input[type="number"] {
   color: var(--cor-destaque);
 }
 
-/* texto e imagem lado a lado; em tela estreita, a imagem desce */
 .viagem-vida-corpo {
   display: flex;
   flex-wrap: wrap;
@@ -448,7 +410,6 @@ input[type="number"] {
   line-height: 1.5;
 }
 
-/* "Vale a visita" e "Dica": menores, com uma barra na cor de destaque */
 .viagem-vida-dica {
   padding-left: 10px;
   border-left: 3px solid var(--cor-destaque);
@@ -465,8 +426,6 @@ input[type="number"] {
   box-shadow: 6px 6px 0 var(--cor-contorno);
   image-rendering: pixelated;
 }
-
-/* ---------- Sobre mim: aprendizados e chamadas ---------- */
 
 .aprendizados {
   display: grid;
@@ -512,10 +471,6 @@ input[type="number"] {
   margin-bottom: 28px;
 }
 
-/* Os botões-objeto aqui são links: sem o sublinhado e com a cor do texto
-   do botão. Sem isto, a regra ".conteudo a" (mais abaixo) pintaria o texto
-   de dourado em cima do botão dourado, e ele sumiria.
-   ".chamadas .botao-tema" tem duas classes, então vence ".conteudo a". */
 .chamadas .botao-tema {
   color: var(--cor-destaque-texto);
   text-decoration: none;
@@ -558,7 +513,6 @@ input[type="number"] {
   image-rendering: pixelated;
 }
 
-/* carimbo que ainda falta: sem cor e meio apagado */
 .carimbo-do-mapa.falta img {
   filter: grayscale(1);
   opacity: 0.35;
@@ -577,10 +531,6 @@ input[type="number"] {
   outline-offset: 3px;
 }
 
-/* ---------- Tela estreita (celular) ---------- */
-
-/* Nas páginas logadas, a barra lateral já ocupa uns 100px da tela.
-   Em tela estreita, as margens e a bandeira diminuem para o texto caber. */
 @media (max-width: 700px) {
   .conteudo {
     padding: 24px 12px 40px;
