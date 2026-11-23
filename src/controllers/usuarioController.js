@@ -5,7 +5,6 @@ function autenticar(req, res) {
     var senha = req.body.senhaServer;
 
     if (typeof email != "string" || typeof senha != "string") {res.status(400).send("E-mail e senha precisam ser textos!")} else {
-
         usuarioModel.autenticar(email, senha)
             .then(
                 function (resultadoAutenticar) {
@@ -39,7 +38,6 @@ function autenticar(req, res) {
                 }
             );
     }
-
 }
 
 function cadastrar(req, res) {
@@ -54,8 +52,6 @@ function cadastrar(req, res) {
     } else if (isNaN(tipoViagem)) {
         res.status(400).send("Escolha um tipo de viagem!");
     } else {
-
-
         usuarioModel.cadastrar(nome, email, senha, tipoViagem)
             .then(
                 function (resultado) {
@@ -94,15 +90,13 @@ function salvarTipoViagem(req, res) {
 
 function salvarSkin(req, res) {
     var idUsuario = Number(req.params.idUsuario);
-    var idDestino = Number(req.body.idDestinoServer);  // 0 = skin padrão
+    var idDestino = Number(req.body.idDestinoServer);
 
     if (isNaN(idUsuario) || isNaN(idDestino)) {
         res.status(400).send("Usuário e skin precisam ser números");
         return;
     }
 
-    // A skin padrão está sempre liberada: só apaga a escolha (NULL).
-    // As outras passam pela conferência do carimbo, dentro do próprio SQL.
     var promessa;
     if (idDestino == 0) {
         promessa = usuarioModel.limparSkin(idUsuario);
@@ -112,8 +106,6 @@ function salvarSkin(req, res) {
 
     promessa
         .then(function (resultado) {
-            // affectedRows = quantas linhas o UPDATE alcançou.
-            // 0 quer dizer que o EXISTS deu falso: o usuário não tem o carimbo.
             if (resultado.affectedRows == 0) {
                 res.status(403).send("Essa skin ainda está bloqueada: ganhe o carimbo do destino no jogo.");
             } else {
