@@ -1,21 +1,3 @@
-/*
- * Sidebar das páginas logadas.
- * O desenho da barra (css/sidebar.css) e a estrutura do menu foram adaptados
- * da Glass Sidebar, de Igor Fuchs Pereira (licença MIT).
- * Copyright (c) 2026 Igor Fuchs Pereira
- * Licença completa: docs/licencas/glass-sidebar-LICENSE.txt
- *
- * Por que este arquivo existe: a barra é igual em todas as páginas logadas.
- * Em vez de copiar o mesmo HTML em cada uma, a página só tem um <aside> vazio
- * e chama montarSidebar(), que escreve o menu lá dentro.
- */
-
-// Vetor de objetos: cada objeto é um item do menu.
-// Para criar uma página nova no menu, basta acrescentar uma linha aqui.
-// Os links começam com "../" porque toda página logada fica uma pasta abaixo
-// de public/ (em public/dashboard/ ou em public/jogo/).
-// Os ícones são objetos de viagem em pixel art (gerados por
-// ferramentas/sprites/interface.py): globo, mala, avião e passaporte.
 var PASTA_ICONES = "../jogo/img/interface/";
 
 var itensDaSidebar = [
@@ -25,14 +7,9 @@ var itensDaSidebar = [
     { id: "sobre",       nome: "Sobre mim",   icone: "icone-passaporte.png", link: "../dashboard/sobre.html" }
 ];
 
-// Escreve a barra dentro do <aside id="barra_lateral">.
-// paginaAtual é o id do item que deve aparecer marcado (por exemplo "jogo").
 function montarSidebar(paginaAtual) {
     var html = "";
 
-    // Topo: nome do site e saudação.
-    // O <b id="b_usuario"> é preenchido pelo validarSessao() do sessao.js,
-    // por isso montarSidebar() precisa ser chamada ANTES de validarSessao().
     html += `
         <a href="../dashboard/dashboard.html" class="glass-sidebar__brand">
             <img class="glass-sidebar__icon" src="${PASTA_ICONES}favicon.png" alt="" />
@@ -43,13 +20,11 @@ function montarSidebar(paginaAtual) {
         </div>
     `;
 
-    // Menu: um link para cada objeto do vetor
     html += `<nav class="glass-sidebar__nav" aria-label="Menu principal">`;
 
     for (var i = 0; i < itensDaSidebar.length; i++) {
         var item = itensDaSidebar[i];
 
-        // O item da página em que estamos ganha a classe is-active (fica destacado)
         var classes = "glass-sidebar__item";
         if (item.id == paginaAtual) {
             classes += " is-active";
@@ -65,12 +40,9 @@ function montarSidebar(paginaAtual) {
 
     html += `</nav>`;
 
-    // Parte de baixo: seletor de skins e botão de sair
     html += `
         <div class="glass-sidebar__bottom">
 
-            <!-- SELETOR DE SKINS: esta div fica vazia aqui. Quem escreve os
-                 botões dentro dela é o montarSeletorDeSkins(), de js/skins.js. -->
             <div id="div_seletor_skins" class="glass-sidebar__skins"></div>
 
             <button type="button" class="glass-sidebar__item is-danger" onclick="limparSessao()" title="Sair">
@@ -82,6 +54,5 @@ function montarSidebar(paginaAtual) {
 
     barra_lateral.innerHTML = html;
 
-    // Agora que a div do seletor existe na página, preenche ela (js/skins.js)
     montarSeletorDeSkins();
 }
