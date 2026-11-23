@@ -17,13 +17,12 @@ function limparSessao() {
     window.location = "../login.html";
 }
 
-// carregamento (loading): mostra o avião girando (css/estilo.css, .carregando)
+// carregamento (loading)
 function aguardar() {
     var divAguardar = document.getElementById("div_aguardar");
     divAguardar.style.display = "flex";
 }
 
-// Esconde o avião girando. Se receber um texto, mostra o carimbo NEGADO com ele.
 function finalizarAguardar(texto) {
     var divAguardar = document.getElementById("div_aguardar");
     divAguardar.style.display = "none";
@@ -34,4 +33,3 @@ function finalizarAguardar(texto) {
         divErrosLogin.innerHTML = "<b>NEGADO</b>" + texto;
     }
 }
-
