@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passport | Calculadora de custo</title>
 
-    <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele -->
     <link rel="stylesheet" href="../css/skins.css" />
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="../css/tema.css">
@@ -21,16 +20,8 @@
     <script src="../js/calculadora.js"></script>
 </head>
 
-<!--
-    Ordem do onload:
-    1. montarSidebar() escreve a barra lateral (js/sidebar.js)
-    2. validarSessao() confere o login e escreve o nome na barra (js/sessao.js)
-    3. carregarCalculadora() busca os tipos e os custos no banco (js/calculadora.js)
--->
-
 <body class="glass-sidebar-page" onload="montarSidebar('calculadora'), validarSessao(), carregarCalculadora()">
 
-    <!-- A barra lateral é escrita aqui dentro pelo montarSidebar() -->
     <aside id="barra_lateral" class="glass-sidebar"></aside>
 
     <main class="conteudo">
@@ -39,13 +30,6 @@
 
         <div class="calculadora">
 
-            <!--
-                onsubmit: roda o calcular() quando o botão é apertado OU quando
-                se aperta Enter num campo. "return false" impede o formulário de
-                recarregar a página.
-                novalidate: desliga a conferência automática do navegador, para
-                as mensagens virem das nossas validações (js/calculadora.js).
-            -->
             <form class="painel formulario-calculo" onsubmit="calcular(); return false;" novalidate>
                 <div class="campo">
                     <label for="select_destino">Destino</label>
@@ -71,17 +55,14 @@
                     <input id="input_pessoas" type="number" min="1" max="10" step="1" value="1" />
                 </div>
 
-                <!-- Elemento tematizado: a mala. Continua sendo um <button> de verdade. -->
                 <button type="submit" class="botao-tema botao-mala">
                     <span class="botao-icone" aria-hidden="true"></span>
                     <span>FAZER A MALA</span>
                 </button>
 
-                <!-- aria-live: o leitor de tela lê a mensagem quando ela aparece -->
                 <p id="p_mensagem" class="aviso" aria-live="polite"></p>
             </form>
 
-            <!-- O recibo é escrito pelo calcular() -->
             <div id="div_recibo" class="recibo" aria-live="polite"></div>
 
         </div>
