@@ -1,14 +1,3 @@
-/*
- * Estilo das páginas públicas: Home (index.html), Login e Cadastro.
- *
- * As cores e as fontes vêm de css/skins.css (carregado antes deste arquivo).
- * As páginas públicas ficam sempre na skin padrão: elas não carregam o
- * js/skins.js, que é quem troca a skin (a não ser o login, que aplica a
- * padrão logo que abre).
- *
- * Os botões e a placa de aeroporto vêm de css/tema.css.
- */
-
 * {
   box-sizing: border-box;
 }
@@ -23,7 +12,6 @@ body {
   line-height: 1.4;
 }
 
-/* largura máxima do conteúdo e o respiro dos lados */
 .container {
   width: 100%;
   max-width: 1100px;
@@ -44,7 +32,6 @@ a {
   color: var(--cor-destaque);
 }
 
-/* foco visível em tudo que se usa pelo teclado */
 a:focus-visible,
 input:focus-visible,
 select:focus-visible,
@@ -53,15 +40,12 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
-/* ---------- Cabeçalho ---------- */
-
 .cabecalho {
   padding: 20px 0;
   border-bottom: 3px solid var(--cor-contorno);
   background-color: var(--cor-superficie);
 }
 
-/* flex-wrap: em tela estreita, as placas descem para baixo do logo */
 .cabecalho .container {
   display: flex;
   flex-wrap: wrap;
@@ -86,13 +70,10 @@ button:focus-visible {
   list-style: none;
 }
 
-/* aria-current="page" marca a placa da página em que você está */
 .menu-publico .placa[aria-current="page"] {
   background-color: var(--cor-texto);
   color: var(--cor-fundo);
 }
-
-/* ---------- Rodapé ---------- */
 
 .rodape {
   margin-top: 60px;
@@ -102,8 +83,6 @@ button:focus-visible {
   color: var(--cor-texto-apagado);
   text-align: center;
 }
-
-/* ---------- Home: apresentação ---------- */
 
 .apresentacao .container {
   display: flex;
@@ -132,15 +111,12 @@ button:focus-visible {
   margin: 0 0 24px;
 }
 
-/* <a> com a aparência do botão-passaporte: sem o sublinhado de link.
-   Vale para os dois grupos de botões da Home (o do topo e o do fim). */
 .botoes-apresentacao .botao-tema {
   display: inline-flex;
   color: var(--cor-destaque-texto);
   text-decoration: none;
 }
 
-/* o corgi do jogo, numa "janela" com borda dourada */
 .apresentacao-imagem {
   flex: 0 1 300px;
   padding: 20px;
@@ -155,10 +131,6 @@ button:focus-visible {
   image-rendering: pixelated;
 }
 
-/* ---------- Home: seções ---------- */
-
-/* Rolagem suave ao clicar em "Conhecer minha história".
-   Só para quem não pediu ao sistema para reduzir animações. */
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -187,7 +159,6 @@ button:focus-visible {
   margin-top: 24px;
 }
 
-/* Link com a borda de um botão, mas sem fundo: o botão "secundário" */
 .link-contorno {
   padding: 14px 18px;
   border: 3px solid var(--cor-destaque);
@@ -203,9 +174,6 @@ button:focus-visible {
   color: var(--cor-destaque-texto);
 }
 
-/* ---------- Home: como tudo começou ---------- */
-
-/* 4 cartões, um por ciclo de 7 anos; em tela estreita, um embaixo do outro */
 .ciclos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -236,9 +204,6 @@ button:focus-visible {
   margin: 0;
 }
 
-/* ---------- Home: por que eu viajo ---------- */
-
-/* Uma "página de passaporte": papel claro e texto escuro */
 .destaque-texto {
   max-width: 860px;
   padding: 24px 28px;
@@ -257,8 +222,6 @@ button:focus-visible {
   font-size: 1.1em;
 }
 
-/* ---------- Home: países ---------- */
-
 .paises {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
@@ -268,7 +231,6 @@ button:focus-visible {
   list-style: none;
 }
 
-/* O cartão inteiro é o link: display flex para os textos ficarem um embaixo do outro */
 .pais {
   display: flex;
   flex-direction: column;
@@ -283,7 +245,6 @@ button:focus-visible {
   transition: transform 0.15s;
 }
 
-/* mouse em cima ou foco: o cartão "levanta" */
 .pais:hover,
 .pais:focus {
   transform: translate(-3px, -3px);
@@ -306,8 +267,6 @@ button:focus-visible {
 .pais-periodo {
   color: var(--cor-destaque);
 }
-
-/* ---------- Home: o que tem atrás do login ---------- */
 
 .recursos {
   display: grid;
@@ -339,18 +298,14 @@ button:focus-visible {
   margin: 0;
 }
 
-/* mensagem de "não foi possível carregar" */
 .aviso {
   color: #FF8A7A;
 }
-
-/* ---------- Login e Cadastro: o passaporte aberto ---------- */
 
 .area-passaporte {
   padding: 40px 0;
 }
 
-/* As duas páginas lado a lado; em tela estreita, uma em cima da outra */
 .passaporte-aberto {
   display: flex;
   flex-wrap: wrap;
@@ -360,7 +315,6 @@ button:focus-visible {
   box-shadow: 10px 10px 0 var(--cor-contorno);
 }
 
-/* página da esquerda: a capa por dentro, azul com dourado */
 .pagina-capa {
   display: flex;
   flex: 1 1 320px;
@@ -369,7 +323,7 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   padding: 32px 24px;
-  border-right: 4px dashed var(--cor-destaque);  /* a "costura" do meio do passaporte */
+  border-right: 4px dashed var(--cor-destaque);
   background-color: var(--cor-superficie);
   text-align: center;
 }
@@ -393,7 +347,6 @@ button:focus-visible {
   font-size: 18px;
 }
 
-/* página da direita: papel, onde fica o formulário */
 .pagina-papel {
   flex: 1 1 360px;
   padding: 32px 28px;
@@ -428,7 +381,6 @@ button:focus-visible {
   color: var(--cor-tinta);
 }
 
-/* campos escritos "à máquina" sobre o papel: só a linha de baixo */
 .campo input,
 .campo select {
   padding: 6px 4px;
@@ -445,8 +397,6 @@ button:focus-visible {
   margin-top: 8px;
 }
 
-/* ---------- Regras da senha forte (cadastro) ---------- */
-
 .requisitos-senha {
   margin: 6px 0 0;
   padding: 0;
@@ -454,8 +404,6 @@ button:focus-visible {
   font-size: 0.85em;
 }
 
-/* O símbolo vem antes do texto (::before). Não é só a cor que muda:
-   o símbolo também, para quem não distingue vermelho de verde. */
 .requisitos-senha li::before,
 .confirmacao-senha::before {
   display: inline-block;
@@ -464,7 +412,7 @@ button:focus-visible {
 
 .requisitos-senha .falta,
 .confirmacao-senha.falta {
-  color: #8A3A1C;   /* marrom-avermelhado: 6,4:1 sobre o papel */
+  color: #8A3A1C;
 }
 
 .requisitos-senha .falta::before,
@@ -474,7 +422,7 @@ button:focus-visible {
 
 .requisitos-senha .ok,
 .confirmacao-senha.ok {
-  color: #1A6B58;   /* verde de carimbo: 5,3:1 sobre o papel */
+  color: #1A6B58;
 }
 
 .requisitos-senha .ok::before,
@@ -491,10 +439,6 @@ button:focus-visible {
   margin: 20px 0 0;
 }
 
-/* ---------- Mensagens como carimbos ---------- */
-
-/* O carimbo fica escondido até o JavaScript mostrar (display: block).
-   Borda dupla e um pouco torto, como um carimbo de verdade. */
 .carimbo-mensagem {
   display: none;
   margin: 16px 0 0;
@@ -506,28 +450,23 @@ button:focus-visible {
   transform: rotate(-2deg);
 }
 
-/* NEGADO: vermelho de carimbo (contraste de 5,7:1 sobre o papel) */
 .carimbo-mensagem.negado {
   border-color: #B5121B;
   color: #B5121B;
 }
 
-/* APROVADO: verde de carimbo (contraste de 5,3:1 sobre o papel) */
 .carimbo-mensagem.aprovado {
   border-color: #1A6B58;
   color: #1A6B58;
 }
 
-/* a palavra NEGADO ou APROVADO, em cima da mensagem */
 .carimbo-mensagem b {
   display: block;
   font-size: 14px;
 }
 
-/* ---------- Carregando: o avião girando ---------- */
-
 .carregando {
-  display: none;               /* o aguardar() de js/sessao.js mostra */
+  display: none;
   align-items: center;
   gap: 12px;
   margin-top: 16px;
@@ -549,14 +488,11 @@ button:focus-visible {
   }
 }
 
-/* ---------- Tela estreita (celular) ---------- */
-
 @media (max-width: 700px) {
   .apresentacao h1 {
     font-size: 18px;
   }
 
-  /* a costura do passaporte passa a ser embaixo da capa */
   .pagina-capa {
     border-right: none;
     border-bottom: 4px dashed var(--cor-destaque);
