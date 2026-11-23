@@ -12,11 +12,8 @@
     <link rel="stylesheet" href="./css/estilo.css">
 
     <script src="./js/sessao.js"></script>
-    <!-- skins.js: o login guarda a skin escolhida com guardarSkin() -->
     <script src="./js/skins.js"></script>
     <script>
-        // O skins.js aplica a skin guardada assim que é lido. As páginas
-        // públicas ficam sempre na padrão, então o login desfaz isso aqui.
         aplicarSkin(SKIN_PADRAO);
     </script>
 </head>
@@ -41,8 +38,6 @@
     <main class="area-passaporte">
         <div class="container">
 
-            <!-- Elemento tematizado: um passaporte aberto. À esquerda a "capa por
-                 dentro"; à direita a página de papel, com o formulário. -->
             <div class="passaporte-aberto">
 
                 <section class="pagina-capa">
@@ -54,9 +49,6 @@
                 <section class="pagina-papel">
                     <h2>Entrar</h2>
 
-                    <!-- <form> com onsubmit: o entrar() roda pelo botão ou pelo Enter.
-                         "return false" impede a página de recarregar; novalidate deixa
-                         as mensagens por conta do nosso JavaScript. -->
                     <form class="formulario" onsubmit="entrar(); return false;" novalidate>
                         <div class="campo">
                             <label for="email_input">E-mail</label>
@@ -73,14 +65,11 @@
                         </button>
                     </form>
 
-                    <!-- Carregando: o avião girando (mostrado pelo aguardar(), em js/sessao.js) -->
                     <div id="div_aguardar" class="carregando">
                         <img src="jogo/img/interface/aviao.png" alt="" />
                         <span>Embarcando...</span>
                     </div>
 
-                    <!-- Mensagens de erro: um carimbo NEGADO.
-                         role="alert" faz o leitor de tela ler a mensagem quando ela aparece. -->
                     <p id="cardErro" class="carimbo-mensagem negado" role="alert">
                         <b>NEGADO</b>
                         <span id="mensagem_erro"></span>
@@ -107,7 +96,6 @@
 <script>
 
     function entrar() {
-        // Esconde as mensagens da tentativa anterior
         cardErro.style.display = "none";
         div_erros_login.style.display = "none";
 
@@ -120,8 +108,6 @@
             cardErro.style.display = "block";
             mensagem_erro.innerHTML = "Preencha o e-mail e a senha para entrar.";
             finalizarAguardar();
-            // setTimeout roda uma vez só (o setInterval que havia aqui
-            // criava um temporizador novo a cada clique)
             setTimeout(sumirMensagem, 5000);
             return false;
         }
@@ -144,9 +130,6 @@
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.TIPO_VIAGEM_USUARIO = json.tipoViagem;
 
-                    // A skin escolhida volta do banco: guarda no navegador para as
-                    // páginas logadas já abrirem com ela (guardarSkin, em js/skins.js).
-                    // Sem skin escolhida (id vazio), vale a padrão.
                     if (json.skin.id == null) {
                         guardarSkin(SKIN_PADRAO);
                     } else {
@@ -155,13 +138,11 @@
 
                     setTimeout(function () {
                         window.location = "./dashboard/dashboard.html";
-                    }, 1000); // apenas para exibir o avião girando
+                    }, 1000);
 
                 });
 
             } else {
-                // A API respondeu com erro (por exemplo, senha errada):
-                // o texto da resposta vai para o carimbo NEGADO
                 resposta.text().then(texto => {
                     console.error(texto);
                     finalizarAguardar(texto);
