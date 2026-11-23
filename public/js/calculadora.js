@@ -1,23 +1,10 @@
-/*
- * Calculadora de custo do Passport.
- * O usuário escolhe destino, tipo de viagem, dias e pessoas; a página
- * mostra a conta por partes, como um recibo, em reais e na moeda do país.
- *
- * Dados que vêm da API:
- *   GET /viagens/tipos           - os 3 tipos de viagem
- *   GET /viagens/custos/:idTipo  - os 7 destinos com voo e diária do tipo
- *
- * As contas usam as funções de js/custos.js (a mesma fórmula da Dashboard).
- */
-
 var DIAS_MINIMO = 1;
 var DIAS_MAXIMO = 90;
 var PESSOAS_MINIMO = 1;
 var PESSOAS_MAXIMO = 10;
 
-var custos = [];   // os 7 destinos do tipo de viagem escolhido (vêm da API)
+var custos = [];
 
-// Chamada pelo onload da página
 function carregarCalculadora() {
     fetch("/viagens/tipos")
         .then(function (resposta) {
@@ -44,10 +31,7 @@ function carregarCalculadora() {
         });
 }
 
-// Busca os custos do tipo escolhido e escreve as opções de destino.
-// Chamada no começo e quando o tipo de viagem muda (onchange do <select>).
 function carregarCustos() {
-    // Guarda o destino que estava escolhido, para não perder a escolha
     var destinoEscolhido = select_destino.value;
 
     fetch("/viagens/custos/" + select_tipo.value)
@@ -69,7 +53,6 @@ function carregarCustos() {
 
             select_destino.innerHTML = html;
 
-            // O recibo antigo era de outro tipo de viagem: apaga
             div_recibo.innerHTML = "";
         })
         .catch(function (erro) {
@@ -78,7 +61,6 @@ function carregarCustos() {
         });
 }
 
-// Procura no vetor custos o destino com esse id. Devolve null se não achar.
 function buscarDestino(idDestino) {
     for (var i = 0; i < custos.length; i++) {
         if (custos[i].id == idDestino) {
@@ -89,7 +71,6 @@ function buscarDestino(idDestino) {
     return null;
 }
 
-// Devolve true se o texto digitado é um número inteiro entre minimo e maximo
 function ehInteiroEntre(texto, minimo, maximo) {
     if (texto == "") {
         return false;
@@ -97,17 +78,14 @@ function ehInteiroEntre(texto, minimo, maximo) {
 
     var numero = Number(texto);
 
-    // Number.isInteger: true para 3, false para 3.5 e para NaN (texto que não é número)
     return Number.isInteger(numero) && numero >= minimo && numero <= maximo;
 }
 
-// Chamada pelo envio do formulário (botão FAZER A MALA ou Enter num campo)
 function calcular() {
     var idDestino = select_destino.value;
     var textoDias = input_dias.value;
     var textoPessoas = input_pessoas.value;
 
-    // Validações: cada if para numa mensagem diferente
     if (idDestino == "") {
         mostrarMensagem("Escolha um destino.");
         div_recibo.innerHTML = "";
@@ -130,7 +108,6 @@ function calcular() {
     var dias = Number(textoDias);
     var pessoas = Number(textoPessoas);
 
-    // A conta, por partes (fórmula de js/custos.js)
     var voo = Number(destino.valor_voo);
     var diaria = Number(destino.valor_diaria);
     var hospedagem = diaria * dias;
@@ -138,7 +115,6 @@ function calcular() {
     var total = calcularCustoTotal(porPessoa, pessoas);
     var naMoedaLocal = converterParaMoedaLocal(total, destino.cotacao_real);
 
-    // "dia" ou "dias", "pessoa" ou "pessoas"
     var palavraDias = "dias";
     if (dias == 1) {
         palavraDias = "dia";
