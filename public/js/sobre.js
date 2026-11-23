@@ -1,21 +1,8 @@
-/*
- * Sobre mim: os números das viagens e o mapa dos carimbos.
- *
- * Dados que vêm da API:
- *   GET /viagens/destinos            - as viagens (para os números)
- *   GET /carimbos/skins/:idUsuario   - quais destinos quem está logado já carimbou
- *
- * As imagens dos carimbos vêm do vetor fases (js/fases.js), pelo buscarFase().
- */
-
-// Chamada pelo onload da página
 function carregarSobre() {
     carregarNumeros();
     carregarMapaDeCarimbos();
 }
 
-// Conta as viagens e acha o ano da primeira e o da última.
-// Os números mudam sozinhos se um destino novo entrar no banco.
 function carregarNumeros() {
     fetch("/viagens/destinos")
         .then(function (resposta) {
@@ -29,8 +16,6 @@ function carregarNumeros() {
                 return;
             }
 
-            // Começa supondo que a primeira viagem da lista é a mais antiga
-            // e também a mais recente; o laço corrige os dois.
             var primeiroAno = destinos[0].ano;
             var ultimoAno = destinos[0].ano;
 
@@ -52,8 +37,6 @@ function carregarNumeros() {
         });
 }
 
-// Escreve os 7 carimbos: coloridos os que quem está logado já ganhou no
-// jogo, apagados os que faltam.
 function carregarMapaDeCarimbos() {
     fetch("/carimbos/skins/" + sessionStorage.ID_USUARIO)
         .then(function (resposta) {
