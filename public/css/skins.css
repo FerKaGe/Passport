@@ -1,27 +1,3 @@
-/*
- * Skins do Passport.
- *
- * Uma skin é um conjunto de valores para as mesmas variáveis CSS.
- * Os outros arquivos de estilo nunca escrevem uma cor ou uma fonte direto:
- * eles usam var(--cor-fundo), var(--cor-destaque), var(--fonte-texto)...
- *
- * Este arquivo guarda:
- *   - as fontes de todas as skins (@font-face);
- *   - a skin padrão, no :root;
- *   - as cores calculadas a partir da cor de fundo (--cor-superficie e --cor-borda);
- *   - um ajuste fino por skin: o tamanho do texto, que depende da fonte.
- *
- * As cores e a fonte das skins de destino NÃO estão aqui: vêm do banco
- * (tabela destino) e são aplicadas por js/skins.js, que troca o valor de
- * --cor-fundo, --cor-destaque e --fonte-texto direto na tag <html>.
- *
- * Este arquivo precisa ser o PRIMEIRO css de cada página.
- */
-
-/* ---------- Fontes (todas guardadas no projeto, licença OFL) ---------- */
-
-/* O navegador só baixa o arquivo de uma fonte quando algum texto da página
-   usa essa fonte: quem está na skin Atacama não baixa a fonte da Espanha. */
 @font-face {
   font-family: "Press Start 2P";
   src: url(../assets/fontes/PressStart2P-Regular.ttf) format("truetype");
@@ -67,55 +43,35 @@
   src: url(../assets/fontes/Jersey25-Regular.ttf) format("truetype");
 }
 
-/* ---------- Skin padrão: "Passaporte" ---------- */
-
-/* :root é a tag <html>. Estes valores valem quando nenhuma skin de destino
-   foi aplicada (ou quando o banco não respondeu). */
 :root {
-  /* os três campos da skin (no banco: cor_fundo, cor_botao e fonte) */
-  --cor-fundo: #0B132B;            /* azul-marinho da capa do passaporte */
-  --cor-destaque: #E0B04A;         /* dourado da capa: botões e destaques */
+  --cor-fundo: #0B132B;
+  --cor-destaque: #E0B04A;
   --fonte-texto: "VT323", monospace;
 
-  /* Calculadas a partir da cor de fundo: color-mix() mistura duas cores.
-     "var(--cor-fundo), white 6%" = a cor de fundo com 6% de branco.
-     Assim, quando o JavaScript troca a cor de fundo, os cartões e as bordas
-     acompanham sozinhos. Com 6%, a legenda (--cor-texto-apagado) ainda tem
-     contraste de pelo menos 5,0:1 sobre o cartão, em todas as skins. */
-  --cor-superficie: color-mix(in srgb, var(--cor-fundo), white 6%);   /* cartões e painéis */
-  --cor-borda: color-mix(in srgb, var(--cor-fundo), white 15%);       /* contornos discretos */
+  --cor-superficie: color-mix(in srgb, var(--cor-fundo), white 6%);
+  --cor-borda: color-mix(in srgb, var(--cor-fundo), white 15%);
 
-  --tamanho-texto: 20px;           /* cada fonte "parece" de um tamanho; isto compensa */
+  --tamanho-texto: 20px;
 
-  /* iguais em todas as skins */
-  --cor-destaque-texto: var(--cor-fundo); /* texto em cima do botão: a cor de fundo da skin */
-  --cor-contorno: #060A18;         /* contorno grosso e sombra dos objetos */
-  --cor-texto: #F8F4E8;            /* títulos */
-  --cor-texto-suave: #C9C2B0;      /* parágrafos */
-  --cor-texto-apagado: #9AA0B4;    /* legendas */
-  --cor-papel: #F4E9D0;            /* página do passaporte, cartão de embarque, recibo */
-  --cor-papel-sombra: #A8956A;     /* tracejado dos espaços vazios */
-  --cor-tinta: #14213D;            /* texto em cima do papel */
-  --fonte-titulo: "Press Start 2P", monospace; /* a fonte de fliperama não muda */
+  --cor-destaque-texto: var(--cor-fundo);
+  --cor-contorno: #060A18;
+  --cor-texto: #F8F4E8;
+  --cor-texto-suave: #C9C2B0;
+  --cor-texto-apagado: #9AA0B4;
+  --cor-papel: #F4E9D0;
+  --cor-papel-sombra: #A8956A;
+  --cor-tinta: #14213D;
+  --fonte-titulo: "Press Start 2P", monospace;
 }
 
-/* ---------- Ajuste fino por skin ---------- */
-
-/* O data-skin da tag <html> é o id do destino (o mesmo da tabela destino),
-   colocado por aplicarSkin() em js/skins.js. Só as fontes que "parecem"
-   maiores ou menores que as outras precisam de ajuste. */
-
-/* 3 = Espanha: a Silkscreen é larga e toda em maiúsculas */
 [data-skin="3"] {
   --tamanho-texto: 14px;
 }
 
-/* 5 = Gibraltar: a Handjet é estreita */
 [data-skin="5"] {
   --tamanho-texto: 21px;
 }
 
-/* 6 = Moçambique: a Pixelify Sans é mais alta que as outras */
 [data-skin="6"] {
   --tamanho-texto: 17px;
 }
