@@ -7,13 +7,10 @@
     <title>Passport | Página Inicial</title>
     <link rel="icon" href="jogo/img/interface/favicon.png" />
 
-    <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele.
-         Esta página não carrega o js/skins.js: fica sempre na skin padrão. -->
     <link rel="stylesheet" href="./css/skins.css">
     <link rel="stylesheet" href="./css/tema.css">
     <link rel="stylesheet" href="./css/estilo.css">
 
-    <!-- fases.js tem a bandeira de cada destino -->
     <script src="./js/fases.js"></script>
     <script src="./js/home.js"></script>
 </head>
@@ -25,7 +22,6 @@
             <a href="index.html" class="cabecalho-logo">
                 <img src="jogo/img/interface/logo.png" alt="Passport: carimbe o mundo" />
             </a>
-            <!-- Elemento tematizado: placas de aeroporto (css/tema.css) -->
             <nav aria-label="Menu">
                 <ul class="menu-publico">
                     <li><a href="index.html" class="placa" aria-current="page">TELA INICIAL</a></li>
@@ -37,15 +33,12 @@
     </header>
 
     <main>
-        <!-- H1. Apresentação -->
         <section class="apresentacao">
             <div class="container">
                 <div class="apresentacao-texto">
                     <h1>Oi, eu sou o Fernando Mateus. E este é o meu <span>passaporte</span>.</h1>
                     <p>7 países, 3 continentes e uma curiosidade que começou num avião para Maceió.</p>
 
-                    <!-- São links (levam a outro lugar), com aparência de botão.
-                         O primeiro desce até a seção "Como tudo começou" (o id dela). -->
                     <div class="botoes-apresentacao">
                         <a href="#como-tudo-comecou" class="link-contorno">Conhecer minha história</a>
                         <a href="cadastro.html" class="botao-tema botao-passaporte">
@@ -61,7 +54,6 @@
             </div>
         </section>
 
-        <!-- H2. Como tudo começou: 4 ciclos de 7 anos -->
         <section id="como-tudo-comecou" class="secao" aria-labelledby="h2_como_comecou">
             <div class="container">
                 <h2 id="h2_como_comecou">Como tudo começou</h2>
@@ -112,7 +104,6 @@
             </div>
         </section>
 
-        <!-- H3. Por que eu viajo -->
         <section class="secao" aria-labelledby="h2_por_que">
             <div class="container">
                 <div class="destaque-texto">
@@ -127,8 +118,6 @@
             </div>
         </section>
 
-        <!-- H4. Países: um cartão por destino, escrito pelo carregarPaises() (js/home.js)
-             com os dados do banco. Cada cartão leva à viagem no Sobre mim. -->
         <section class="secao" aria-labelledby="h2_paises">
             <div class="container">
                 <h2 id="h2_paises">Países</h2>
@@ -140,7 +129,6 @@
             </div>
         </section>
 
-        <!-- H5. O que tem atrás do login -->
         <section class="secao" aria-labelledby="h2_recursos">
             <div class="container">
                 <h2 id="h2_recursos">Crie sua conta e viaje comigo</h2>
