@@ -23,12 +23,8 @@ function listarDestinos(req, res) {
 }
 
 function listarCustos(req, res) {
-    // req.params traz o pedaço variável do endereço (o :idTipoViagem da rota).
-    // Number() transforma o texto em número; se não for número, vira NaN.
     var idTipoViagem = Number(req.params.idTipoViagem);
 
-    // Conferir ANTES de montar o SQL: um texto que não é número para aqui
-    // e nunca chega ao banco (proteção contra SQL injection).
     if (isNaN(idTipoViagem)) {
         res.status(400).send("O tipo de viagem precisa ser um número");
     } else {
