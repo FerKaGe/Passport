@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passport | Dashboard</title>
 
-    <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele -->
     <link rel="stylesheet" href="../css/skins.css" />
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="../css/sidebar.css">
@@ -17,29 +16,19 @@
     <script src="../js/skins.js"></script>
     <script src="../js/sidebar.js"></script>
 
-    <!-- Chart.js 4.4.1, guardado no projeto (licença MIT em docs/licencas/chartjs-LICENSE.txt) -->
     <script src="../js/lib/chart.umd.js"></script>
     <script src="../js/custos.js"></script>
     <script src="../js/dashboard.js"></script>
 </head>
 
-<!--
-    Ordem do onload:
-    1. montarSidebar() escreve a barra lateral (js/sidebar.js)
-    2. validarSessao() confere o login e escreve o nome na barra (js/sessao.js)
-    3. carregarDashboard() busca os dados e desenha a tela (js/dashboard.js)
--->
-
 <body class="glass-sidebar-page" onload="montarSidebar('dashboard'), validarSessao(), carregarDashboard()">
 
-    <!-- A barra lateral é escrita aqui dentro pelo montarSidebar() -->
     <aside id="barra_lateral" class="glass-sidebar"></aside>
 
     <main class="conteudo">
         <h1>Dashboard</h1>
         <p class="subtitulo">Quanto custaria fazer as minhas viagens hoje, saindo de São Paulo.</p>
 
-        <!-- Filtros: tipo de viagem e número de dias -->
         <section class="filtros" aria-label="Filtros">
             <div class="filtro">
                 <label for="select_tipo">Tipo de viagem</label>
@@ -48,7 +37,6 @@
                 </select>
             </div>
 
-            <!-- fieldset agrupa os 3 botões e a legend dá o nome do grupo -->
             <fieldset class="filtro dias">
                 <legend>Dias</legend>
                 <label><input type="radio" name="dias" value="7" checked onchange="mostrarDados()"> 7</label>
@@ -59,7 +47,6 @@
 
         <p id="p_aviso" class="aviso" aria-live="polite"></p>
 
-        <!-- Indicadores (KPIs): escritos pelo mostrarDados() e pelo carregarCarimbos() -->
         <section class="kpis" aria-label="Indicadores">
             <article class="kpi">
                 <small>Destino mais barato</small>
@@ -84,8 +71,6 @@
             </article>
         </section>
 
-        <!-- Gráfico do Chart.js. A tabela abaixo tem os mesmos números,
-             para quem não enxerga o gráfico. -->
         <section class="painel">
             <h2 id="h2_grafico">Custo por pessoa</h2>
             <div class="area-grafico">
