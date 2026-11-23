@@ -12,7 +12,6 @@ function autenticar(email, senha) {
     return database.executar(instrucaoSql, [email, senha]);
 }
 
-
 function cadastrar(nome, email, senha, tipoViagem) {
         var instrucaoSql = `
         INSERT INTO usuario (nome, email, senha, fk_tipo_viagem) VALUES (?, ?, ?, ?);
@@ -29,10 +28,6 @@ function salvarTipoViagem(idUsuario, tipoViagem) {
     return database.executar(instrucaoSql);
 }
 
-// Só troca a skin se o usuário tiver o carimbo daquele destino.
-// EXISTS (...) é verdadeiro quando a consulta de dentro acha alguma linha.
-// Sem carimbo, o WHERE dá falso e nenhuma linha muda (affectedRows = 0).
-// Assim ninguém libera uma skin chamando a rota na mão, pelo F12.
 function salvarSkin(idUsuario, idDestino) {
     var instrucaoSql = `
         UPDATE usuario SET fk_skin = ${idDestino}
@@ -43,7 +38,6 @@ function salvarSkin(idUsuario, idDestino) {
     return database.executar(instrucaoSql);
 }
 
-// Volta para a skin padrão: NULL quer dizer "nenhuma skin de destino"
 function limparSkin(idUsuario) {
     var instrucaoSql = `
         UPDATE usuario SET fk_skin = NULL WHERE id = ${idUsuario};
