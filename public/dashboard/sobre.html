@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passport | Sobre mim</title>
 
-    <!-- skins.css vem primeiro: os outros estilos usam as variáveis dele -->
     <link rel="stylesheet" href="../css/skins.css" />
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="../css/tema.css">
@@ -20,25 +19,14 @@
     <script src="../js/sobre.js"></script>
 </head>
 
-<!--
-    Ordem do onload:
-    1. montarSidebar() escreve a barra lateral (js/sidebar.js)
-    2. validarSessao() confere o login e escreve o nome na barra (js/sessao.js)
-    3. carregarSobre() busca os números e os carimbos no banco (js/sobre.js)
--->
-
 <body class="glass-sidebar-page" onload="montarSidebar('sobre'), validarSessao(), carregarSobre()">
 
-    <!-- A barra lateral é escrita aqui dentro pelo montarSidebar() -->
     <aside id="barra_lateral" class="glass-sidebar"></aside>
 
     <main class="conteudo">
         <h1>Sobre mim</h1>
 
-        <!-- S1. Cabeçalho pessoal: foto, nome e a frase -->
         <section class="painel historia">
-            <!-- FOTO: para usar uma foto sua, coloque o arquivo em public/assets/fotos/
-                 e troque o src abaixo por "../assets/fotos/NOME-DO-ARQUIVO.jpg" -->
             <img class="historia-foto" src="../jogo/img/personagem/correndo.gif" alt="O corgi viajante do Jogo do Passaporte" />
 
             <div class="historia-texto">
@@ -47,7 +35,6 @@
             </div>
         </section>
 
-        <!-- Os números são calculados pelo carregarNumeros() (js/sobre.js) com os dados do banco -->
         <section class="numeros" aria-label="As viagens em números">
             <article class="kpi">
                 <small>Países visitados</small>
@@ -63,8 +50,6 @@
             </article>
         </section>
 
-        <!-- S2. Linha da vida: uma viagem por <article>. O id (viagem-1 a viagem-7)
-             é o id do destino no banco: os cartões da Home trazem direto para cá. -->
         <section class="painel" aria-labelledby="h2_caminho">
             <h2 id="h2_caminho">O caminho até aqui</h2>
             <p class="caminho-intro">
@@ -88,8 +73,6 @@
                             <p class="viagem-vida-dica"><b>Vale a visita:</b> Vale da Lua no pôr do sol, Lagunas Baltinache, Aldea de Tulor e observação de estrelas.</p>
                             <p class="viagem-vida-dica"><b>Dica:</b> o mal da altitude é comum. Beba muita água e deixe os vulcões para depois de alguns dias de adaptação.</p>
                         </div>
-                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
-                             e troque o src abaixo (e o alt, descrevendo a foto) -->
                         <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-atacama.png" alt="Cartão-postal do jogo: Atacama, Chile" />
                     </div>
                 </article>
@@ -107,8 +90,6 @@
                             <p class="viagem-vida-dica"><b>Vale a visita:</b> vinícolas de Maipú e do Valle de Uco, o Aconcágua e a represa de Potrerillos, e a Plaza Independencia com o Mercado Central.</p>
                             <p class="viagem-vida-dica"><b>Dica:</b> reserve as visitas às vinícolas com antecedência e, se for dirigir, combine quem não vai beber.</p>
                         </div>
-                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
-                             e troque o src abaixo (e o alt, descrevendo a foto) -->
                         <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-mendoza.png" alt="Cartão-postal do jogo: Mendoza, Argentina" />
                     </div>
                 </article>
@@ -126,8 +107,6 @@
                             <p class="viagem-vida-dica"><b>Vale a visita:</b> Museu do Prado e Palácio Real (Madrid), Plaza de España e Real Alcázar (Sevilha), Puente Nuevo (Ronda) e o centro histórico de Cádiz.</p>
                             <p class="viagem-vida-dica"><b>Dica:</b> no verão, passeie cedo e no fim da tarde, e compre o ingresso do Alcázar antes.</p>
                         </div>
-                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
-                             e troque o src abaixo (e o alt, descrevendo a foto) -->
                         <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-espanha.png" alt="Cartão-postal do jogo: Espanha" />
                     </div>
                 </article>
@@ -145,8 +124,6 @@
                             <p class="viagem-vida-dica"><b>Vale a visita:</b> Torre de Belém e Mosteiro dos Jerónimos, o bairro de Alfama, a Praia da Rocha em Portimão e a gruta de Benagil.</p>
                             <p class="viagem-vida-dica"><b>Dica:</b> prove o pastel de Belém na fonte e faça o passeio de barco pelas grutas do Algarve.</p>
                         </div>
-                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
-                             e troque o src abaixo (e o alt, descrevendo a foto) -->
                         <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-portugal.png" alt="Cartão-postal do jogo: Portugal" />
                     </div>
                 </article>
@@ -164,8 +141,6 @@
                             <p class="viagem-vida-dica"><b>Vale a visita:</b> teleférico até o alto do Rochedo, Apes' Den (os macacos), Great Siege Tunnels, St. Michael's Cave e Europa Point, com vista para o Marrocos.</p>
                             <p class="viagem-vida-dica"><b>Dica:</b> os macacos pegam comida, bolsas e celulares. Guarde tudo e leve o passaporte para cruzar a fronteira.</p>
                         </div>
-                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
-                             e troque o src abaixo (e o alt, descrevendo a foto) -->
                         <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-gibraltar.png" alt="Cartão-postal do jogo: Gibraltar" />
                     </div>
                 </article>
@@ -183,8 +158,6 @@
                             <p class="viagem-vida-dica"><b>Vale a visita:</b> Mercado Central, Fortaleza e Catedral de Nossa Senhora da Conceição (Maputo), um passeio a pé pelo bairro da Mafalala e o mergulho com golfinhos na Ponta do Ouro.</p>
                             <p class="viagem-vida-dica"><b>Dica:</b> leve o Certificado Internacional de Vacinação contra febre amarela, que pode ser exigido de quem chega do Brasil.</p>
                         </div>
-                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
-                             e troque o src abaixo (e o alt, descrevendo a foto) -->
                         <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-mocambique.png" alt="Cartão-postal do jogo: Maputo e Ponta do Ouro, Moçambique" />
                     </div>
                 </article>
@@ -202,15 +175,12 @@
                             <p class="viagem-vida-dica"><b>Vale a visita:</b> Magic Kingdom, EPCOT, Islands of Adventure (onde fica a VelociCoaster) e o Kennedy Space Center.</p>
                             <p class="viagem-vida-dica"><b>Dica:</b> compre os ingressos antes, chegue na abertura e use o app de cada parque para acompanhar as filas.</p>
                         </div>
-                        <!-- FOTO: para usar uma foto desta viagem, ponha o arquivo em public/assets/fotos/
-                             e troque o src abaixo (e o alt, descrevendo a foto) -->
                         <img class="viagem-vida-imagem" src="../jogo/img/inicio/cartao-orlando.png" alt="Cartão-postal do jogo: Orlando, Estados Unidos" />
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- S3. O que as viagens me ensinaram -->
         <section class="painel" aria-labelledby="h2_ensinaram">
             <h2 id="h2_ensinaram">O que as viagens me ensinaram</h2>
 
@@ -250,7 +220,6 @@
             </ul>
         </section>
 
-        <!-- S4. Chamada para ação, e o mapa dos carimbos de quem está logado -->
         <section class="painel" aria-label="Chamada para ação">
             <div class="chamadas">
                 <a href="calculadora.html" class="botao-tema botao-mala">
@@ -264,7 +233,6 @@
             </div>
 
             <h3 class="mapa-titulo">Seus carimbos no jogo: <span id="span_carimbos_ganhos">...</span></h3>
-            <!-- Escritos pelo carregarMapaDeCarimbos() (js/sobre.js) -->
             <ul id="ul_mapa_carimbos" class="mapa-carimbos"></ul>
         </section>
     </main>
