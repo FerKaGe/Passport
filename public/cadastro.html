@@ -7,7 +7,6 @@
   <title>Passport | Cadastro</title>
   <link rel="icon" href="jogo/img/interface/favicon.png" />
 
-  <!-- Esta página não carrega o js/skins.js: fica sempre na skin padrão -->
   <link rel="stylesheet" href="./css/skins.css" />
   <link rel="stylesheet" href="./css/tema.css" />
   <link rel="stylesheet" href="./css/estilo.css" />
@@ -35,7 +34,6 @@
   <main class="area-passaporte">
     <div class="container">
 
-      <!-- Elemento tematizado: um passaporte aberto, com o formulário na página de papel -->
       <div class="passaporte-aberto">
 
         <section class="pagina-capa">
@@ -47,7 +45,6 @@
         <section class="pagina-papel">
           <h2>Criar conta</h2>
 
-          <!-- onsubmit: o cadastrar() roda pelo botão ou pelo Enter -->
           <form class="formulario" onsubmit="cadastrar(); return false;" novalidate>
             <div class="campo">
               <label for="nome_input">Nome</label>
@@ -59,14 +56,9 @@
             </div>
             <div class="campo">
               <label for="senha_input">Senha</label>
-              <!-- oninput: roda a cada letra digitada (ou apagada) no campo.
-                   aria-describedby liga o campo à lista de regras: o leitor de
-                   tela lê as regras junto com o nome do campo. -->
               <input id="senha_input" type="password" autocomplete="new-password"
                 aria-describedby="ul_requisitos_senha" oninput="atualizarRequisitosSenha()" />
 
-              <!-- As regras da senha forte. Cada <li> fica "ok" (verde) ou "falta"
-                   conforme a pessoa digita (atualizarRequisitosSenha, no script abaixo). -->
               <ul id="ul_requisitos_senha" class="requisitos-senha">
                 <li id="li_senha_tamanho" class="falta">De 8 a 50 caracteres</li>
                 <li id="li_senha_maiuscula" class="falta">Uma letra maiúscula</li>
@@ -79,11 +71,9 @@
               <label for="confirmacao_senha_input">Confirme a senha</label>
               <input id="confirmacao_senha_input" type="password" autocomplete="new-password"
                 aria-describedby="span_confirmacao" oninput="conferirConfirmacao()" />
-              <!-- aria-live: o leitor de tela avisa quando o texto muda -->
               <span id="span_confirmacao" class="confirmacao-senha" aria-live="polite"></span>
             </div>
             <div class="campo">
-              <!-- As opções são escritas pelo carregarTiposDeViagem(), com os dados do banco -->
               <label for="tipo_viagem_select">Que tipo de viagem você prefere?</label>
               <select id="tipo_viagem_select">
                 <option value="">Carregando...</option>
@@ -96,14 +86,11 @@
             </button>
           </form>
 
-          <!-- O finalizarAguardar() de js/sessao.js esconde esta div -->
           <div id="div_aguardar" class="carregando">
             <img src="jogo/img/interface/aviao.png" alt="" />
             <span>Embarcando...</span>
           </div>
 
-          <!-- A mensagem é um carimbo: NEGADO (erro) ou APROVADO (deu certo).
-               role="alert" faz o leitor de tela ler a mensagem quando ela aparece. -->
           <p id="cardErro" class="carimbo-mensagem negado" role="alert">
             <b id="b_carimbo">NEGADO</b>
             <span id="mensagem_erro"></span>
@@ -151,13 +138,11 @@
       return false;
     }
 
-    // Verificando se a senha é forte (as mesmas regras da lista do campo)
     if (!senhaEhForte(senhaVar)) {
       mostrarMensagem("A senha ainda não é forte: confira as regras embaixo do campo.", "negado");
       return false;
     }
 
-    // Verificando se a senha foi digitada igual nos dois campos
     if (senhaVar != confirmacaoSenhaVar) {
       mostrarMensagem("A senha e a confirmação da senha estão diferentes.", "negado");
       return false;
@@ -199,15 +184,9 @@
     return false;
   }
 
-  // ---------------------------------------------------------------------
-  // Senha forte
-  // ---------------------------------------------------------------------
-
   var SENHA_MINIMO = 8;
-  var SENHA_MAXIMO = 50;   // a coluna senha do banco é VARCHAR(50)
+  var SENHA_MAXIMO = 50;
 
-  // Passa por cada caractere da senha e anota o que encontrou.
-  // Devolve um objeto com true ou false para cada regra.
   function analisarSenha(senha) {
     var temMaiuscula = false;
     var temMinuscula = false;
@@ -217,8 +196,6 @@
     for (var i = 0; i < senha.length; i++) {
       var caractere = senha[i];
 
-      // Uma letra muda quando passa para maiúscula ou minúscula; o resto não.
-      // Assim "Á" e "ç" também contam como letra.
       var ehMaiuscula = caractere != caractere.toLowerCase();
       var ehMinuscula = caractere != caractere.toUpperCase();
       var ehNumero = caractere >= "0" && caractere <= "9";
@@ -230,7 +207,6 @@
       } else if (ehNumero) {
         temNumero = true;
       } else if (caractere != " ") {
-        // não é letra, não é número e não é espaço: é especial (! @ # $ %...)
         temEspecial = true;
       }
     }
@@ -244,14 +220,12 @@
     };
   }
 
-  // A senha é forte quando cumpre todas as regras
   function senhaEhForte(senha) {
     var regras = analisarSenha(senha);
 
     return regras.tamanho && regras.maiuscula && regras.minuscula && regras.numero && regras.especial;
   }
 
-  // Marca um item da lista como cumprido ("ok") ou não ("falta")
   function marcarRequisito(item, cumprido) {
     if (cumprido) {
       item.className = "ok";
@@ -260,7 +234,6 @@
     }
   }
 
-  // Chamada pelo oninput do campo de senha: a cada tecla, refaz a lista
   function atualizarRequisitosSenha() {
     var regras = analisarSenha(senha_input.value);
 
@@ -270,11 +243,9 @@
     marcarRequisito(li_senha_numero, regras.numero);
     marcarRequisito(li_senha_especial, regras.especial);
 
-    // Se a confirmação já foi digitada, confere de novo (a senha mudou)
     conferirConfirmacao();
   }
 
-  // Chamada pelo oninput da confirmação: diz se as duas senhas são iguais
   function conferirConfirmacao() {
     var confirmacao = confirmacao_senha_input.value;
 
@@ -290,8 +261,6 @@
     }
   }
 
-  // Busca os tipos de viagem no banco (rota /viagens/tipos) e escreve uma
-  // <option> para cada um. O value é o id: é ele que vai para o cadastro.
   function carregarTiposDeViagem() {
     fetch("/viagens/tipos")
       .then(function (resposta) {
@@ -312,11 +281,6 @@
       });
   }
 
-  // Mostra a mensagem como um carimbo e esconde sozinho depois de 5 segundos.
-  // tipo: "negado" (vermelho, erro) ou "aprovado" (verde, deu certo).
-  // A classe CSS muda a cor (css/estilo.css, .carimbo-mensagem).
-  // (setTimeout roda uma vez só; o setInterval que havia aqui criava um
-  // temporizador novo a cada clique e nenhum deles parava.)
   function mostrarMensagem(texto, tipo) {
     cardErro.className = "carimbo-mensagem " + tipo;
     b_carimbo.innerHTML = tipo.toUpperCase();
