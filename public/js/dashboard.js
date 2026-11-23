@@ -1,28 +1,10 @@
-/*
- * Dashboard do Passport: quanto custaria fazer as minhas viagens hoje,
- * saindo de São Paulo, para cada tipo de viagem e número de dias.
- *
- * Dados que vêm da API:
- *   GET /viagens/tipos               - os 3 tipos de viagem (para o filtro)
- *   GET /viagens/custos/:idTipo      - os 7 destinos com voo e diária do tipo
- *   GET /carimbos/skins/:idUsuario   - quais destinos o usuário já carimbou
- *   PUT /usuarios/tipo/:idUsuario    - salva o tipo escolhido no filtro
- *
- * As contas usam as funções de js/custos.js.
- */
+var destinos = [];
+var grafico = null;
 
-var destinos = [];      // os 7 destinos do tipo de viagem escolhido (vêm da API)
-var grafico = null;     // o gráfico do Chart.js, guardado para poder ser redesenhado
-
-// Chamada pelo onload da página
 function carregarDashboard() {
     carregarTiposDeViagem();
     carregarCarimbos();
 }
-
-// ---------------------------------------------------------------------------
-// Buscar os dados
-// ---------------------------------------------------------------------------
 
 function carregarTiposDeViagem() {
     fetch("/viagens/tipos")
@@ -30,7 +12,6 @@ function carregarTiposDeViagem() {
             return resposta.json();
         })
         .then(function (tipos) {
-            // O filtro começa no tipo preferido do usuário (guardado no login)
             var tipoPreferido = Number(sessionStorage.TIPO_VIAGEM_USUARIO);
             var html = "";
 
@@ -66,7 +47,6 @@ function carregarCustos(idTipoViagem) {
         });
 }
 
-// Conta quantos destinos têm carimbo e pinta os quadradinhos do indicador
 function carregarCarimbos() {
     fetch("/carimbos/skins/" + sessionStorage.ID_USUARIO)
         .then(function (resposta) {
@@ -94,15 +74,9 @@ function carregarCarimbos() {
         });
 }
 
-// ---------------------------------------------------------------------------
-// Filtros
-// ---------------------------------------------------------------------------
-
-// Chamada quando o usuário troca o tipo de viagem (onchange do <select>)
 function trocarTipo() {
     var idTipoViagem = select_tipo.value;
 
-    // Guarda a escolha: na sessão (para as outras telas) e no banco (para o próximo login)
     sessionStorage.TIPO_VIAGEM_USUARIO = idTipoViagem;
 
     fetch("/usuarios/tipo/" + sessionStorage.ID_USUARIO, {
@@ -116,8 +90,6 @@ function trocarTipo() {
     carregarCustos(idTipoViagem);
 }
 
-// Devolve o número de dias escolhido nos botões 7, 15 e 30.
-// Os três são <input type="radio"> com o mesmo name: só um fica marcado.
 function lerDias() {
     var opcoes = document.getElementsByName("dias");
 
@@ -130,11 +102,6 @@ function lerDias() {
     return 7;
 }
 
-// ---------------------------------------------------------------------------
-// Mostrar: indicadores, gráfico e tabela
-// ---------------------------------------------------------------------------
-
-// Chamada quando os custos chegam e quando os dias mudam (onchange dos botões)
 function mostrarDados() {
     if (destinos.length == 0) {
         return;
@@ -142,13 +109,10 @@ function mostrarDados() {
 
     var dias = lerDias();
 
-    // Vetores para o gráfico: um valor por destino, na mesma ordem
     var nomes = [];
     var voos = [];
     var hospedagens = [];
 
-    // Para achar o mais barato: começa supondo que é o primeiro e,
-    // a cada destino, troca se encontrar um menor.
     var indiceMaisBarato = 0;
     var menorCusto = calcularCustoPorPessoa(destinos[0].valor_voo, destinos[0].valor_diaria, dias);
     var indiceVooMaisBarato = 0;
@@ -161,7 +125,6 @@ function mostrarDados() {
         var porPessoa = calcularCustoPorPessoa(destino.valor_voo, destino.valor_diaria, dias);
         var naMoedaLocal = converterParaMoedaLocal(porPessoa, destino.cotacao_real);
 
-        // Viagem que começou e terminou no mesmo mês aparece só com um mês
         var quando = destino.ida;
         if (destino.volta != destino.ida) {
             quando += " a " + destino.volta;
@@ -193,7 +156,6 @@ function mostrarDados() {
         `;
     }
 
-    // Indicadores (KPIs)
     var maisBarato = destinos[indiceMaisBarato];
     var vooMaisBarato = destinos[indiceVooMaisBarato];
 
@@ -206,7 +168,6 @@ function mostrarDados() {
     b_kpi_epoca.innerHTML = maisBarato.melhor_epoca;
     span_kpi_epoca.innerHTML = "para ir a " + maisBarato.pais;
 
-    // Tabela e títulos
     th_hospedagem.innerHTML = "Hospedagem (" + dias + " dias)";
     tbody_destinos.innerHTML = linhasDaTabela;
     h2_grafico.innerHTML = "Custo por pessoa em " + dias + " dias";
@@ -215,20 +176,15 @@ function mostrarDados() {
     mostrarAviso("");
 }
 
-// Lê o valor atual de uma variável CSS (as cores e a fonte da skin)
 function lerVariavelCss(nome) {
     return getComputedStyle(document.documentElement).getPropertyValue(nome).trim();
 }
 
-// Desenha o gráfico de barras deitadas e empilhadas: em cada destino,
-// a primeira parte da barra é o voo e a segunda é a hospedagem.
 function desenharGrafico(nomes, voos, hospedagens, dias) {
-    // Se já existe um gráfico, apaga antes de desenhar o novo
     if (grafico != null) {
         grafico.destroy();
     }
 
-    // As cores vêm da skin: trocou a skin, o gráfico acompanha (aoTrocarSkin, abaixo)
     var corTexto = lerVariavelCss("--cor-texto");
     var corGrade = lerVariavelCss("--cor-borda");
 
@@ -246,12 +202,12 @@ function desenharGrafico(nomes, voos, hospedagens, dias) {
             ]
         },
         options: {
-            indexAxis: "y",              // barras deitadas: os destinos ficam no eixo vertical
+            indexAxis: "y",
             responsive: true,
-            maintainAspectRatio: false,  // a altura vem do CSS (.area-grafico)
+            maintainAspectRatio: false,
             scales: {
                 x: {
-                    stacked: true,       // empilhadas: voo e hospedagem na mesma barra
+                    stacked: true,
                     grid: { color: corGrade },
                     ticks: {
                         callback: function (valor) {
@@ -267,7 +223,6 @@ function desenharGrafico(nomes, voos, hospedagens, dias) {
             plugins: {
                 tooltip: {
                     callbacks: {
-                        // Texto que aparece ao passar o mouse numa parte da barra
                         label: function (contexto) {
                             return contexto.dataset.label + ": " + formatarDinheiro(contexto.parsed.x, "BRL");
                         }
@@ -278,8 +233,6 @@ function desenharGrafico(nomes, voos, hospedagens, dias) {
     });
 }
 
-// Chamada pelo seletor de skins (js/skins.js) depois de trocar a skin:
-// redesenha o gráfico com as cores novas.
 function aoTrocarSkin() {
     mostrarDados();
 }
