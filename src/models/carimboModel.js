@@ -9,9 +9,6 @@ function buscar(idUsuario, idDestino) {
     return database.executar(instrucaoSql);
 }
 
-// A chave primária de carimbo é (fk_usuario, fk_destino): o mesmo par não
-// pode entrar duas vezes. ON DUPLICATE KEY UPDATE diz o que fazer quando o
-// par já existe: em vez de dar erro, guarda a maior pontuação (GREATEST).
 function registrar(idUsuario, idDestino, pontuacao) {
     var instrucaoSql = `
         INSERT INTO carimbo (fk_usuario, fk_destino, pontuacao)
@@ -22,10 +19,6 @@ function registrar(idUsuario, idDestino, pontuacao) {
     return database.executar(instrucaoSql);
 }
 
-// LEFT JOIN traz TODOS os destinos, mesmo os sem carimbo. Onde não há
-// carimbo, c.fk_destino vem vazio (NULL), e "IS NOT NULL" vira 0.
-// Onde há, vira 1. Assim uma consulta só diz quais skins existem e
-// quais este usuário já liberou.
 function listarSkins(idUsuario) {
     var instrucaoSql = `
         SELECT d.id, d.pais, d.cor_fundo, d.cor_botao, d.fonte,
