@@ -8,8 +8,6 @@ function listarTipos() {
     return database.executar(instrucaoSql);
 }
 
-// Só o que a linha do tempo da Home mostra. YEAR() tira o ano de uma data:
-// a página do Sobre mim usa os anos para contar desde quando você viaja.
 function listarDestinos() {
     var instrucaoSql = `
         SELECT id, pais, cidades,
@@ -23,9 +21,6 @@ function listarDestinos() {
     return database.executar(instrucaoSql);
 }
 
-// JOIN junta cada linha de custo com o destino dela (c.fk_destino = d.id).
-// DATE_FORMAT entrega a data já como texto "mês/ano": se a data viesse
-// como data, o fuso horário poderia mudar o dia na tela.
 function listarCustos(idTipoViagem) {
     var instrucaoSql = `
         SELECT d.id, d.pais, d.cidades, d.melhor_epoca, d.moeda, d.cotacao_real,
