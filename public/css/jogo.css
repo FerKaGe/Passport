@@ -1,26 +1,13 @@
-/*
- * Jogo do Passaporte
- * Adaptado do JumpGoat, de Fabricio Lima (licença MIT).
- * Copyright (c) 2026 Fabricio Lima
- * Licença completa: docs/licencas/JumpGoat-LICENSE.txt
- */
-
-/* As cores e as fontes vêm de css/skins.css (variáveis --cor-... e --fonte-...). */
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Medidas do jogo. (As variáveis de cor ficam em css/skins.css.) */
 :root {
-  /* Tamanho fixo: o jogo tem a mesma velocidade em qualquer tela */
   --largura-tabuleiro: 960px;
   --altura-tabuleiro: 480px;
 
-  /* Pulo: duração e altura. O JavaScript não repete estes números:
-     ele é avisado pelo evento animationend quando o pulo acaba. */
   --tempo-pulo: 700ms;
   --altura-pulo: 200px;
 }
@@ -47,20 +34,10 @@ body {
   height: 36px;
   margin-bottom: 8px;
   color: var(--cor-texto-suave);
-  font-family: var(--fonte-texto);   /* a fonte da skin aparece aqui */
+  font-family: var(--fonte-texto);
   font-size: var(--tamanho-texto);
 }
 
-
-/* ---------- Moldura e tabuleiro ---------- */
-
-/* A moldura (GIF de 1200x759) aparece no tamanho real, sem esticar.
-   O "buraco" transparente dela tem exatamente 960x480 e começa em 120px
-   da esquerda e 96px do topo: o lugar do tabuleiro. Essas medidas vêm de
-   ferramentas/sprites/moldura.py.
-   flex-shrink: 0 impede a moldura de encolher em janela estreita.
-   image-rendering: pixelated manda o navegador não suavizar a imagem
-   quando ela é redimensionada: os quadradinhos continuam nítidos. */
 .moldura {
   position: relative;
   flex-shrink: 0;
@@ -71,9 +48,6 @@ body {
   image-rendering: pixelated;
 }
 
-/* position: relative faz o tabuleiro virar a referência dos elementos de
-   dentro (viajante, obstáculo, painel): o "bottom: 0" deles é o chão do
-   tabuleiro. overflow: hidden esconde o obstáculo enquanto ele está fora. */
 .tabuleiro {
   position: absolute;
   left: 120px;
@@ -81,18 +55,12 @@ body {
   width: var(--largura-tabuleiro);
   height: var(--altura-tabuleiro);
   overflow: hidden;
-  /* O fundo (1536x720) é reduzido até cobrir o tabuleiro (960x480):
-     cada ponto do desenho, que tem 6px no arquivo, fica com 4px na tela. */
   background-size: cover;
   background-position: center;
   image-rendering: pixelated;
 
-  /* Tempo que o obstáculo leva para atravessar. O JavaScript troca este
-     valor a cada fase (carregarFase, em js/jogo.js). */
   --tempo-travessia: 1800ms;
 }
-
-/* ---------- Viajante e pulo ---------- */
 
 .viajante {
   position: absolute;
@@ -100,15 +68,13 @@ body {
   bottom: 0;
   width: 150px;
   image-rendering: pixelated;
-  pointer-events: none; /* o clique "atravessa" a imagem e chega no tabuleiro */
+  pointer-events: none;
 }
 
-/* A classe "pulando" é colocada e tirada pelo JavaScript */
 .viajante.pulando {
   animation: pulo var(--tempo-pulo);
 }
 
-/* Sobe até 40% do tempo, fica no alto até 70% e desce */
 @keyframes pulo {
   0% {
     bottom: 0;
@@ -127,10 +93,6 @@ body {
   }
 }
 
-/* ---------- Obstáculo ---------- */
-
-/* Começa 120px para fora da borda direita (o maior obstáculo tem 90px),
-   então fica todo escondido antes de entrar. */
 .obstaculo {
   position: absolute;
   bottom: 0;
@@ -139,8 +101,6 @@ body {
   pointer-events: none;
 }
 
-/* A classe "andando" é o interruptor do obstáculo.
-   linear = velocidade constante; infinite = recomeça sozinho a cada volta. */
 .obstaculo.andando {
   animation: atravessar var(--tempo-travessia) infinite linear;
 }
@@ -155,14 +115,10 @@ body {
   }
 }
 
-/* Congela a animação onde ela está (game over e pausa).
-   Fica depois das regras de animação para ter prioridade sobre elas. */
 .viajante.pausado,
 .obstaculo.pausado {
   animation-play-state: paused;
 }
-
-/* ---------- Painel: cartão de embarque e página do passaporte ---------- */
 
 .painel {
   display: flex;
@@ -171,8 +127,6 @@ body {
   padding: 10px;
 }
 
-/* O placar é um cartão de embarque: papel claro, texto escuro e, à direita,
-   um "canhoto" separado por uma linha tracejada (o picote do cartão). */
 .cartao-embarque {
   display: flex;
   border: 3px solid var(--cor-contorno);
@@ -188,7 +142,6 @@ body {
   padding: 8px 14px;
 }
 
-/* nome do campo, pequeno, em cima do valor (como num cartão de verdade) */
 .campo small {
   font-size: 8px;
 }
@@ -197,7 +150,6 @@ body {
   font-size: 14px;
 }
 
-/* largura fixa: o cartão não muda de tamanho quando as milhas ganham mais um dígito */
 #span_milhas {
   min-width: 84px;
 }
@@ -211,17 +163,13 @@ body {
   border-left: 3px dashed var(--cor-tinta);
 }
 
-/* A rota é uma linha pontilhada; o avião anda sobre ela.
-   position: relative faz o "left" do avião ser medido a partir da rota. */
 .rota {
   position: relative;
   height: 22px;
-  margin-right: 32px; /* sobra para o avião não sair do cartão quando chega em 100% */
+  margin-right: 32px;
   border-bottom: 3px dotted var(--cor-tinta);
 }
 
-/* O JavaScript muda o "left" (atualizarPainel); o transition faz o avião
-   deslizar até o lugar novo em vez de pular. */
 .aviaozinho {
   position: absolute;
   left: 0;
@@ -231,7 +179,6 @@ body {
   transition: left 0.3s;
 }
 
-/* Página do passaporte: um espaço por destino */
 .passaporte {
   display: flex;
   gap: 4px;
@@ -241,26 +188,17 @@ body {
   box-shadow: 4px 4px 0 var(--cor-contorno);
 }
 
-/* espaço vazio: quadrado tracejado, esperando o carimbo */
 .selo {
   width: 36px;
   height: 36px;
   border: 2px dashed var(--cor-papel-sombra);
 }
 
-/* espaço carimbado: é a imagem do carimbo do destino */
 .selo.carimbado {
   border: none;
   image-rendering: pixelated;
 }
 
-/* ---------- Carimbo (checkpoint) e aviso ---------- */
-
-/* No fim do jogo aparecem os três ao mesmo tempo, um embaixo do outro:
-   o aviso (top 21%), o carimbo (47%) e o botão (78%).
-
-   left 50% + translate(-50%) centraliza de verdade: o left põe a borda
-   esquerda no meio e o translate puxa meia largura de volta. */
 .carimbo {
   display: none;
   position: absolute;
@@ -276,12 +214,11 @@ body {
 
 .carimbo img {
   display: block;
-  width: 120px;   /* o arquivo tem 160px: aqui cada ponto do desenho fica com 3px */
+  width: 120px;
   margin: 0 auto;
   image-rendering: pixelated;
 }
 
-/* a legenda fica num pedaço de papel, para dar leitura em qualquer fundo */
 .carimbo p {
   margin-top: 6px;
   padding: 6px 12px;
@@ -289,12 +226,10 @@ body {
   background-color: var(--cor-papel);
 }
 
-/* Linha que aparece embaixo do carimbo quando ele é novo */
 .skin-liberada {
-  color: #B5121B;  /* vermelho de carimbo: contraste de 5,7:1 sobre o papel */
+  color: #B5121B;
 }
 
-/* O carimbo chega grande e "bate" no tamanho normal */
 @keyframes bater {
   from {
     transform: translate(-50%, -50%) rotate(-8deg) scale(2.5);
@@ -307,7 +242,6 @@ body {
   }
 }
 
-/* Aviso de game over e de fim de jogo: uma faixa escura com letras claras */
 .aviso {
   display: none;
   position: absolute;
@@ -322,8 +256,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* O botão do tabuleiro usa as classes de css/tema.css (botao-tema).
-   Aqui fica só a posição dele: centralizado, na parte de baixo. */
 #btn_embarcar {
   position: absolute;
   left: 50%;
