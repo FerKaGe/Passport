@@ -10,13 +10,10 @@ function registrar(req, res) {
         return;
     }
 
-    // Primeiro pergunta se o carimbo já existe, para avisar o jogo se é novo
-    // (o jogo mostra "SKIN LIBERADA!" só na primeira vez).
     carimboModel.buscar(idUsuario, idDestino)
         .then(function (carimbosEncontrados) {
             var novo = carimbosEncontrados.length == 0;
 
-            // Depois grava. Se já existia, o banco guarda a maior pontuação.
             carimboModel.registrar(idUsuario, idDestino, pontuacao)
                 .then(function () {
                     res.json({ novo: novo });
