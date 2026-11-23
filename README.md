@@ -23,8 +23,7 @@
   <a href="#-tecnologias">Tecnologias</a> •
   <a href="#-arquitetura">Arquitetura</a> •
   <a href="#-como-executar">Como executar</a> •
-  <a href="#-cronograma">Cronograma</a> •
-  <a href="#-créditos">Créditos</a>
+  <a href="#-cronograma">Cronograma</a>
 </p>
 
 ---
@@ -213,25 +212,6 @@ Depois é só acessar `http://localhost:3333` no navegador. 🌐
 ## 🤖 Uso de IA
 
 Este projeto usa IA como apoio para tirar dúvidas, revisar código e planejar. Tudo o que foi pedido, usado e alterado está registrado no [**Diário de Prompts**](./docs/diario-de-prompts.md).
-
----
-
-## 🤝 Créditos
-
-Este é um Projeto Individual, mas a colaboração entre colegas faz parte da proposta: cada um fez algo que os outros pudessem usar.
-
-| O que | De quem | Onde está no Passport | Licença |
-|---|---|---|---|
-| **JumpGoat**, o jogo que deu origem ao Jogo do Passaporte | Fabricio Lima ([@oFabs-dev](https://github.com/oFabs-dev)) | `public/jogo/`, `public/js/jogo.js`, `public/css/jogo.css`, `public/css/jogo-inicio.css` | MIT. Copyright (c) 2026 Fabricio Lima. Texto em [`docs/licencas/JumpGoat-LICENSE.txt`](./docs/licencas/JumpGoat-LICENSE.txt) |
-| **Glass Sidebar**, a barra lateral das telas logadas | Igor Fuchs Pereira | `public/css/sidebar.css`, `public/js/sidebar.js` | MIT. Copyright (c) 2026 Igor Fuchs Pereira. Texto em [`docs/licencas/glass-sidebar-LICENSE.txt`](./docs/licencas/glass-sidebar-LICENSE.txt) |
-| **Chart.js 4.4.1**, os gráficos da Dashboard | Chart.js Contributors | `public/js/lib/chart.umd.js` | MIT. Texto em [`docs/licencas/chartjs-LICENSE.txt`](./docs/licencas/chartjs-LICENSE.txt) |
-| **web-data-viz**, a API de base | São Paulo Tech School | `app.js`, `src/`, cadastro e login | MIT. Texto em [`LICENSE`](./LICENSE) |
-| **Press Start 2P**, a fonte de fliperama | The Press Start 2P Project Authors | `public/assets/fontes/` | SIL Open Font License 1.1 |
-| **VT323**, **Jersey 10/15/20/25**, **Silkscreen**, **Handjet** e **Pixelify Sans**, as fontes das skins | Os autores de cada projeto (o nome está na licença de cada fonte) | `public/assets/fontes/` | SIL Open Font License 1.1. Uma licença por fonte, na mesma pasta |
-
-A minha contribuição para os colegas é o quebra-cabeça de arrastar e soltar, em [`quebra-cabeca-drag.html`](./quebra-cabeca-drag.html).
-
-As imagens do jogo (personagem, obstáculos, fundos, moldura, carimbos e ícones) são geradas pelos scripts Python de [`ferramentas/sprites/`](./ferramentas/sprites/). O corgi segue a estrutura de corpo da cabra Luna, do JumpGoat.
 
 ---
 
