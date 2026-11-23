@@ -1,40 +1,3 @@
-/*
- * Fases do Jogo do Passaporte.
- *
- * "fases" é um vetor de objetos: cada objeto é um destino da viagem, na ordem
- * em que aparece no jogo. O jogo (js/jogo.js) não tem nenhum número de fase
- * escrito no meio do código: ele lê tudo daqui. Para deixar uma fase mais
- * difícil, trocar um fundo ou criar um obstáculo, basta mexer neste arquivo.
- *
- * Campos de cada fase:
- *   idDestino      - número do destino (vai ser o id da tabela destino do banco)
- *   nome           - nome que aparece no painel do jogo
- *   pais           - país que aparece no carimbo
- *   fundo          - imagem de fundo do tabuleiro
- *   carimbo        - imagem do carimbo que o jogador ganha ao terminar a fase
- *   bandeira       - bandeira do país (cartões da Home e linha da vida do Sobre mim)
- *   cartao         - cartão-postal que aparece na tela de início
- *   tempoTravessia - quantos milissegundos o obstáculo leva para cruzar a tela
- *                    (quanto MENOR, mais rápido e mais difícil)
- *   meta           - quantos obstáculos pular para ganhar o carimbo
- *   obstaculos     - vetor de objetos com os obstáculos que podem aparecer
- *
- * Campos de cada obstáculo:
- *   nome            - só para a gente saber qual é
- *   imagem          - arquivo da imagem
- *   largura, altura - tamanho na tela, em pixels
- *   folga           - quantos pixels de cada lado NÃO contam na colisão
- *                     (dá uma tolerância ao jogador)
- *
- * Todas as imagens são geradas pelos scripts de ferramentas/sprites/.
- * Os obstáculos são desenhados com pontos de 6 px e aparecem na tela com
- * 3/4 do tamanho do arquivo (a mesma proporção da latinha do JumpGoat:
- * 120 px no arquivo, 90 px na tela). Ex.: cacto.gif tem 96 x 180 px e
- * aparece com 72 x 135 px.
- */
-
-// Os caminhos começam com "../" porque são lidos a partir das páginas,
-// que ficam em public/jogo/ e public/dashboard/ (e não a partir deste arquivo).
 var PASTA_IMG = "../jogo/img/";
 var PASTA_FUNDOS = PASTA_IMG + "fundos/";
 var PASTA_OBSTACULOS = PASTA_IMG + "obstaculos/";
@@ -42,7 +5,6 @@ var PASTA_CARIMBOS = PASTA_IMG + "carimbos/";
 var PASTA_INICIO = PASTA_IMG + "inicio/";
 var PASTA_BANDEIRAS = PASTA_IMG + "bandeiras/";
 
-// Obstáculos. Cada fase escolhe os seus no vetor "obstaculos".
 var obstaculoCacto = { nome: "cacto", imagem: PASTA_OBSTACULOS + "cacto.gif", largura: 72, altura: 135, folga: 16 };
 var obstaculoPedra = { nome: "pedra vulcânica", imagem: PASTA_OBSTACULOS + "pedra-vulcanica.gif", largura: 90, altura: 72, folga: 14 };
 var obstaculoBarril = { nome: "barril de vinho", imagem: PASTA_OBSTACULOS + "barril.gif", largura: 90, altura: 99, folga: 16 };
@@ -145,9 +107,6 @@ var fases = [
     }
 ];
 
-// Procura no vetor fases a fase de um destino (pelo id da tabela destino).
-// Devolve null se não achar. Usada pela Home (js/home.js) e pelo
-// Sobre mim (js/sobre.js) para achar o carimbo e o cartão de cada destino.
 function buscarFase(idDestino) {
     for (var i = 0; i < fases.length; i++) {
         if (fases[i].idDestino == idDestino) {
