@@ -1243,3 +1243,28 @@ img {
 .desafio-lado .preencher {
   flex: 1;
 }
+
+.agradecimentos {
+  list-style: none;
+  margin-top: 50px;
+}
+
+.agradecimentos li {
+  font-size: 44px;
+  line-height: 1.05;
+  padding: 15px 0;
+  border-bottom: 3px dashed var(--papel-sombra);
+}
+
+.agradecimentos strong {
+  font-family: var(--fonte-titulo);
+  font-size: 22px;
+  font-weight: normal;
+  color: var(--vermelho);
+  margin-right: 16px;
+}
+
+.agradecimentos strong .preencher.em-linha {
+  font-family: var(--fonte-texto);
+  font-size: 40px;
+}
