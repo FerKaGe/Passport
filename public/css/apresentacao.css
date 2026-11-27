@@ -428,3 +428,63 @@ img {
   max-height: none;
   opacity: 0.95;
 }
+
+.ola {
+  position: absolute;
+  left: 160px;
+  top: 200px;
+  width: 1300px;
+}
+
+.ola-chamada {
+  font-family: var(--fonte-titulo);
+  font-size: 22px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  margin-bottom: 36px;
+}
+
+.ola-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: 96px;
+  font-weight: normal;
+  line-height: 1.25;
+  color: var(--ouro);
+  text-shadow: 8px 8px 0 var(--contorno);
+  margin-bottom: 56px;
+}
+
+.ola-texto {
+  font-size: 54px;
+  line-height: 1.2;
+  margin-bottom: 26px;
+}
+
+.ola-texto strong {
+  color: var(--ouro);
+  font-weight: normal;
+}
+
+.preencher.em-linha {
+  display: inline;
+  padding: 0 14px;
+  font-size: inherit;
+}
+
+.ola .preencher:last-child {
+  margin-top: 40px;
+}
+
+.ola-aviao {
+  position: absolute;
+  right: 170px;
+  top: 250px;
+  width: 300px;
+  animation: voar 4s ease-in-out infinite;
+}
+
+@keyframes voar {
+  0%, 100% { transform: translate(0, 0) rotate(-6deg); }
+  50% { transform: translate(18px, -26px) rotate(-12deg); }
+}
