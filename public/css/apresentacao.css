@@ -1001,3 +1001,45 @@ img {
 .jogo-carimbos img {
   width: 150px;
 }
+
+.ia {
+  display: grid;
+  grid-template-columns: 1fr 600px;
+  gap: 70px;
+  margin-top: 40px;
+}
+
+.ia-lista {
+  list-style: none;
+}
+
+.ia-lista li {
+  font-size: 40px;
+  line-height: 1.05;
+  padding: 11px 0;
+  border-bottom: 3px dashed var(--papel-sombra);
+}
+
+.ia-lista strong {
+  font-family: var(--fonte-titulo);
+  font-size: 20px;
+  font-weight: normal;
+  color: var(--vermelho);
+  margin-right: 10px;
+}
+
+.ia-regra {
+  padding: 40px 36px;
+  margin-bottom: 36px;
+  background: var(--tinta);
+  color: var(--ouro);
+  font-family: var(--fonte-titulo);
+  font-size: 26px;
+  line-height: 1.6;
+  border: 6px solid var(--contorno);
+  box-shadow: 10px 10px 0 var(--vermelho);
+}
+
+.ia-lado .preencher {
+  min-height: 250px;
+}
