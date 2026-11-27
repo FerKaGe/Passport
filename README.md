@@ -54,16 +54,16 @@ Para deixar tudo mais divertido, o site tem um jogo no estilo do dinossauro do C
 
 ## ✨ Funcionalidades
 
-- [ ] 🏠 **Home pública** com a linha do tempo das viagens
-- [ ] 📝 **Cadastro e login** com validações em JavaScript
+- [X] 🏠 **Home pública** com a linha do tempo das viagens
+- [X] 📝 **Cadastro e login** com validações em JavaScript
 - [ ] 🙋 **Sobre mim**, contando como a paixão por viajar começou
-- [ ] 🎒 **Escolha do tipo de viagem**: aventura, low cost ou exclusiva
-- [ ] 📊 **Dashboard** com o custo total da viagem para cada destino (7, 15 ou 30 dias)
-- [ ] 🧮 **Calculadora de custo** por destino, tipo de viagem, dias e número de pessoas
-- [ ] ✈️ **Indicadores**: estimativa de voo, melhor época do ano e destino mais barato
-- [ ] 💱 **Conversão de moeda** local para real
-- [ ] 🏃 **Jogo do Passaporte**: corrida com obstáculos e 7 checkpoints, um por país, com carimbos salvos no banco
-- [ ] 🎨 **Skins do site** liberadas por carimbo e selecionáveis na barra lateral
+- [X] 🎒 **Escolha do tipo de viagem**: aventura, low cost ou exclusiva
+- [X] 📊 **Dashboard** com o custo total da viagem para cada destino (7, 15 ou 30 dias)
+- [X] 🧮 **Calculadora de custo** por destino, tipo de viagem, dias e número de pessoas
+- [X] ✈️ **Indicadores**: estimativa de voo, melhor época do ano e destino mais barato
+- [X] 💱 **Conversão de moeda** local para real
+- [X] 🏃 **Jogo do Passaporte**: corrida com obstáculos e 7 checkpoints, um por país, com carimbos salvos no banco
+- [X] 🎨 **Skins do site** liberadas por carimbo e selecionáveis na barra lateral
 
 > Só a Home é pública; o restante aparece para quem está logado.
 
