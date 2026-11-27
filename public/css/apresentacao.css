@@ -1201,3 +1201,45 @@ img {
 .demo-botao:focus {
   box-shadow: 16px 16px 0 var(--contorno);
 }
+
+.desafio {
+  position: absolute;
+  left: 140px;
+  right: 140px;
+  top: 140px;
+  bottom: 140px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+.desafio-lado {
+  display: flex;
+  flex-direction: column;
+}
+
+.desafio-rotulo {
+  align-self: flex-start;
+  padding: 10px 16px;
+  background: #FF6B5E;
+  color: var(--contorno);
+  font-family: var(--fonte-titulo);
+  font-size: 18px;
+  margin-bottom: 36px;
+}
+
+.desafio-ouro {
+  background: var(--ouro);
+}
+
+.desafio-lado h2 {
+  font-family: var(--fonte-titulo);
+  font-size: 50px;
+  font-weight: normal;
+  line-height: 1.35;
+  margin-bottom: 44px;
+}
+
+.desafio-lado .preencher {
+  flex: 1;
+}
