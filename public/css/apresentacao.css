@@ -602,3 +602,33 @@ img {
   letter-spacing: 2px;
   color: var(--ouro);
 }
+
+.valores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  margin-top: 70px;
+}
+
+.valor {
+  padding: 40px 36px;
+  background: var(--papel-escuro);
+  border: 5px solid var(--contorno);
+  box-shadow: 10px 10px 0 var(--contorno);
+}
+
+.valor-numero {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 54px;
+  color: var(--vermelho);
+  margin-bottom: 30px;
+}
+
+.valor .preencher {
+  margin-bottom: 24px;
+}
+
+.valor-onde {
+  min-height: 250px;
+}
