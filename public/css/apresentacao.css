@@ -1043,3 +1043,105 @@ img {
 .ia-lado .preencher {
   min-height: 250px;
 }
+
+@font-face {
+  font-family: "Jersey 20";
+  src: url(../assets/fontes/Jersey20-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Jersey 15";
+  src: url(../assets/fontes/Jersey15-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Silkscreen";
+  src: url(../assets/fontes/Silkscreen-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Jersey 10";
+  src: url(../assets/fontes/Jersey10-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Handjet";
+  src: url(../assets/fontes/Handjet.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Pixelify Sans";
+  src: url(../assets/fontes/PixelifySans.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Jersey 25";
+  src: url(../assets/fontes/Jersey25-Regular.ttf) format("truetype");
+}
+
+.gosto-titulo {
+  position: absolute;
+  left: 140px;
+  top: 90px;
+  margin: 0;
+}
+
+.gosto-texto {
+  position: absolute;
+  left: 140px;
+  top: 220px;
+  width: 1500px;
+  font-size: 48px;
+  line-height: 1.1;
+  color: var(--texto-suave);
+}
+
+.skins {
+  position: absolute;
+  left: 140px;
+  right: 140px;
+  top: 400px;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.skin {
+  height: 340px;
+  padding: 30px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--fundo);
+  border: 5px solid var(--botao);
+  box-shadow: 10px 10px 0 var(--contorno);
+}
+
+.skin-pais {
+  font-family: var(--fonte);
+  font-size: var(--tam);
+  line-height: 1;
+  text-align: center;
+  color: var(--texto);
+}
+
+.skin-botao {
+  display: block;
+  width: 100%;
+  padding: 12px 6px;
+  background: var(--botao);
+  color: var(--contorno);
+  font-family: var(--fonte);
+  font-size: var(--tam-botao);
+  white-space: nowrap;
+  text-align: center;
+  box-shadow: 5px 5px 0 var(--contorno);
+}
+
+.gosto-preencher {
+  position: absolute;
+  left: 140px;
+  right: 140px;
+  bottom: 80px;
+}
