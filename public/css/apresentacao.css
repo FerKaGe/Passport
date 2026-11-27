@@ -564,3 +564,41 @@ img {
 .linha-quando {
   margin-top: 70px;
 }
+
+.porque {
+  display: grid;
+  grid-template-columns: 1fr 620px;
+  gap: 70px;
+  margin-top: 64px;
+}
+
+.porque-texto .preencher {
+  margin-bottom: 34px;
+}
+
+.porque-grande {
+  min-height: 300px;
+}
+
+.porque-citacao {
+  align-self: start;
+  padding: 48px 44px;
+  background: var(--tinta);
+  color: var(--papel);
+  border: 6px solid var(--contorno);
+  box-shadow: 12px 12px 0 var(--vermelho);
+  transform: rotate(1.5deg);
+}
+
+.porque-citacao p {
+  font-size: 54px;
+  line-height: 1.1;
+  margin-bottom: 28px;
+}
+
+.porque-citacao span {
+  font-family: var(--fonte-titulo);
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: var(--ouro);
+}
