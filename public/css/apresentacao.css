@@ -879,3 +879,70 @@ img {
 .recursos-codigo .preencher.em-linha {
   font-size: 36px;
 }
+
+.calc-titulo {
+  position: absolute;
+  left: 140px;
+  top: 90px;
+  margin: 0;
+}
+
+.formula {
+  position: absolute;
+  left: 140px;
+  top: 270px;
+  font-family: var(--fonte-titulo);
+  font-size: 38px;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: var(--texto-suave);
+}
+
+.formula span {
+  color: var(--ouro);
+}
+
+.formula-moeda {
+  top: 370px;
+  font-size: 30px;
+}
+
+.recibo {
+  position: absolute;
+  left: 140px;
+  top: 530px;
+  width: 1120px;
+  padding: 40px 50px;
+  background: var(--papel);
+  color: var(--tinta);
+  border: 6px solid var(--contorno);
+  box-shadow: 14px 14px 0 var(--ouro);
+  transform: rotate(-1deg);
+}
+
+.recibo h3 {
+  font-family: var(--fonte-titulo);
+  font-size: 22px;
+  font-weight: normal;
+  color: var(--vermelho);
+  margin-bottom: 26px;
+}
+
+.recibo p {
+  font-size: 58px;
+  line-height: 1.15;
+}
+
+.recibo strong {
+  font-weight: normal;
+  background: var(--ouro);
+  padding: 0 10px;
+}
+
+.calc-fonte {
+  position: absolute;
+  left: 140px;
+  bottom: 70px;
+  font-size: 36px;
+  color: var(--texto-suave);
+}
