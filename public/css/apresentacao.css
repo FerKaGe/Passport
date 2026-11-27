@@ -366,3 +366,65 @@ img {
 .modo-edicao .aviso-edicao {
   display: block;
 }
+
+.capa {
+  background: var(--contorno);
+}
+
+.capa-fundo {
+  position: absolute;
+  inset: 0;
+  width: 1920px;
+  height: 1080px;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  filter: saturate(0.9);
+}
+
+.capa::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 10, 24, 0.15) 0%, rgba(6, 10, 24, 0.55) 45%, rgba(6, 10, 24, 0.92) 100%);
+}
+
+.capa-conteudo {
+  position: absolute;
+  left: 160px;
+  bottom: 150px;
+  z-index: 1;
+}
+
+.capa-logo {
+  width: 1014px;
+  max-width: none;
+  max-height: none;
+  margin-bottom: 52px;
+  filter: drop-shadow(10px 10px 0 var(--contorno));
+}
+
+.capa-nome {
+  font-family: var(--fonte-titulo);
+  font-size: 46px;
+  font-weight: normal;
+  color: var(--ouro);
+  text-shadow: 5px 5px 0 var(--contorno);
+  margin-bottom: 24px;
+}
+
+.capa-sub {
+  font-size: 46px;
+  color: var(--texto);
+}
+
+.capa-carimbo {
+  position: absolute;
+  right: 170px;
+  top: 130px;
+  z-index: 1;
+  width: 320px;
+  max-width: none;
+  max-height: none;
+  opacity: 0.95;
+}
