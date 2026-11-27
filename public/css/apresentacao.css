@@ -721,3 +721,84 @@ img {
   font-size: 42px;
   line-height: 1.05;
 }
+
+.arq-titulo {
+  position: absolute;
+  left: 140px;
+  top: 90px;
+  margin: 0;
+}
+
+.arquitetura {
+  position: absolute;
+  left: 140px;
+  right: 140px;
+  top: 290px;
+  display: grid;
+  grid-template-columns: 1fr 190px 1fr 190px 1fr;
+  align-items: center;
+}
+
+.camada {
+  height: 560px;
+  padding: 40px 36px;
+  background: var(--noite-clara);
+  border: 5px solid var(--ouro);
+  box-shadow: 12px 12px 0 var(--contorno);
+}
+
+.camada-rotulo {
+  display: inline-block;
+  padding: 8px 12px;
+  background: var(--ouro);
+  color: var(--contorno);
+  font-family: var(--fonte-titulo);
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.camada h3 {
+  font-family: var(--fonte-titulo);
+  font-size: 34px;
+  font-weight: normal;
+  margin-bottom: 26px;
+}
+
+.camada p {
+  font-size: 38px;
+  line-height: 1.05;
+  color: var(--texto-suave);
+  margin-bottom: 30px;
+}
+
+.camada code {
+  display: block;
+  padding: 14px 16px;
+  background: var(--contorno);
+  color: var(--ouro);
+  font-family: var(--fonte-texto);
+  font-size: 34px;
+}
+
+.seta {
+  text-align: center;
+  font-family: var(--fonte-titulo);
+  font-size: 40px;
+  line-height: 1.6;
+  color: var(--ouro);
+}
+
+.seta span {
+  display: block;
+  font-family: var(--fonte-texto);
+  font-size: 32px;
+  color: var(--texto-suave);
+}
+
+.arq-base {
+  position: absolute;
+  left: 140px;
+  bottom: 90px;
+  font-size: 40px;
+  color: var(--texto-suave);
+}
