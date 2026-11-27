@@ -1268,3 +1268,50 @@ img {
   font-family: var(--fonte-texto);
   font-size: 40px;
 }
+
+.fim {
+  text-align: center;
+}
+
+.fim-logo {
+  position: absolute;
+  left: 50%;
+  top: 110px;
+  width: 900px;
+  margin-left: -450px;
+  filter: drop-shadow(10px 10px 0 var(--contorno));
+}
+
+.fim-carimbos {
+  position: absolute;
+  left: 220px;
+  right: 220px;
+  top: 440px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.fim-carimbos img {
+  width: 170px;
+}
+
+.fim-titulo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 730px;
+  font-family: var(--fonte-titulo);
+  font-size: 64px;
+  font-weight: normal;
+  color: var(--ouro);
+  text-shadow: 8px 8px 0 var(--contorno);
+}
+
+.fim-sub {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 860px;
+  font-size: 46px;
+  color: var(--texto-suave);
+}
