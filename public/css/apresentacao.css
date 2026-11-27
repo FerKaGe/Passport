@@ -802,3 +802,45 @@ img {
   font-size: 40px;
   color: var(--texto-suave);
 }
+
+.tabelas {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 28px;
+  margin-top: 60px;
+  align-items: start;
+}
+
+.tabela {
+  background: #FFFDF6;
+  border: 5px solid var(--contorno);
+  box-shadow: 8px 8px 0 var(--contorno);
+}
+
+.tabela h3 {
+  padding: 18px 18px;
+  background: var(--tinta);
+  color: var(--ouro);
+  font-family: var(--fonte-titulo);
+  font-size: 17px;
+  font-weight: normal;
+}
+
+.tabela ul {
+  list-style: none;
+  padding: 14px 18px 6px;
+}
+
+.tabela li {
+  font-size: 32px;
+  line-height: 1.05;
+  padding: 6px 0;
+  border-bottom: 2px dotted var(--papel-sombra);
+}
+
+.tabela p {
+  padding: 14px 18px 20px;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--vermelho);
+}

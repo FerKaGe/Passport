@@ -246,6 +246,68 @@
         <p class="arq-base surgir">Base: API web-data-viz da SPTech, respeitando a arquitetura legada.</p>
     </section>
 
+    <section class="slide noite-papel">
+        <div class="pagina">
+            <div class="cabeca-pagina">
+                <span>PASSPORT · BANCO DE DADOS</span>
+                <span>PÁG. <span class="numero-pagina"></span></span>
+            </div>
+            <h2 class="titulo">O <span>banco</span> por dentro</h2>
+            <div class="tabelas">
+                <div class="tabela surgir">
+                    <h3>tipo_viagem</h3>
+                    <ul>
+                        <li>id</li>
+                        <li>nome</li>
+                        <li>descricao</li>
+                    </ul>
+                    <p>Aventura, low cost ou exclusiva</p>
+                </div>
+                <div class="tabela surgir">
+                    <h3>destino</h3>
+                    <ul>
+                        <li>id</li>
+                        <li>pais, cidades</li>
+                        <li>melhor_epoca</li>
+                        <li>moeda, cotacao_real</li>
+                        <li>cor_fundo, cor_botao, fonte</li>
+                    </ul>
+                    <p>Os 7 lugares e a skin de cada um</p>
+                </div>
+                <div class="tabela surgir">
+                    <h3>usuario</h3>
+                    <ul>
+                        <li>id</li>
+                        <li>nome, email, senha</li>
+                        <li>fk_tipo_viagem → tipo_viagem</li>
+                        <li>fk_skin → destino</li>
+                    </ul>
+                    <p>Quem se cadastra no site</p>
+                </div>
+                <div class="tabela surgir">
+                    <h3>custo</h3>
+                    <ul>
+                        <li>fk_destino → destino</li>
+                        <li>fk_tipo_viagem → tipo_viagem</li>
+                        <li>valor_voo</li>
+                        <li>valor_diaria</li>
+                    </ul>
+                    <p>Preço por destino e tipo</p>
+                </div>
+                <div class="tabela surgir">
+                    <h3>carimbo</h3>
+                    <ul>
+                        <li>fk_usuario → usuario</li>
+                        <li>fk_destino → destino</li>
+                        <li>pontuacao</li>
+                    </ul>
+                    <p>Fases vencidas no jogo</p>
+                </div>
+            </div>
+            <div class="mrz">P&lt;BRAPASSPORT&lt;&lt;FERNANDO&lt;MATEUS&lt;SANTOS&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+        </div>
+    </section>
+
         </main>
     </div>
 
