@@ -632,3 +632,53 @@ img {
 .valor-onde {
   min-height: 250px;
 }
+
+.ods-lista {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 44px;
+  margin-top: 64px;
+}
+
+.ods {
+  background: var(--papel-escuro);
+  border: 5px solid var(--contorno);
+  box-shadow: 10px 10px 0 var(--contorno);
+}
+
+.ods-cabeca {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 176px;
+  padding: 26px 28px;
+  background: var(--cor-ods);
+  color: #FFFFFF;
+  border-bottom: 5px solid var(--contorno);
+}
+
+.ods-cabeca strong {
+  font-family: var(--fonte-titulo);
+  font-size: 64px;
+  font-weight: normal;
+}
+
+.ods-cabeca h3 {
+  font-family: var(--fonte-titulo);
+  font-size: 19px;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.ods-meta {
+  padding: 26px 30px 0;
+  font-size: 38px;
+  line-height: 1.05;
+  color: var(--tinta-suave);
+}
+
+.ods-onde {
+  padding: 22px 30px 32px;
+  font-size: 42px;
+  line-height: 1.05;
+}
